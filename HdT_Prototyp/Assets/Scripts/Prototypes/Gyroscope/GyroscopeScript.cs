@@ -3,6 +3,7 @@
 // Create a cube with camera vector names on the faces.
 // Allow the device to show named faces as it is oriented.
 
+using System.Collections;
 using UnityEngine;
 
 public class GyroscopeScript : MonoBehaviour
@@ -13,6 +14,10 @@ public class GyroscopeScript : MonoBehaviour
     private Quaternion _rot;
     private GUIStyle guiStyle = new GUIStyle();
 
+    [SerializeField]
+    private UITransitionManager _UITransitionManager;
+    private float _phonePitch;
+
     void Start()
     {
         _cameraContainer = new GameObject("Camera Container");
@@ -20,16 +25,26 @@ public class GyroscopeScript : MonoBehaviour
         transform.SetParent(_cameraContainer.transform);
 
         _gyroEnabled = EnableGyro();
-
-
-        
     }
 
     private void Update()
     {
         if (_gyroEnabled)
         {
+            //adjust camera rotation to phone rotation;
             transform.localRotation = _gyro.attitude * _rot;
+
+            _phonePitch = GetXRotation();
+            if(_UITransitionManager.CurrentMode == UIMode.threeD && _phonePitch > 50f && _phonePitch < 100f)
+            {
+                StartCoroutine("switchUIMode", UIMode.twoD);
+                //_UITransitionManager.Show2DUI();
+            } else if (_UITransitionManager.CurrentMode == UIMode.twoD && !(_phonePitch > 50f && _phonePitch < 100f))
+            {
+                //_UITransitionManager.Hide2DUI();
+                StartCoroutine("switchUIMode", UIMode.threeD);
+
+            }
         }
     }
 
@@ -43,14 +58,14 @@ public class GyroscopeScript : MonoBehaviour
             guiStyle.fontSize = 40; //change the font size
             GUI.Label(new Rect(200, 300, 200, 40), "Gyro attitude" + _gyro.attitude, guiStyle);
             GUI.Label(new Rect(200, 400, 200, 40), "In Euler" + _gyro.attitude.eulerAngles, guiStyle);
-            GUI.Label(new Rect(200, 500, 200, 40), "Z Rotation" + GetZRotation(), guiStyle);
-            GUI.Label(new Rect(200, 600, 200, 40), "X Rotation" + GetXRotation(), guiStyle);
+            GUI.Label(new Rect(200, 500, 200, 40), "X Rotation" + _phonePitch, guiStyle);
+            GUI.Label(new Rect(200, 600, 200, 40), "Y Rotation" + GetYRotation(), guiStyle);
+
+            GUI.Label(new Rect(200, 700, 200, 40), "Z Rotation" + GetZRotation(), guiStyle);
             //GUI.Label(new Rect(200, 500, 200, 40), "X Rotation" + GetXRotation(), guiStyle);
 
 
-            GUI.Label(new Rect(200, 700, 200, 40), "Gyro enabled : " + _gyro.enabled, guiStyle);
-            
-
+            GUI.Label(new Rect(200, 800, 200, 40), "Gyro enabled : " + _gyro.enabled, guiStyle);
         }
 
     }
@@ -69,6 +84,8 @@ public class GyroscopeScript : MonoBehaviour
 
             _cameraContainer.transform.rotation = Quaternion.Euler(90f, 90f, 0f);
             _rot = new Quaternion(0, 0, 1, 0);
+            _phonePitch = GetXRotation();
+
 
             return true;
         }
@@ -81,11 +98,21 @@ public class GyroscopeScript : MonoBehaviour
         Quaternion referenceRotation = Quaternion.identity;
         Quaternion deviceRotation = GetDeviceRotation();
         Quaternion eliminationOfXY = Quaternion.Inverse(
- Quaternion.FromToRotation(referenceRotation * Vector3.forward,
-                                deviceRotation * Vector3.forward)
-  );
+        Quaternion.FromToRotation(referenceRotation * Vector3.forward,
+                                deviceRotation * Vector3.forward));
         Quaternion rotationZ = eliminationOfXY * deviceRotation;
         return rotationZ.eulerAngles.z;
+    }
+
+    float GetYRotation()
+    {
+        Quaternion referenceRotation = Quaternion.identity;
+        Quaternion deviceRotation = GetDeviceRotation();
+        Quaternion eliminationOfXZ = Quaternion.Inverse(
+        Quaternion.FromToRotation(referenceRotation * Vector3.up,
+                                deviceRotation * Vector3.up));
+        Quaternion rotationY = eliminationOfXZ * deviceRotation;
+        return rotationY.eulerAngles.y;
     }
 
     float GetXRotation()
@@ -93,9 +120,8 @@ public class GyroscopeScript : MonoBehaviour
         Quaternion referenceRotation = Quaternion.identity;
         Quaternion deviceRotation = GetDeviceRotation();
         Quaternion eliminationOfYZ = Quaternion.Inverse(
- Quaternion.FromToRotation(referenceRotation * Vector3.right,
-                                deviceRotation * Vector3.right)
-  );
+        Quaternion.FromToRotation(referenceRotation * Vector3.right,
+                                deviceRotation * Vector3.right));
         Quaternion rotationX = eliminationOfYZ * deviceRotation;
         return rotationX.eulerAngles.x;
     }
@@ -107,5 +133,20 @@ public class GyroscopeScript : MonoBehaviour
             return new Quaternion(0.5f, 0.5f, -0.5f, 0.5f) * _gyro.attitude * new Quaternion(0, 0, 1, 0);
         }
         return new Quaternion();
+    }
+
+    private IEnumerator switchUIMode(UIMode newMode)
+    {
+        yield return new WaitForSeconds(1.5f);
+
+        if (newMode == UIMode.twoD && _UITransitionManager.CurrentMode == UIMode.threeD && _phonePitch > 50f && _phonePitch < 100f)
+        {
+            _UITransitionManager.Show2DUI();
+        }
+        else if (newMode == UIMode.threeD && _UITransitionManager.CurrentMode == UIMode.twoD && !(_phonePitch > 50f && _phonePitch < 100f))
+        {
+            _UITransitionManager.Hide2DUI();
+        }
+
     }
 }
