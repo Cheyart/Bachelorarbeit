@@ -45,6 +45,11 @@ public class RotateObjectController : MonoBehaviour
             activeColor = Color.white;
         }
 
-        GetComponent<MeshRenderer>().material.color = activeColor;
+        //GetComponent<MeshRenderer>().material.color = activeColor;
+    }
+
+    public void ClickTest()
+    {
+        Debug.Log("Click was detected");
     }
 }
