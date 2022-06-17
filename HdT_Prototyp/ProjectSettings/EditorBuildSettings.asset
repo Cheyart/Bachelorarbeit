@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Prototype_MainScene.unity
     guid: 8b0dec95e2a3d4870aff4741c2dbc0df
+  - enabled: 0
+    path: Assets/Scenes/RotateObject_Test.unity
+    guid: 815d7d7aae2d243a1ada928da80fb5dc
   m_configObjects:
     Unity.XR.WindowsMR.Settings: {fileID: 11400000, guid: 744b813df90924c169af73489b8325de,
       type: 2}

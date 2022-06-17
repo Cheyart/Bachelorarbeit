@@ -16,6 +16,12 @@ public class PlayerPosition : MonoBehaviour
     private ARSessionOrigin _arSessionOrigin;
 
     [SerializeField]
+    private GameObject _rotationObject;
+
+    [SerializeField]
+    private GameObject _parentObject;
+
+    [SerializeField]
     private GameObject _arScene;
 
     private bool _isActive;
@@ -45,10 +51,14 @@ public class PlayerPosition : MonoBehaviour
     {
         if(_isActive && _arCamera != null)
         {
-           
+
+            //TO DO: try without adjusting to camera position
+
+
             transform.position = _arCamera.transform.position;
             //transform.rotation = _arCamera.transform.rotation;
             transform.localRotation = _trackedImage.transform.rotation;
+            _parentObject.transform.localRotation = _rotationObject.transform.localRotation;
 
             //put outside of update loop 
             _arScene.transform.position = _trackedImage.transform.position;
@@ -68,6 +78,8 @@ public class PlayerPosition : MonoBehaviour
             //not working (?) -> coordinates of trackedImage are 0
             _arScene.transform.position = _trackedImage.transform.position;
             _arScene.transform.rotation = _trackedImage.transform.rotation;
+            //_parentObject.transform.position = _rotationObject.transform.position;
+            //_parentObject.transform.rotation = _rotationObject.transform.rotation;
            
             gameObject.SetActive(true);
             _isActive = true;
