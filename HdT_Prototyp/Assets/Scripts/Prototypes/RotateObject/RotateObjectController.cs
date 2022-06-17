@@ -38,7 +38,7 @@ public class RotateObjectController : MonoBehaviour
                     if(_objectToRotate != null)
                     {
                         //assign horizontal touch movement to y direction of the gameobject
-                        _objectToRotate.transform.Rotate(0f, 0f, -screenTouch.deltaPosition.x * _rotationSpeed);
+                        _objectToRotate.transform.Rotate(0f, 0f, screenTouch.deltaPosition.x * _rotationSpeed);
                     }
                     
                 }

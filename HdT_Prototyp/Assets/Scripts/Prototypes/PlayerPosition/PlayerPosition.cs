@@ -15,11 +15,11 @@ public class PlayerPosition : MonoBehaviour
     [SerializeField]
     private ARSessionOrigin _arSessionOrigin;
 
-    [SerializeField]
-    private GameObject _rotationObject;
+    //[SerializeField]
+    //private GameObject _rotationObject;
 
-    [SerializeField]
-    private GameObject _parentObject;
+    //[SerializeField]
+    //private GameObject _parentObject;
 
     [SerializeField]
     private GameObject _arScene;
@@ -58,7 +58,7 @@ public class PlayerPosition : MonoBehaviour
             transform.position = _arCamera.transform.position;
             //transform.rotation = _arCamera.transform.rotation;
             transform.localRotation = _trackedImage.transform.rotation;
-            _parentObject.transform.localRotation = _rotationObject.transform.localRotation;
+            //_parentObject.transform.localRotation = _rotationObject.transform.localRotation;
 
             //put outside of update loop 
             _arScene.transform.position = _trackedImage.transform.position;
