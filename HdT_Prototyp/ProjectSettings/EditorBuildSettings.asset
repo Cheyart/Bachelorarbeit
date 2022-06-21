@@ -14,12 +14,15 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/RotateObject_Prototype.unity
     guid: c8eff26b1340547e3b11636ffd64a92a
-  - enabled: 1
-    path: Assets/Scenes/Prototype_MainScene.unity
+  - enabled: 0
+    path: Assets/Scenes/WIMWhithStandpoint_Prototype.unity
     guid: 8b0dec95e2a3d4870aff4741c2dbc0df
   - enabled: 0
-    path: Assets/Scenes/RotateObject_Test.unity
-    guid: 815d7d7aae2d243a1ada928da80fb5dc
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/SwitchThroughButton.unity
+    guid: d091c86ac1ec3447485850cd18df5adb
   m_configObjects:
     Unity.XR.WindowsMR.Settings: {fileID: 11400000, guid: 744b813df90924c169af73489b8325de,
       type: 2}

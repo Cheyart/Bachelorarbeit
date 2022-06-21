@@ -2,11 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ActivateObject : MonoBehaviour
+public class RotationController : MonoBehaviour
 {
 
     private int nrOfTouches;
     private int nrOfTouchesOnModel;
+
+    private bool isActive;
 
     // Start is called before the first frame update
     void Start()
@@ -35,7 +37,9 @@ public class ActivateObject : MonoBehaviour
                     if(hit.transform.tag == "Model")
                     {
                         var objectScript = hit.collider.GetComponent<RotateObjectController>();
-                        objectScript.isActive = !objectScript.isActive;
+                        objectScript.isActive = true;
+                        isActive = objectScript.isActive;
+
                         nrOfTouchesOnModel++;
                     }
                 }
@@ -49,6 +53,7 @@ public class ActivateObject : MonoBehaviour
 
         GUI.Label(new Rect(200, 150, 400, 100), " Nr of Touches " + nrOfTouches);
         GUI.Label(new Rect(200, 200, 400, 100), " Nr of Touches on Model: " + nrOfTouchesOnModel);
+        GUI.Label(new Rect(200, 250, 400, 100), " Touched Model is Active: " + isActive);
 
 
     }

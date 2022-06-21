@@ -24,9 +24,9 @@ public class RotateObjectController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isActive)
-        {
-            //activeColor = Color.red;
+       //if (isActive)
+       //{
+            activeColor = Color.red;
 
             //if there has been touch screen input
             if(Input.touchCount == 1)
@@ -39,8 +39,7 @@ public class RotateObjectController : MonoBehaviour
                     {
                         //assign horizontal touch movement to y direction of the gameobject
                         _objectToRotate.transform.Rotate(0f, 0f, screenTouch.deltaPosition.x * _rotationSpeed);
-                    }
-                    
+                    }           
                 }
 
                 if(screenTouch.phase == TouchPhase.Ended)
@@ -48,17 +47,23 @@ public class RotateObjectController : MonoBehaviour
                     isActive = false;
                 }
             }
-        }
-        else
-        {
-            //activeColor = Color.white;
-        }
+       // }
+       // else
+       //{
+         //   activeColor = Color.white;
+       //}
 
-        //GetComponent<MeshRenderer>().material.color = activeColor;
+        GetComponent<MeshRenderer>().material.color = activeColor;
     }
 
     public void ClickTest()
     {
         Debug.Log("Click was detected");
+    }
+
+    void OnGUI()
+    {
+        GUI.Label(new Rect(200, 500, 400, 100), " Camera Rotation " + _objectToRotate.transform.rotation);
+        GUI.Label(new Rect(200, 550, 400, 100), " Model Is Active: " + isActive);
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 
 //To D0: use Coroutine to manage position (de/activate Coroutine in IsActive property)
-public class PlayerPosition : MonoBehaviour
+public class PlayerPosition_Prototype : MonoBehaviour
 {
     [SerializeField]
     private Camera _arCamera;
@@ -42,7 +42,7 @@ public class PlayerPosition : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _isActive = false;
+        _isActive = true;
         guiStyle.fontSize = 80; //change the font size
     }
 
@@ -99,7 +99,7 @@ public class PlayerPosition : MonoBehaviour
 
    
 
-    void OnGUI()
+    /*void OnGUI()
     {
 
         //Output the rotation rate, attitude and the enabled state of the gyroscope as a Label
@@ -129,5 +129,5 @@ public class PlayerPosition : MonoBehaviour
             GUI.Label(new Rect(200, 950, 400, 100), " Player Position" + transform.position);
             GUI.Label(new Rect(200, 1000, 400, 100), " Player Local Pos" + transform.localPosition);
         }
-    }
+    }*/
 }
