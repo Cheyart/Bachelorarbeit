@@ -219,6 +219,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f70962dd8dc2421487f8c2d27340378, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _objectToRotate: {fileID: 0}
+  _rotationSpeed: 0.4
 --- !u!1 &314908954
 GameObject:
   m_ObjectHideFlags: 0
@@ -404,6 +406,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rotationSpeed: 0.3
+  _objectToRotate: {fileID: 336038604}
   isActive: 0
 --- !u!65 &336038606
 BoxCollider:
@@ -527,4 +530,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rotationSpeed: 0.3
+  _objectToRotate: {fileID: 888663322}
   isActive: 0

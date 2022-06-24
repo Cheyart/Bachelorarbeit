@@ -10,8 +10,10 @@ public class RotateObjectController : MonoBehaviour
     [SerializeField]
     private GameObject _objectToRotate;
 
-    public bool isActive = false;
+    public bool isActive;
     Color activeColor = new Color();
+
+    private int _touchPhaseEnded;
 
    
 
@@ -24,8 +26,8 @@ public class RotateObjectController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       //if (isActive)
-       //{
+       if (isActive)
+       {
             activeColor = Color.red;
 
             //if there has been touch screen input
@@ -45,13 +47,14 @@ public class RotateObjectController : MonoBehaviour
                 if(screenTouch.phase == TouchPhase.Ended)
                 {
                     isActive = false;
+                    _touchPhaseEnded++;
                 }
             }
-       // }
-       // else
-       //{
-         //   activeColor = Color.white;
-       //}
+       }
+       else
+       {
+           activeColor = Color.white;
+       }
 
         GetComponent<MeshRenderer>().material.color = activeColor;
     }
@@ -65,5 +68,6 @@ public class RotateObjectController : MonoBehaviour
     {
         GUI.Label(new Rect(200, 500, 400, 100), " Camera Rotation " + _objectToRotate.transform.rotation);
         GUI.Label(new Rect(200, 550, 400, 100), " Model Is Active: " + isActive);
+        GUI.Label(new Rect(200, 600, 400, 100), " Touch Phase ended: " + _touchPhaseEnded);
     }
 }
