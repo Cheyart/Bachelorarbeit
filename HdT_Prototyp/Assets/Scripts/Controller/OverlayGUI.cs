@@ -50,4 +50,12 @@ public class OverlayGUI : MonoBehaviour
         _vrGUI.gameObject.SetActive(false);
     }
 
+    public void HideBothViews()
+    {
+        _arGUI.gameObject.SetActive(false);
+        _vrGUI.gameObject.SetActive(false);
+    }
+
+   
+
 }

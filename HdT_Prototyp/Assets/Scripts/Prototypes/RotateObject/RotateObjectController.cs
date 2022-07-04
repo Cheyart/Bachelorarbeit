@@ -56,7 +56,7 @@ public class RotateObjectController : MonoBehaviour
            activeColor = Color.white;
        }
 
-        GetComponent<MeshRenderer>().material.color = activeColor;
+        //GetComponent<MeshRenderer>().material.color = activeColor;
     }
 
     public void ClickTest()
@@ -64,10 +64,10 @@ public class RotateObjectController : MonoBehaviour
         Debug.Log("Click was detected");
     }
 
-    void OnGUI()
+    /*void OnGUI()
     {
-        GUI.Label(new Rect(200, 500, 400, 100), " Camera Rotation " + _objectToRotate.transform.rotation);
+       // GUI.Label(new Rect(200, 500, 400, 100), " Camera Rotation " + _objectToRotate.transform.rotation);
         GUI.Label(new Rect(200, 550, 400, 100), " Model Is Active: " + isActive);
         GUI.Label(new Rect(200, 600, 400, 100), " Touch Phase ended: " + _touchPhaseEnded);
-    }
+    }*/
 }

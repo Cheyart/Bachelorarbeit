@@ -8,11 +8,15 @@ using UnityEngine;
 
 public class GyroscopeHandler : MonoBehaviour
 {
-    [SerializeField]
-    private bool _transitionEnabled;
+    //[SerializeField]
+    //private bool _transitionEnabled;
 
     [SerializeField]
     private ViewTransitionController _transitionController;
+
+    public bool IsEnabled { get => _isEnabled; set => _isEnabled = value; }
+    [SerializeField]
+    private bool _isEnabled =false;
 
     private bool _gyroEnabled;
     private Gyroscope _gyro;
@@ -20,12 +24,16 @@ public class GyroscopeHandler : MonoBehaviour
     private const float MIN_VALUE = 50f;
 
     private const float MAX_VALUE = 100f;
-    
+
+    private int _insideSwitchUIMode;
+    private int _insideSwitchToVR;
+    private int _insideSwitchToAR;
+
     //private GameObject _cameraContainer;
     //private Quaternion _rot;
     //private GUIStyle guiStyle = new GUIStyle();
 
-    
+
     private float _phonePitch;
 
 
@@ -35,14 +43,13 @@ public class GyroscopeHandler : MonoBehaviour
         //_cameraContainer = new GameObject("Camera Container");
         //_cameraContainer.transform.position = transform.position;
         //transform.SetParent(_cameraContainer.transform);
-
         _gyroEnabled = EnableGyro();
     }
 
 
     private void Update()
     {
-        if (_transitionEnabled && _gyroEnabled)
+        if (_isEnabled && _gyroEnabled)
         {
             //adjust camera rotation to phone rotation;
             //transform.localRotation = _gyro.attitude * _rot;
@@ -50,11 +57,13 @@ public class GyroscopeHandler : MonoBehaviour
             _phonePitch = GetPhonePitch();
             if(_transitionController.CurrentView == Views.arView && _phonePitch > MIN_VALUE && _phonePitch < MAX_VALUE)
             {
+                _insideSwitchToVR++;
                 StartCoroutine("switchUIMode", Views.vrView);
                 //_UITransitionManager.Show2DUI();
             } else if (_transitionController.CurrentView == Views.vrView  && !(_phonePitch > MIN_VALUE && _phonePitch < MAX_VALUE))
             {
                 //_UITransitionManager.Hide2DUI();
+                _insideSwitchToAR++;
                 StartCoroutine("switchUIMode", Views.arView);
 
             }
@@ -154,6 +163,7 @@ public class GyroscopeHandler : MonoBehaviour
 
     private IEnumerator switchUIMode(Views newView)
     {
+        _insideSwitchUIMode++;
         yield return new WaitForSeconds(1.5f);
 
         if (newView == Views.vrView && _transitionController.CurrentView == Views.arView && _phonePitch > MIN_VALUE && _phonePitch < MAX_VALUE)
@@ -166,4 +176,14 @@ public class GyroscopeHandler : MonoBehaviour
         }
 
     }
+
+   /* void OnGUI()
+    {
+        
+        GUI.Label(new Rect(200, 500, 400, 100), " Gyroscope Handler Is Enabled = " + _isEnabled);
+        GUI.Label(new Rect(200, 550, 400, 100), " Gyroscope Handler Switch UI Mode = " + _insideSwitchUIMode);
+        GUI.Label(new Rect(200, 600, 400, 100), " Gyroscope Handler Switch to VR = " + _insideSwitchToVR);
+        GUI.Label(new Rect(200, 650, 400, 100), " Gyroscope Handler Switch to AR = " + _insideSwitchToAR);
+
+    }*/
 }

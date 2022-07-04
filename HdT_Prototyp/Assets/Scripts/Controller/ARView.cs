@@ -49,12 +49,13 @@ public class ARView : MonoBehaviour
         foreach (var newImage in eventArgs.added)
         {
             _trackedImage = newImage;
-            _transitionController.ActivateSession();
+            //_transitionController.SessionInProgress = true
+            _transitionController.ActivateNewSession(newImage);
             _imageDetected++;
         }
     }
 
-    /*void OnGUI()
+   /* void OnGUI()
     {
 
             GUI.Label(new Rect(200, 800, 400, 100), " Image Detected = " + _imageDetected);
@@ -62,7 +63,6 @@ public class ARView : MonoBehaviour
             GUI.Label(new Rect(200, 850, 400, 100), " _trackedImagePosition 2 = " + _trackedImage.transform.position);
 
             GUI.Label(new Rect(200, 900, 400, 100), " _trackedImageRotation 2 = " + _trackedImage.transform.rotation);
-            GUI.Label(new Rect(200, 950, 400, 100), " _trackedImageRotation is null = " + (_trackedImageRotation == null));
 
     }*/
 }

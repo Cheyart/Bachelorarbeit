@@ -20,9 +20,12 @@ EditorBuildSettings:
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
-  - enabled: 1
-    path: Assets/Scenes/SwitchThroughButton.unity
+  - enabled: 0
+    path: Assets/Scenes/BasicSetup.unity
     guid: d091c86ac1ec3447485850cd18df5adb
+  - enabled: 1
+    path: Assets/Scenes/LowFiPrototype.unity
+    guid: 74c0da7f451424f488ce2efe674bec8d
   m_configObjects:
     Unity.XR.WindowsMR.Settings: {fileID: 11400000, guid: 744b813df90924c169af73489b8325de,
       type: 2}

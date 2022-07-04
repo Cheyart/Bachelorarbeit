@@ -8,6 +8,8 @@ public class ActivateObject_Prototype : MonoBehaviour
 
     private int nrOfTouches;
     private int nrOfTouchesOnModel;
+    private int nrOfTouchesOnPOI;
+
     private int nrOfTouchesReleased;
 
     private bool isActive;
@@ -15,6 +17,9 @@ public class ActivateObject_Prototype : MonoBehaviour
 
     [SerializeField]
     private GameObject _objectToRotate;
+
+    [SerializeField]
+    private POISelectionController _poiSelectionController;
 
     [SerializeField]
     private float _rotationSpeed = 0.4f;
@@ -33,92 +38,62 @@ public class ActivateObject_Prototype : MonoBehaviour
     {
         if(Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Began) //if a new touch was registered
         {
+            int hitPoints = 1;
             nrOfTouches++;
             Ray ray = _camera.ScreenPointToRay(Input.touches[0].position);
 
             RaycastHit hit;
 
-            //if(Physics.Raycast(ray, out hit))
-            //{
-               //nrOfTouchesOnModel++;
-
-                if (Physics.Raycast(ray, out hit))
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (hit.collider.tag == "POI")
                 {
-                    Debug.DrawLine(ray.origin, hit.point);
+                    if (hitPoints == 1)
+                    {
 
-                    //if(hit.transform.tag == "Model")
-                    if (hit.collider.tag == "Model")
+                        nrOfTouchesOnPOI += 5;
+                        var selectedPOI = hit.collider.GetComponent<PointOfInterest>();
+                        nrOfTouchesOnPOI += 3;
+                        _poiSelectionController.switchSelectedPOI(selectedPOI.Id);
+                        nrOfTouchesOnPOI++;
+                        hitPoints --;
+                        //objectScript.IsSelected = true;
+                        //if(hit.transform.tag == "Model")
+                    }
+                }
 
-                        {
-                            var objectScript = hit.collider.GetComponent<RotateObjectController>();
+                if (hit.collider.tag == "Model")
+                {
+                    if(hitPoints == 1) {
+                        var objectScript = hit.collider.GetComponent<RotateObjectController>();
                         objectScript.isActive = true;
-                        //isActive = objectScript.isActive;
+                        isActive = objectScript.isActive;
 
                         nrOfTouchesOnModel++;
+                        hitPoints--;
+
                     }
                 }
-            //}
-        }
-
-       /* if (Input.touchCount == 1)
-        {
-            Touch screenTouch = Input.GetTouch(0); //position of where the touch happened
-
-            if (screenTouch.phase == TouchPhase.Began) //if a new touch was registered
-            {
-                nrOfTouches++;
-                Ray ray = Camera.main.ScreenPointToRay(screenTouch.position);
-
-                RaycastHit hit;
-
-                if (Physics.Raycast(ray, out hit))
-                {
-                    nrOfTouchesOnModel++;
-
-                    if (Physics.Raycast(ray, out hit))
-                    {
-                        if (hit.transform.tag == "Model")
-                        {
-                            var objectScript = hit.collider.GetComponent<RotateObjectController>();
-                            //objectScript.isActive = true;
-                            isActive = true;
-
-                            nrOfTouchesOnModel++;
-                        }
-                    }
-                }
+                   
             }
-        else if (screenTouch.phase == TouchPhase.Ended)
-        {
-                isActive = false;
-                nrOfTouchesReleased++;
-
-            }
-        else if (screenTouch.phase == TouchPhase.Moved && isActive) //check if the touch has moved 
-        {
-                if (_objectToRotate != null)
-                {
-                    //assign horizontal touch movement to y direction of the gameobject
-                    _objectToRotate.transform.Rotate(0f, 0f, screenTouch.deltaPosition.x * _rotationSpeed);
-                }
-            }
-
             
-        }*/
+        }
     }
 
+  
 
-    void OnGUI()
+
+    /*void OnGUI()
     {
 
         GUI.Label(new Rect(200, 150, 400, 100), " Nr of Touches " + nrOfTouches);
         GUI.Label(new Rect(200, 200, 400, 100), " Nr of Touches on Model: " + nrOfTouchesOnModel);
-        GUI.Label(new Rect(200, 250, 400, 100), " Nr of Touches released: " + nrOfTouchesReleased);
+        GUI.Label(new Rect(200, 500, 400, 100), " Nr of Touches on POI: " + nrOfTouchesOnPOI);
 
         GUI.Label(new Rect(200, 300, 400, 100), " Touched Model is Active: " + isActive);
 
 
-    }
+    }*/
 
 
 }
