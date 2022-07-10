@@ -13,6 +13,7 @@ public class Comment : ScriptableObject, ISerializationCallbackReceiver
 
     [SerializeField]
     private User _poster; /** user who posted the comment */
+    public User Poster { get => _poster; }
 
     [SerializeField]
     private string _message; /** comment content*/
@@ -20,8 +21,10 @@ public class Comment : ScriptableObject, ISerializationCallbackReceiver
 
     [SerializeField]
     private int _replyTo; /** id of comment to which this comment is a reply. Is -1 if this comment is not a reply to any comment */
+    public int ReplyTo { get => _replyTo; }
 
     private DateTime _date; /** date on which the comment was posted*/
+    public DateTime Date { get => _date; }
 
     [SerializeField]
     [Range(2021, 2022)]
@@ -36,7 +39,6 @@ public class Comment : ScriptableObject, ISerializationCallbackReceiver
     private int _day = 1; /**Day on which the comment was posted. (year, month, day saved separately for the sake of serialization*/
 
 
-    //SetComment()
 
 
     /**

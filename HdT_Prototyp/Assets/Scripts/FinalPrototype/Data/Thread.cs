@@ -17,18 +17,15 @@ public class Thread : ScriptableObject
     private int _nrOfComments;
     public int NrOfComments { get => _nrOfComments; }
 
-    private void Awake()
-    {
-        Debug.Log("Awake ScriptableObject Thread");
-        _nrOfComments = _comments.Count;
-    }
 
-    public void AddComment (Comment newComment)
+    /*public void AddComment (Comment newComment)
     {
         if(newComment != null)
         {
             _comments.Add(newComment);
             _nrOfComments++;
         }
-    }
+    }*/
+
+
 }

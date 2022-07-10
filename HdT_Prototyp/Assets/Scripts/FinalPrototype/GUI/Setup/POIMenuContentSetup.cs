@@ -12,17 +12,23 @@ public class POIMenuContentSetup : MonoBehaviour
     [SerializeField]
     private Transform _commentsContainer;
 
-    private RectTransform _containerLayoutGroup;
+    [SerializeField]
+    private LayoutGroup _contentContainerLayoutGroup;
 
     [SerializeField]
-    private Transform _mainCommentPrefab;
+    private CommentContentSetup _mainCommentPrefab;
 
-   // private CommentsContainerSetup _currentCommentsContainer;
+    [SerializeField]
+    private CommentContentSetup _subCommentPrefab;
+
+  
+
+    // private CommentsContainerSetup _currentCommentsContainer;
 
     // Start is called before the first frame update
     void Start()
     {
-        _containerLayoutGroup = _commentsContainer.GetComponent<RectTransform>();
+       
     }
 
     // Update is called once per frame
@@ -37,12 +43,10 @@ public class POIMenuContentSetup : MonoBehaviour
         SetTitle(content.Title);
         SetComments(content.Threads);
 
-        //rebuild layout group, to adjust layout to content fitters (double refresh necessary, because of nested content fitters)
-        LayoutRebuilder.ForceRebuildLayoutImmediate(_containerLayoutGroup);
-        LayoutRebuilder.ForceRebuildLayoutImmediate(_containerLayoutGroup);
+        StartCoroutine(UpdateLayoutGroup());
     }
 
-    private void Reset()
+    public void Reset()
     {
         foreach(Transform child in _commentsContainer)
         {
@@ -57,18 +61,34 @@ public class POIMenuContentSetup : MonoBehaviour
 
     private void SetComments(List <Thread> threads)
     {
-        // _currentCommentsContainer = Instantiate(_commentsContainerPrefab, _commentsContainerParent);
-        //_currentCommentsContainer.Setup(_mainCommentPrefab, threads);
-        foreach (Thread thread in threads)
+      
+       foreach (Thread thread in threads)
         {
-            Instantiate(_mainCommentPrefab, _commentsContainer);
+            for (int i =0; i<thread.Comments.Count; i++)
+            {
+                CommentContentSetup instance;
+                if (i == 0)
+                {
+                   instance = Instantiate(_mainCommentPrefab, _commentsContainer);
+                }
+                else
+                {
+                    instance = Instantiate(_subCommentPrefab, _commentsContainer);
+                }
+               
+                instance.Setup(thread.Comments[i]);
+            }
+           
         }
-       
-        
+          
     }
 
-   /*IEnumerator UpdateLayoutGroup()
+    IEnumerator UpdateLayoutGroup()
     {
-       
-    }*/
+        _contentContainerLayoutGroup.enabled = false;
+        yield return new WaitForEndOfFrame();
+        _contentContainerLayoutGroup.enabled = true;
+    }
+
+
 }

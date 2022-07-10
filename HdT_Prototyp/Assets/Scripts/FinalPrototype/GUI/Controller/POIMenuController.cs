@@ -8,6 +8,12 @@ public class POIMenuController : MonoBehaviour
     [SerializeField]
     private POIMenuContentSetup _contentSetup;
 
+    [SerializeField]
+    private Transform _menuPanel;
+
+    [SerializeField]
+    private POISelectionManager _POISelectionManager;
+
     //add state (small, medium, big)
     //add animated transition
 
@@ -27,12 +33,15 @@ public class POIMenuController : MonoBehaviour
     public void Show(PointOfInterest content)
     {
        _contentSetup.Setup(content);
-        gameObject.SetActive(true);  //TO DO -> make transition animation (appear from bottom)
+        _menuPanel.gameObject.SetActive(true);  //TO DO -> make transition animation (appear from bottom)
     }
 
     public void Hide()
     {
-        gameObject.SetActive(false); //TO DO -> make disappear animation (disappear to bottom)
+        _POISelectionManager.DeselectCurrentPOI();
+        _menuPanel.gameObject.SetActive(false); //TO DO -> make disappear animation (disappear to bottom)
+        _contentSetup.Reset();
+
     }
 
 }

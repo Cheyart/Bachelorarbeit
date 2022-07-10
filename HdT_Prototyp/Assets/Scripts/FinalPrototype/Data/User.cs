@@ -8,7 +8,9 @@ public class User : ScriptableObject
 {
     [SerializeField]
     private string _username; /** username. has to be unique*/
+    public string Username { get => _username; }
 
     [SerializeField]
     private Sprite _profilePic; /** profile picture*/
+    public Sprite ProfilePic { get => _profilePic; }
 }

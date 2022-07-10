@@ -15,7 +15,7 @@ public class POISelectionManager : MonoBehaviour
     [SerializeField]
     private Color _selectedColor;
 
-    private int _currentlySelectedPOI;
+    private int _currentlySelectedPOI = -1;
 
 
     // Start is called before the first frame update
@@ -40,6 +40,11 @@ public class POISelectionManager : MonoBehaviour
     {
         Debug.Log("inside manager: POI with id " + idOfSelectedPOI + " was clicked");
 
+        if(idOfSelectedPOI == _currentlySelectedPOI)
+        {
+            return;
+        }
+
         foreach (POIHandler poi in _POIs)
         {
             if(poi.Content.Id == idOfSelectedPOI)
@@ -53,5 +58,17 @@ public class POISelectionManager : MonoBehaviour
                 poi.SetColor(_idleColor);
             }
         }
+    }
+
+    public void DeselectCurrentPOI()
+    {
+        foreach (POIHandler poi in _POIs)
+        {
+            if (poi.Content.Id == _currentlySelectedPOI)
+            {
+                poi.SetColor(_idleColor);
+            }
+        }
+        _currentlySelectedPOI = -1;
     }
 }
