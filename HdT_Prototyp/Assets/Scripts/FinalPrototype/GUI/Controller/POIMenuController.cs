@@ -2,10 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum POIMenuState
-{
-    closed, small, medium, big
-}
+
+
 
 [RequireComponent(typeof (POIMenuContentSetup), typeof(POIMenuTransitionManager))]
 public class POIMenuController : MonoBehaviour
@@ -31,7 +29,6 @@ public class POIMenuController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _state = POIMenuState.closed;
 
         //_contentSetup = GetComponent<POIMenuContentSetup>();
     }
@@ -47,8 +44,9 @@ public class POIMenuController : MonoBehaviour
        _contentSetup.Setup(content);
         // _menuPanel.gameObject.SetActive(true);  //TO DO -> make transition animation (appear from bottom)
         if(_state == POIMenuState.closed) {
-            _transitionManager.TransitionMainPanelTo(POIMenuState.medium);
-            _state = POIMenuState.medium;
+            //_transitionManager.TransitionMainPanelTo(POIMenuState.medium);
+            // _state = POIMenuState.medium;
+            _transitionManager.State = POIMenuState.medium;
         }
 
     }
@@ -57,10 +55,15 @@ public class POIMenuController : MonoBehaviour
     {
         _POISelectionManager.DeselectCurrentPOI();
         //_menuPanel.gameObject.SetActive(false); //TO DO -> make disappear animation (disappear to bottom)
-        _transitionManager.TransitionMainPanelTo(POIMenuState.closed);
-        _state = POIMenuState.closed;
+        //_transitionManager.TransitionMainPanelTo(POIMenuState.closed);
+        //_state = POIMenuState.closed;
+        _transitionManager.State = POIMenuState.closed;
         _contentSetup.Reset();
+    }
 
+    public void StartCommentInput()
+    {
+        _transitionManager.State = POIMenuState.commentInput;
     }
 
 }
