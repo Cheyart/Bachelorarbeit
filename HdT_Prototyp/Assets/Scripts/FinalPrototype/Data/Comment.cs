@@ -9,15 +9,17 @@ public class Comment : ScriptableObject, ISerializationCallbackReceiver
 {
     [SerializeField]
     private int _id;  /** comment id. has to be unique*/
+    public int Id { get => _id; }
 
     [SerializeField]
     private User _poster; /** user who posted the comment */
 
     [SerializeField]
     private string _message; /** comment content*/
+    public string Message { get => _message; }
 
     [SerializeField]
-    private int _replyTo; /** id of comment of which this comment is a reply to */
+    private int _replyTo; /** id of comment to which this comment is a reply. Is -1 if this comment is not a reply to any comment */
 
     private DateTime _date; /** date on which the comment was posted*/
 
