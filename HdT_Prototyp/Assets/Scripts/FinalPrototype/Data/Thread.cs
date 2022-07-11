@@ -14,9 +14,15 @@ public class Thread : ScriptableObject
     private List<Comment> _comments;
     public List <Comment> Comments { get => _comments; }
 
-    private int _nrOfComments;
-    public int NrOfComments { get => _nrOfComments; }
+   // private int _nrOfComments;
+   // public int NrOfComments { get => _nrOfComments; }
 
+    public void Init(Comment firstComment)
+    {
+        //id = Global
+        _comments = new List<Comment>();
+        _comments.Add(firstComment);
+    }
 
     /*public void AddComment (Comment newComment)
     {

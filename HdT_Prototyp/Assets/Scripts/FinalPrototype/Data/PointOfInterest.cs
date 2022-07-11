@@ -17,5 +17,12 @@ public class PointOfInterest : ScriptableObject
     [SerializeField]
     private List<Thread> _threads;
     public List<Thread> Threads { get => _threads; }
+
+    /*public void AddNewThread(Comment firstComment)
+    {
+        Thread newThread = ScriptableObject.CreateInstance("Thread") as Thread;
+        newThread.Init(firstComment);
+        _threads.Add(newThread);
+    }*/
 }
 

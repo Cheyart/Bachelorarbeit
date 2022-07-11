@@ -10,10 +10,10 @@ public class POIMenuContentSetup : MonoBehaviour
     private TextMeshProUGUI _title;
 
     [SerializeField]
-    private Transform _commentsContainer;
+    private LayoutGroup _contentContainerLayoutGroup;
 
     [SerializeField]
-    private LayoutGroup _contentContainerLayoutGroup;
+    private Transform _commentsContainer;
 
     [SerializeField]
     private CommentContentSetup _mainCommentPrefab;
@@ -21,21 +21,6 @@ public class POIMenuContentSetup : MonoBehaviour
     [SerializeField]
     private CommentContentSetup _subCommentPrefab;
 
-  
-
-    // private CommentsContainerSetup _currentCommentsContainer;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-       
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void Setup (PointOfInterest content)
     {

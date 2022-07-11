@@ -38,7 +38,6 @@ public class POIHandler : MonoBehaviour
 
     public void OnClick()
     {
-        Debug.Log("POI with id " + _content.Id + " was clicked");
         _POISelectionManager.SelectPOI(_content.Id);
     }
 

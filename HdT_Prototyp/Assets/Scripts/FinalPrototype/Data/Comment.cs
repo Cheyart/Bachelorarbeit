@@ -7,6 +7,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Comment", menuName = "Assets/Comment")]
 public class Comment : ScriptableObject, ISerializationCallbackReceiver
 {
+    public static int commentId = 100;
+
     [SerializeField]
     private int _id;  /** comment id. has to be unique*/
     public int Id { get => _id; }
@@ -39,7 +41,16 @@ public class Comment : ScriptableObject, ISerializationCallbackReceiver
     private int _day = 1; /**Day on which the comment was posted. (year, month, day saved separately for the sake of serialization*/
 
 
+    public void Init(User poster, string message, int replyTo)
+    {
+        //id
+        _id = commentId++;
 
+        _poster = poster;
+        _message = message;
+        _replyTo = replyTo;
+        _date = DateTime.Today;
+    }
 
     /**
      * transforms the single date attribute into separate attributes (year, month, day) 

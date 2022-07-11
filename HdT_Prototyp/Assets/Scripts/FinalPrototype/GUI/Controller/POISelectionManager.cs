@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class POISelectionManager : MonoBehaviour
 {
-    [SerializeField]
-    private POIMenuController _POIMenuController;
 
     private POIHandler [] _POIs;
+
+    [SerializeField]
+    private POIMenuManager _POIMenuManager;
 
     [SerializeField]
     private Color _idleColor;
@@ -15,15 +16,14 @@ public class POISelectionManager : MonoBehaviour
     [SerializeField]
     private Color _selectedColor;
 
-    private int _currentlySelectedPOI = -1;
-
-
     // Start is called before the first frame update
     void Awake()
     {
-        _POIs = GetComponentsInChildren<POIHandler>();
+        //_POIs = GetComponentsInChildren<POIHandler>();
+        _POIs = FindObjectsOfType<POIHandler>();
 
-        foreach(POIHandler poi in _POIs)
+
+        foreach (POIHandler poi in _POIs)
         {
             poi.Setup(this, _idleColor);
         }
@@ -38,20 +38,19 @@ public class POISelectionManager : MonoBehaviour
 
     public void SelectPOI (int idOfSelectedPOI)
     {
-        Debug.Log("inside manager: POI with id " + idOfSelectedPOI + " was clicked");
 
-        if(idOfSelectedPOI == _currentlySelectedPOI)
+        if(IsActivePOI(idOfSelectedPOI))
         {
             return;
         }
 
         foreach (POIHandler poi in _POIs)
         {
-            if(poi.Content.Id == idOfSelectedPOI)
+            if(poi != null && poi.Content.Id == idOfSelectedPOI)
             {
                 poi.SetColor(_selectedColor);
-                _POIMenuController.Show(poi.Content);
-                _currentlySelectedPOI = poi.Content.Id;
+                _POIMenuManager.OpenMenu(poi.Content);
+                SessionManager.Instance.ActivePOI = poi.Content;
 
             } else
             {
@@ -64,11 +63,20 @@ public class POISelectionManager : MonoBehaviour
     {
         foreach (POIHandler poi in _POIs)
         {
-            if (poi.Content.Id == _currentlySelectedPOI)
+            if (IsActivePOI(poi.Content.Id))
             {
                 poi.SetColor(_idleColor);
             }
         }
-        _currentlySelectedPOI = -1;
+        SessionManager.Instance.ActivePOI = null;
     }
+
+    private bool IsActivePOI(int POIId)
+    {
+        return (SessionManager.Instance.ActivePOI != null && POIId == SessionManager.Instance.ActivePOI.Id);
+    }
+
+
+
+
 }

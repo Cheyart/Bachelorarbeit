@@ -47,4 +47,9 @@ public class CommentContentSetup : MonoBehaviour
         //update layout group (necessary for size adjustment)
         LayoutRebuilder.ForceRebuildLayoutImmediate(_layoutGroup);
     }
+
+    public void ReplyToComment()
+    {
+        //poiMenuController.StartCommmentReply(_id, _message);
+    }
 }
