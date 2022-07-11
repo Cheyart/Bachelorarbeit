@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public enum POIMenuState
@@ -8,34 +9,40 @@ public enum POIMenuState
 }
 
 
-[RequireComponent(typeof (POIMenuContentSetup), typeof(POIMenuTransitionController))]
+[RequireComponent(typeof (POIMenuContentController), typeof(POIMenuTransitionController))]
 public class POIMenuManager : MonoBehaviour
 {
     [SerializeField]
     private POISelectionManager _POISelectionManager;
 
+    [SerializeField]
+    private CommentManager _commentManager;
+
+
     private POIMenuTransitionController _transitionController;
 
-    private POIMenuContentSetup _contentSetup;
+    private POIMenuContentController _contentController;
 
-    private POIMenuState _state;
+    public POIMenuState State { get; private set; }
+
+    private POIMenuState _stateBeforeComment;
 
 
     private void Awake()
     {
         _transitionController = gameObject.GetComponent<POIMenuTransitionController>();
-        _contentSetup = gameObject.GetComponent<POIMenuContentSetup>();
-        _state = POIMenuState.closed;
+        _contentController = gameObject.GetComponent<POIMenuContentController>();
+        State = POIMenuState.closed;
     }
 
 
     public void OpenMenu(PointOfInterest content)
     {
-       _contentSetup.Setup(content);
+       _contentController.Setup(content);
 
-        if(_state == POIMenuState.closed) {
-            _transitionController.TransitionFromTo(_state, POIMenuState.medium);
-            _state = POIMenuState.medium;
+        if(State == POIMenuState.closed) {
+            _transitionController.TransitionFromTo(State, POIMenuState.medium);
+            State = POIMenuState.medium;
         }
 
     }
@@ -44,15 +51,15 @@ public class POIMenuManager : MonoBehaviour
     {
         _POISelectionManager.DeselectCurrentPOI();
 
-        _transitionController.TransitionFromTo(_state, POIMenuState.closed);
-        _state = POIMenuState.closed;
+        _transitionController.TransitionFromTo(State, POIMenuState.closed);
+        State = POIMenuState.closed;
     }
 
     public void StartCommentInput()
     {
-        Debug.Log("Start state = " + _state);
-        _transitionController.TransitionFromTo(_state, POIMenuState.commentInput);
-        _state = POIMenuState.commentInput;
+        _transitionController.TransitionFromTo(State, POIMenuState.commentInput);
+        _stateBeforeComment = State;
+        State = POIMenuState.commentInput;
         //_transitionController.State = POIMenuState.commentInput;
     }
 
@@ -69,11 +76,30 @@ public class POIMenuManager : MonoBehaviour
     //ADD: Comment Input Handler
     public void SaveComment()
     {
-        //if(_transitionController.State == POIMenuState.commentInput)
-        //{
-            Comment newComment = ScriptableObject.CreateInstance("Comment") as Comment;
-           // newComment.Init(_logindata.LoggedInUser);
-        //}
+        User poster = SessionManager.Instance.LoggedInUser;
+        if (poster == null)
+        {
+            Debug.LogError("The user is not logged in");
+            return;
+        }
+
+        string message = _contentController.GetTextInputConent();
+        if (message == null || message == "")
+        {
+            Debug.LogError("The message is invalid");
+            //TO DO: add display for user?
+            return;
+        }
+
+        if (State == POIMenuState.commentInput)
+        {
+            _commentManager.AddNewComment(SessionManager.Instance.ActivePOI, poster, message);
+            _transitionController.TransitionFromTo(State, _stateBeforeComment);
+        }
+        else if (State == POIMenuState.replyInput)
+        {
+            //SaveReply();
+        }
     }
 
    

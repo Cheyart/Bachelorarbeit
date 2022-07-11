@@ -19,7 +19,6 @@ public class POISelectionManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        //_POIs = GetComponentsInChildren<POIHandler>();
         _POIs = FindObjectsOfType<POIHandler>();
 
 
@@ -30,11 +29,7 @@ public class POISelectionManager : MonoBehaviour
     }
 
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+   
 
     public void SelectPOI (int idOfSelectedPOI)
     {

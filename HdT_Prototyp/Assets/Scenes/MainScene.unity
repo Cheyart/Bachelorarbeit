@@ -1597,6 +1597,49 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 373047194}
   m_CullTransparentMesh: 1
+--- !u!1 &391313681
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 391313683}
+  - component: {fileID: 391313682}
+  m_Layer: 0
+  m_Name: Comment Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &391313682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 391313681}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59913e72b812b4135a644ea54c438e27, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &391313683
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 391313681}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1886731549}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &422218013
 GameObject:
   m_ObjectHideFlags: 0
@@ -2418,6 +2461,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _POISelectionManager: {fileID: 1630062162}
+  _commentManager: {fileID: 391313682}
 --- !u!114 &660348884
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2458,6 +2502,7 @@ MonoBehaviour:
     type: 3}
   _subCommentPrefab: {fileID: 4755144452158885953, guid: 0ecd5a953791547c99183ec772c69dd2,
     type: 3}
+  _textInputField: {fileID: 1947353118}
 --- !u!1 &759914076 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7466969165127367883, guid: 277c5cb14d0234629a7a3a052f5d2675,
@@ -5491,6 +5536,7 @@ Transform:
   m_Children:
   - {fileID: 660348882}
   - {fileID: 1630062161}
+  - {fileID: 391313683}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7132,7 +7178,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8856813151579596130}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 660348883}
+        m_TargetAssemblyTypeName: POIMenuManager, Assembly-CSharp
+        m_MethodName: SaveComment
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!224 &8856813151579596140
 RectTransform:
   m_ObjectHideFlags: 0

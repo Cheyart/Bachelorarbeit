@@ -8,6 +8,8 @@ using UnityEngine.UI;
 
 public class POIMenuTransitionController : MonoBehaviour
 {
+    private POIMenuContentController _contentController;
+
     [SerializeField]
     private float _transitionDuration = 1f;
 
@@ -37,45 +39,6 @@ public class POIMenuTransitionController : MonoBehaviour
     [SerializeField]
     private GameObject _commentsHeader;
 
-
-    private POIMenuState _state;
-   /* public POIMenuState State
-    {
-        get { return _state; }
-        set
-        {
-            if(_state == value)
-            {
-                return;
-            }
-
-            _state = value;
-
-            float yPos = 0;
-            switch (_state)
-            {
-                case POIMenuState.closed:
-                    yPos = CLOSED_Y_POS;
-                    break;
-                case POIMenuState.small:
-                    yPos = SMALL_Y_POS;
-                    break;
-                case POIMenuState.medium:
-                    yPos = MEDIUM_Y_POS;
-                    break;
-                case POIMenuState.commentInput:
-                    yPos = BIG_Y_POS;
-                    TransitionToCommentInput();
-                    break;
-                default:
-                    break;
-
-            }
-
-            StartCoroutine(LerpMainPanelPosition(new Vector3(_mainPanelPosition.x, yPos, _mainPanelPosition.z)));
-        }
-    }*/
-
     private Vector3 _mainPanelPosition;
 
     private const float CLOSED_Y_POS = 140f;
@@ -95,9 +58,10 @@ public class POIMenuTransitionController : MonoBehaviour
     void Awake()
     {
         //_state = POIMenuState.closed;
+        _contentController = gameObject.GetComponent<POIMenuContentController>();
         _inputFieldRectTransform = _textInputField.GetComponent<RectTransform>();
 
-        ResetToPOIContentDisplay();
+        ResetToDefault();
 
         _mainPanelPosition = _mainPanel.anchoredPosition;
         _mainPanel.anchoredPosition = new Vector3(_mainPanelPosition.x, CLOSED_Y_POS, _mainPanelPosition.z);
@@ -106,33 +70,57 @@ public class POIMenuTransitionController : MonoBehaviour
 
     public void TransitionFromTo(POIMenuState oldState, POIMenuState newState)
     {
-        if(oldState != POIMenuState.commentInput && oldState != POIMenuState.replyInput)
-        {
-            float yPos = 0;
-            switch (newState)
-            {
-                case POIMenuState.closed:
-                    yPos = CLOSED_Y_POS;
-                    break;
-                case POIMenuState.small:
-                    yPos = SMALL_Y_POS;
-                    break;
-                case POIMenuState.medium:
-                    yPos = MEDIUM_Y_POS;
-                    break;
-                case POIMenuState.commentInput:
-                    yPos = BIG_Y_POS;
-                    TransitionToCommentInput();
-                    break;
-                default:
-                    break;
-            }
 
-            StartCoroutine(LerpMainPanelPosition(new Vector3(_mainPanelPosition.x, yPos, _mainPanelPosition.z), newState));
+        float yPos = GetYPos(newState);
+        bool refreshAfterTransition = false;
+        if(oldState == POIMenuState.closed)
+        {
+            ResetToDefault();
 
         }
+
+        //if transitioning from main state to comment/reply view state
+        if (oldState != POIMenuState.commentInput && oldState != POIMenuState.replyInput)
+        {
+            if(newState == POIMenuState.commentInput)
+            {
+                TransitionToCommentInput();
+            } else if (newState == POIMenuState.replyInput)
+            {
+
+            }
+        }
+        //if transitioning from comment/reply state back to main state
+        else
+        {
+            refreshAfterTransition = true;
+            TransitionFromCommentInput(newState);
+        }
+
+        StartCoroutine(LerpMainPanelPosition(new Vector3(_mainPanelPosition.x, yPos, _mainPanelPosition.z), refreshAfterTransition));
+
+
     }
 
+    private float GetYPos(POIMenuState newState)
+    {
+        if (newState == POIMenuState.closed)
+        {
+            return CLOSED_Y_POS;
+        }
+        else if (newState == POIMenuState.small)
+        {
+            return SMALL_Y_POS;
+        }
+        else if (newState == POIMenuState.medium)
+        {
+            return MEDIUM_Y_POS;
+        }
+        else
+        {
+            return BIG_Y_POS;
+        }
+    }
 
     private void TransitionToCommentInput()
     {
@@ -140,16 +128,27 @@ public class POIMenuTransitionController : MonoBehaviour
         StartCoroutine(LerpTextInputHeight(TEXT_INPUT_BIG, POIMenuState.commentInput));
     }
 
-    private void ResetToPOIContentDisplay()
+    private void TransitionFromCommentInput(POIMenuState newState)
+    {
+        DisplayCommentInputElements(false);
+        _contentController.ClearTextInputContent();
+
+        StartCoroutine(LerpTextInputHeight(TEXT_INPUT_SMALL, newState));
+        //_contentController.Refresh();
+
+
+    }
+
+    private void ResetToDefault()
     {
         _inputFieldRectTransform.sizeDelta = new Vector2(_inputFieldRectTransform.sizeDelta.x, TEXT_INPUT_SMALL);
-        _textInputField.text = "";
+        //_textInputField.text = "";
 
         DisplayCommentInputElements(false);
         DisplayMainPanelElements(true);
     }
 
-   private IEnumerator LerpMainPanelPosition(Vector3 targetPosition, POIMenuState newState)
+   private IEnumerator LerpMainPanelPosition(Vector3 targetPosition, bool refreshAfterTransition)
    {
         Debug.Log("Start Coroutine to pos y = " + targetPosition.y);
         float time = 0;
@@ -164,15 +163,17 @@ public class POIMenuTransitionController : MonoBehaviour
         }
 
         _mainPanel.anchoredPosition = targetPosition;
-
-        if (newState == POIMenuState.closed)
+     
+        if (refreshAfterTransition)
         {
-            ResetToPOIContentDisplay();
+            _contentController.Refresh();
         }
+
     }
 
     private IEnumerator LerpTextInputHeight(float targetHeight, POIMenuState newState)
     {
+
         float time = 0;
         Vector2 startSize = _inputFieldRectTransform.sizeDelta;
         Vector2 targetSize = new Vector2(startSize.x, targetHeight);
@@ -191,6 +192,9 @@ public class POIMenuTransitionController : MonoBehaviour
         if(newState == POIMenuState.commentInput)
         {
             DisplayCommentInputElements(true);
+        } else
+        {
+            DisplayMainPanelElements(true);
         }
     }
 

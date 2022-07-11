@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class POIMenuContentSetup : MonoBehaviour
+public class POIMenuContentController : MonoBehaviour
 {
     [SerializeField]
     private TextMeshProUGUI _title;
@@ -21,18 +21,30 @@ public class POIMenuContentSetup : MonoBehaviour
     [SerializeField]
     private CommentContentSetup _subCommentPrefab;
 
+    [SerializeField]
+    private TMP_InputField _textInputField;
 
-    public void Setup (PointOfInterest content)
+    private PointOfInterest _poi;
+
+
+    public void Setup (PointOfInterest poi)
+    {
+        _poi = poi;
+        Refresh();
+    }
+
+    public void Refresh()
     {
         Reset();
-        SetTitle(content.Title);
-        SetComments(content.Threads);
+        SetTitle(_poi.Title);
+        SetComments(_poi.Threads);
 
         StartCoroutine(UpdateLayoutGroup());
     }
 
     public void Reset()
     {
+        ClearTextInputContent();
         foreach(Transform child in _commentsContainer)
         {
             Destroy(child.gameObject);
@@ -73,6 +85,16 @@ public class POIMenuContentSetup : MonoBehaviour
         _contentContainerLayoutGroup.enabled = false;
         yield return new WaitForEndOfFrame();
         _contentContainerLayoutGroup.enabled = true;
+    }
+
+    public string GetTextInputConent()
+    {
+        return _textInputField.text;
+    }
+
+    public void ClearTextInputContent()
+    {
+        _textInputField.text = "";
     }
 
 
