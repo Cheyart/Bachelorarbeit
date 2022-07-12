@@ -561,6 +561,7 @@ MonoBehaviour:
   _profilePic: {fileID: 0}
   _layoutGroup: {fileID: 4678999693467690489}
   _commmentsDB: {fileID: 11400000, guid: 712017c42cd8d41f4bdaeea8dbc0a23b, type: 2}
+  _highlightColor: {r: 0, g: 0.4, b: 1, a: 1}
 --- !u!1 &4678999693685605288
 GameObject:
   m_ObjectHideFlags: 0
@@ -872,6 +873,41 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4678999694283427911}
     m_Modifications:
+    - target: {fileID: 1092186737694206932, guid: 842d6483fee35418895c7d6aed2d6c02,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1092186737694206932, guid: 842d6483fee35418895c7d6aed2d6c02,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1092186737694206932, guid: 842d6483fee35418895c7d6aed2d6c02,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1865310380062324249}
+    - target: {fileID: 1092186737694206932, guid: 842d6483fee35418895c7d6aed2d6c02,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1092186737694206932, guid: 842d6483fee35418895c7d6aed2d6c02,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ReplyButtonHandler
+      objectReference: {fileID: 0}
+    - target: {fileID: 1092186737694206932, guid: 842d6483fee35418895c7d6aed2d6c02,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: CommentPrefab, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 1092186737694206932, guid: 842d6483fee35418895c7d6aed2d6c02,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 1092186737694206938, guid: 842d6483fee35418895c7d6aed2d6c02,
         type: 3}
       propertyPath: m_Name

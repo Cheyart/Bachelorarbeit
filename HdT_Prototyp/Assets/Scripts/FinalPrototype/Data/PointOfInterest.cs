@@ -8,21 +8,45 @@ public class PointOfInterest : ScriptableObject
 
     [SerializeField]
     private int _id;
-    public int Id { get => _id;}
+    public int Id { get => _id; }
 
     [SerializeField]
     private string _title;
-    public string Title { get => _title;}
+    public string Title { get => _title; }
 
     [SerializeField]
     private List<Thread> _threads;
     public List<Thread> Threads { get => _threads; }
 
-    /*public void AddNewThread(Comment firstComment)
+    private int _nrOfComments;
+    public int NrOfComments { get => _nrOfComments; }
+
+
+    private void Awake()
     {
-        Thread newThread = ScriptableObject.CreateInstance("Thread") as Thread;
-        newThread.Init(firstComment);
+        //Debug.Log("Inside POI Scriptable Object Awake");
+        SetNrOfComments();
+    }
+
+    public void AddNewThread(Thread newThread)
+    {
         _threads.Add(newThread);
-    }*/
+        _nrOfComments += newThread.NrOfComments;
+
+        //Debug.Log("Thread added to POI: ");
+
+    }
+
+
+    public void SetNrOfComments()
+    {
+
+        _nrOfComments = 0;
+
+        foreach(Thread thread in _threads)
+        {
+            _nrOfComments += thread.Comments.Count;
+        }
+    }
 }
 

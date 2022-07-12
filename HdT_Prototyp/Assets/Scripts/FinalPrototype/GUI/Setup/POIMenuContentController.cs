@@ -10,21 +10,34 @@ public class POIMenuContentController : MonoBehaviour
     private TextMeshProUGUI _title;
 
     [SerializeField]
+    private TextMeshProUGUI _commentsTitle;
+
+    [SerializeField]
+    private TextMeshProUGUI _commentToReplyTo;
+
+    [SerializeField]
     private LayoutGroup _contentContainerLayoutGroup;
 
     [SerializeField]
     private Transform _commentsContainer;
 
     [SerializeField]
-    private CommentContentSetup _mainCommentPrefab;
+    private CommentPrefab _mainCommentPrefab;
 
     [SerializeField]
-    private CommentContentSetup _subCommentPrefab;
+    private CommentPrefab _subCommentPrefab;
 
     [SerializeField]
     private TMP_InputField _textInputField;
 
     private PointOfInterest _poi;
+
+    private POIMenuManager _poiMenuManager;
+
+    public void Init(POIMenuManager poiMenuManager)
+    {
+        _poiMenuManager = poiMenuManager;
+    }
 
 
     public void Setup (PointOfInterest poi)
@@ -37,6 +50,7 @@ public class POIMenuContentController : MonoBehaviour
     {
         Reset();
         SetTitle(_poi.Title);
+        SetCommentsTitle(_poi.NrOfComments);
         SetComments(_poi.Threads);
 
         StartCoroutine(UpdateLayoutGroup());
@@ -51,19 +65,30 @@ public class POIMenuContentController : MonoBehaviour
         }
     }
 
+    public void SetCommentToReplyTo(string message)
+    {
+        _commentToReplyTo.text = message;
+    }
+
     private void SetTitle(string title)
     {
         _title.text = title;
     }
 
+    private void SetCommentsTitle(int nrOfComments)
+    {
+        _commentsTitle.text = "Comments (" + nrOfComments.ToString() + ")";
+    }
+
     private void SetComments(List <Thread> threads)
     {
       
-       foreach (Thread thread in threads)
+       for(int j=threads.Count-1; j>= 0; j--) 
         {
-            for (int i =0; i<thread.Comments.Count; i++)
+
+            for (int i =0; i<threads[j].Comments.Count; i++)
             {
-                CommentContentSetup instance;
+                CommentPrefab instance;
                 if (i == 0)
                 {
                    instance = Instantiate(_mainCommentPrefab, _commentsContainer);
@@ -73,7 +98,7 @@ public class POIMenuContentController : MonoBehaviour
                     instance = Instantiate(_subCommentPrefab, _commentsContainer);
                 }
                
-                instance.Setup(thread.Comments[i]);
+                instance.Setup(threads[j].Comments[i], _poiMenuManager);
             }
            
         }
@@ -87,7 +112,7 @@ public class POIMenuContentController : MonoBehaviour
         _contentContainerLayoutGroup.enabled = true;
     }
 
-    public string GetTextInputConent()
+    public string GetTextInputContent()
     {
         return _textInputField.text;
     }
@@ -95,6 +120,19 @@ public class POIMenuContentController : MonoBehaviour
     public void ClearTextInputContent()
     {
         _textInputField.text = "";
+    }
+
+    public void SetTextInputPlaceholderContent(POIMenuState replyState)
+    {
+        TextMeshProUGUI placeholder = (TextMeshProUGUI)_textInputField.placeholder;
+
+        if (replyState == POIMenuState.replyInput)
+        {
+            placeholder.text = "Leave a reply...";
+        } else
+        {
+            placeholder.text = "Leave a comment...";
+        }
     }
 
 

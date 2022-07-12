@@ -7,7 +7,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "New Comment", menuName = "Assets/Comment")]
 public class Comment : ScriptableObject, ISerializationCallbackReceiver
 {
-    public static int commentId = 100;
+    private static int IdCounter = 100;
 
     [SerializeField]
     private int _id;  /** comment id. has to be unique*/
@@ -44,7 +44,7 @@ public class Comment : ScriptableObject, ISerializationCallbackReceiver
     public void Init(User poster, string message, int replyTo)
     {
         //id
-        _id = commentId++;
+        _id = IdCounter++;
 
         _poster = poster;
         _message = message;

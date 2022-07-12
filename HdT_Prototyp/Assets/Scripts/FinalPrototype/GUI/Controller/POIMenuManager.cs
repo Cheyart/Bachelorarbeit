@@ -27,12 +27,15 @@ public class POIMenuManager : MonoBehaviour
 
     private POIMenuState _stateBeforeComment;
 
+    private Comment _commentToReplyTo;
+
 
     private void Awake()
     {
         _transitionController = gameObject.GetComponent<POIMenuTransitionController>();
         _contentController = gameObject.GetComponent<POIMenuContentController>();
         State = POIMenuState.closed;
+        _contentController.Init(this);
     }
 
 
@@ -57,14 +60,27 @@ public class POIMenuManager : MonoBehaviour
 
     public void StartCommentInput()
     {
+        if(State == POIMenuState.replyInput)
+        {
+            return;
+        }
+
         _transitionController.TransitionFromTo(State, POIMenuState.commentInput);
         _stateBeforeComment = State;
         State = POIMenuState.commentInput;
         //_transitionController.State = POIMenuState.commentInput;
     }
 
-    public void StartCommentReply(int id, string message)
+    public void StartReplyInput(Comment commentToReplyTo)
     {
+        _contentController.SetCommentToReplyTo(commentToReplyTo.Message);
+        _transitionController.TransitionFromTo(State, POIMenuState.replyInput);
+        _stateBeforeComment = State;
+        State = POIMenuState.replyInput;
+
+        _commentToReplyTo = commentToReplyTo;
+        Debug.Log("StartReplyToComment: " + commentToReplyTo.Message);
+
         //transitionManager.CommentToReplyTo = message;
         //transitionManager.State = POIMenuState.commentReply;
 
@@ -83,7 +99,7 @@ public class POIMenuManager : MonoBehaviour
             return;
         }
 
-        string message = _contentController.GetTextInputConent();
+        string message = _contentController.GetTextInputContent();
         if (message == null || message == "")
         {
             Debug.LogError("The message is invalid");
@@ -95,11 +111,18 @@ public class POIMenuManager : MonoBehaviour
         {
             _commentManager.AddNewComment(SessionManager.Instance.ActivePOI, poster, message);
             _transitionController.TransitionFromTo(State, _stateBeforeComment);
+            State = _stateBeforeComment;
         }
         else if (State == POIMenuState.replyInput)
         {
             //SaveReply();
         }
+    }
+
+    public void CancelComment()
+    {
+        _transitionController.TransitionFromTo(State, _stateBeforeComment);
+        State = _stateBeforeComment;
     }
 
    

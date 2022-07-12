@@ -4,8 +4,11 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
-public class CommentContentSetup : MonoBehaviour
+public class CommentPrefab : MonoBehaviour
 {
+ 
+    private POIMenuManager _poiMenuManager;
+
     [SerializeField]
     private TextMeshProUGUI _username;
 
@@ -24,9 +27,18 @@ public class CommentContentSetup : MonoBehaviour
     [SerializeField]
     private CommentsDB _commmentsDB;
 
+    [SerializeField]
+    private Color _highlightColor;
 
-    public void Setup(Comment content)
+    private Comment _comment;
+
+
+    public void Setup(Comment content, POIMenuManager poiMenuManager)
     {
+        _poiMenuManager = poiMenuManager;
+
+        _comment = content;
+
         if(content.ReplyTo != -1)
         {
             User replyToPoster = _commmentsDB.GetPosterOfComment(content.ReplyTo);
@@ -42,14 +54,19 @@ public class CommentContentSetup : MonoBehaviour
         {
             _username.text = content.Poster.Username;
         }
+
+        if(content.Poster == SessionManager.Instance.LoggedInUser)
+        {
+            _username.color = _highlightColor;
+        }
         _date.text = content.Date.ToString("dd.MM.yy");
         _message.text = content.Message;
         //update layout group (necessary for size adjustment)
         LayoutRebuilder.ForceRebuildLayoutImmediate(_layoutGroup);
     }
 
-    public void ReplyToComment()
+    public void ReplyButtonHandler()
     {
-        //poiMenuController.StartCommmentReply(_id, _message);
+        _poiMenuManager.StartReplyInput(_comment);
     }
 }

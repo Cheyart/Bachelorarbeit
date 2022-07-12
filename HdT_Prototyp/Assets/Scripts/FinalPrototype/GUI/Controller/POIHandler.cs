@@ -14,7 +14,7 @@ public class POIHandler : MonoBehaviour
     private POISelectionManager _POISelectionManager;
     //public POISelectionManager POISelectionManager { get => _POISelectionManager; set => _POISelectionManager = value; }
 
-
+  
     // Start is called before the first frame update
     void Start()
     {
