@@ -25,6 +25,10 @@ public class Comment : ScriptableObject, ISerializationCallbackReceiver
     private int _replyTo; /** id of comment to which this comment is a reply. Is -1 if this comment is not a reply to any comment */
     public int ReplyTo { get => _replyTo; }
 
+    [SerializeField]
+    private int _belongsToThread;
+    public int BelongsToThread { get => _belongsToThread; set => _belongsToThread = value; }
+
     private DateTime _date; /** date on which the comment was posted*/
     public DateTime Date { get => _date; }
 

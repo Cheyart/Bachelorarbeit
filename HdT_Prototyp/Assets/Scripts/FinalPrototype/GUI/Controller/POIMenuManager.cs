@@ -47,7 +47,6 @@ public class POIMenuManager : MonoBehaviour
             _transitionController.TransitionFromTo(State, POIMenuState.medium);
             State = POIMenuState.medium;
         }
-
     }
 
     public void CloseMenu()
@@ -79,13 +78,6 @@ public class POIMenuManager : MonoBehaviour
         State = POIMenuState.replyInput;
 
         _commentToReplyTo = commentToReplyTo;
-        Debug.Log("StartReplyToComment: " + commentToReplyTo.Message);
-
-        //transitionManager.CommentToReplyTo = message;
-        //transitionManager.State = POIMenuState.commentReply;
-
-
-        //oder TransitionToCommentReply(message);
     }
 
 
@@ -110,13 +102,13 @@ public class POIMenuManager : MonoBehaviour
         if (State == POIMenuState.commentInput)
         {
             _commentManager.AddNewComment(SessionManager.Instance.ActivePOI, poster, message);
-            _transitionController.TransitionFromTo(State, _stateBeforeComment);
-            State = _stateBeforeComment;
         }
         else if (State == POIMenuState.replyInput)
         {
-            //SaveReply();
+            _commentManager.AddReply(poster, message, _commentToReplyTo);
         }
+        _transitionController.TransitionFromTo(State, _stateBeforeComment);
+        State = _stateBeforeComment;
     }
 
     public void CancelComment()

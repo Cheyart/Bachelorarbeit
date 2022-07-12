@@ -18,15 +18,15 @@ public class CommentsDB : ScriptableObject
 
    public Comment GetCommentById(int id)
     {
-        return _commentsDB.First(c => c.Id == id);
-       /* foreach(Comment comment in _commentsDB)
+        //return _commentsDB.First(c => c.Id == id);
+       foreach(Comment comment in _commentsDB)
         {
             if(comment.Id == id)
             {
                 return comment;
             }
         }
-        return null;*/
+        return null;
     }
 
     public User GetPosterOfComment(int id)

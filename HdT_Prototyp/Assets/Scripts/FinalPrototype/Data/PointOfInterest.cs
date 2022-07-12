@@ -31,7 +31,7 @@ public class PointOfInterest : ScriptableObject
     public void AddNewThread(Thread newThread)
     {
         _threads.Add(newThread);
-        _nrOfComments += newThread.NrOfComments;
+        _nrOfComments += newThread.Comments.Count;
 
         //Debug.Log("Thread added to POI: ");
 
