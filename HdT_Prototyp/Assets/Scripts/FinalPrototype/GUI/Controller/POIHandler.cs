@@ -9,22 +9,25 @@ public class POIHandler : MonoBehaviour
     private PointOfInterest _content;
     public PointOfInterest Content { get => _content; set => _content = value; }
 
+    [SerializeField]
+    private bool _isVisibleInAR;
+    public bool IsVisibleInAR { get => _isVisibleInAR; }
+
     private MeshRenderer _meshRenderer;
 
     private POISelectionManager _POISelectionManager;
     //public POISelectionManager POISelectionManager { get => _POISelectionManager; set => _POISelectionManager = value; }
 
   
-    // Start is called before the first frame update
     void Start()
     {
-        _meshRenderer = GetComponent<MeshRenderer>();
+        //_meshRenderer = GetComponent<MeshRenderer>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        _meshRenderer = GetComponent<MeshRenderer>();
+        //_meshRenderer = GetComponent<MeshRenderer>();
 
     }
 

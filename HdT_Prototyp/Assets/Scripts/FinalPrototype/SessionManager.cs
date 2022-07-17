@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 
+
+
+//TO DO: implement ModeManager?
 public class SessionManager : MonoBehaviour
 {
     public static SessionManager Instance { get; private set; }
@@ -14,9 +17,14 @@ public class SessionManager : MonoBehaviour
 
     public PointOfInterest ActivePOI { get; set; }
 
+    public OffScreenPointer _offscreenPointer;
+
 
     [SerializeField]
     private MainGUIController _GUIController;
+
+    [SerializeField]
+    private POISelectionManager _poiSelectionManager;
 
     [SerializeField]
     private ARTrackedImageManager _trackedImageManager;
@@ -64,6 +72,7 @@ public class SessionManager : MonoBehaviour
             {
                 _sessionInProgress = true;
                 _GUIController.ShowMainGUI();
+                _poiSelectionManager.SetupPOIs();
             }
 
             //_trackedImage = newImage;
@@ -71,4 +80,24 @@ public class SessionManager : MonoBehaviour
             //_imageDetected++;
         }
     }
+
+   
+    public void SetTarget(GameObject go)
+    {
+        _offscreenPointer.Target = go;
+    }
+    /*void OnGUI()
+    {
+      
+        
+            GUI.Label(new Rect(200, 450, 400, 100), " Session in progress = " + _sessionInProgress);
+
+        
+       
+
+
+
+    }*/
+
+
 }

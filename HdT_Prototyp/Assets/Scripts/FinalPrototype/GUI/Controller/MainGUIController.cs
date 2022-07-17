@@ -13,12 +13,23 @@ public class MainGUIController : MonoBehaviour
     [SerializeField]
     private GameObject _bottomBar;
 
+    private float _screenWidth;
+    private float _screenHeight;
+    private float _topBarHeight;
+    private float _bottomBarHeight;
+
+
     // Start is called before the first frame update
     void Start()
     {
         _topBar.SetActive(false);
         _poiMenu.SetActive(false);
         _bottomBar.SetActive(false);
+        _screenWidth = Screen.width;
+        _screenHeight = Screen.height;
+
+        _topBarHeight = _topBar.GetComponent<RectTransform>().rect.height;
+        _bottomBarHeight = _bottomBar.GetComponent<RectTransform>().rect.height;
     }
 
     // Update is called once per frame
@@ -32,6 +43,18 @@ public class MainGUIController : MonoBehaviour
         _topBar.SetActive(true);
         _bottomBar.SetActive(true);
         _poiMenu.SetActive(true);
+    }
 
+    public Vector2 GetViewportHeight()
+    {
+        float bottom = _bottomBarHeight;
+        float top = _screenHeight - _topBarHeight;
+
+        return new Vector2(bottom, top);
+    }
+
+    public Vector2 GetViewportWidth()
+    {
+        return new Vector2(0, _screenWidth);
     }
 }

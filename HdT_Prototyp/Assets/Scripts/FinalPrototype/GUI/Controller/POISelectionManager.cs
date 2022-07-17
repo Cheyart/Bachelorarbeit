@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class POISelectionManager : MonoBehaviour
@@ -11,15 +12,28 @@ public class POISelectionManager : MonoBehaviour
     private POIMenuManager _POIMenuManager;
 
     [SerializeField]
+    private OffScreenPointer _offScreenPointer;
+
+    [SerializeField]
     private Color _idleColor;
 
     [SerializeField]
     private Color _selectedColor;
 
+    private SessionManager _sessionManager;
+
     // Start is called before the first frame update
     void Awake()
     {
-        _POIs = FindObjectsOfType<POIHandler>();
+        //_sessionManager = SessionManager.Instance;
+  
+    }
+
+    public void SetupPOIs()
+    {
+        //_POIs = GetAllPOIsInScene();
+        _POIs = FindObjectsOfType<POIHandler>(true);
+
 
 
         foreach (POIHandler poi in _POIs)
@@ -27,8 +41,6 @@ public class POISelectionManager : MonoBehaviour
             poi.Setup(this, _idleColor);
         }
     }
-
-
    
 
     public void SelectPOI (int idOfSelectedPOI)
@@ -44,10 +56,20 @@ public class POISelectionManager : MonoBehaviour
             if(poi != null && poi.Content.Id == idOfSelectedPOI)
             {
                 poi.SetColor(_selectedColor);
-                _POIMenuManager.OpenMenu(poi.Content);
+               // _POIMenuManager.OpenMenu(poi.Content);
                 SessionManager.Instance.ActivePOI = poi.Content;
+                //_sessionManager.ActivePOI = poi.Content;
 
-            } else
+                if (poi.IsVisibleInAR)
+                {
+                    _offScreenPointer.Target = poi.gameObject;
+                }
+            
+               
+
+
+            }
+            else
             {
                 poi.SetColor(_idleColor);
             }
@@ -64,6 +86,7 @@ public class POISelectionManager : MonoBehaviour
             }
         }
         SessionManager.Instance.ActivePOI = null;
+        _offScreenPointer.Target = null;
     }
 
     private bool IsActivePOI(int POIId)
@@ -71,6 +94,31 @@ public class POISelectionManager : MonoBehaviour
         return (SessionManager.Instance.ActivePOI != null && POIId == SessionManager.Instance.ActivePOI.Id);
     }
 
+   /* private POIHandler[] GetAllPOIsInScene()
+    {
+        List<POIHandler> poiInScene = new List<POIHandler>();
+        POIHandler[] POIs = Resources.FindObjectsOfTypeAll(typeof(POIHandler)) as POIHandler[];
+
+        foreach (POIHandler poi in POIs)
+        {
+            if (!EditorUtility.IsPersistent(poi.transform.root.gameObject) && !(poi.hideFlags == HideFlags.NotEditable || poi.hideFlags == HideFlags.HideAndDontSave))
+                poiInScene.Add(poi);
+        }
+
+        return poiInScene.ToArray();
+    }*/
+
+    void OnGUI()
+    {
+        if(_POIs != null)
+        {
+            GUI.Label(new Rect(200, 700, 400, 100), " Nr of POIs = " + _POIs.Length);
+
+        }
+       
+
+
+    }
 
 
 
