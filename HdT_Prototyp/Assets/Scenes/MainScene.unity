@@ -480,7 +480,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 400, y: 0}
   m_SizeDelta: {x: 800, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &106396645
@@ -754,7 +754,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 400, y: 0}
   m_SizeDelta: {x: 800, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &176687908
@@ -2751,6 +2751,52 @@ MonoBehaviour:
   _subCommentPrefab: {fileID: 4755144452158885953, guid: 0ecd5a953791547c99183ec772c69dd2,
     type: 3}
   _textInputField: {fileID: 1947353118}
+--- !u!1 &735221409
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 735221410}
+  - component: {fileID: 735221411}
+  m_Layer: 0
+  m_Name: Main GUI Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &735221410
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 735221409}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1886731549}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &735221411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 735221409}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8092bbcfc7bfe4cf4be2abe3fc185c6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _topBar: {fileID: 1587839409}
+  _poiMenu: {fileID: 1875843556}
+  _bottomBar: {fileID: 1380784502}
 --- !u!1 &759914076 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7466969165127367883, guid: 277c5cb14d0234629a7a3a052f5d2675,
@@ -3473,14 +3519,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1037619998}
-  - component: {fileID: 1037619999}
   m_Layer: 0
   m_Name: ----AR View----
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1037619998
 Transform:
   m_ObjectHideFlags: 0
@@ -3497,22 +3542,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1037619999
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1037619997}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82189d3d6587a4733844f028f8e101cd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _transitionController: {fileID: 0}
-  _arCamera: {fileID: 1354141926}
-  _trackedImageManager: {fileID: 1659859600}
-  _arSessionOrigin: {fileID: 1659859598}
 --- !u!1 &1043223844
 GameObject:
   m_ObjectHideFlags: 0
@@ -4708,6 +4737,8 @@ GameObject:
   - component: {fileID: 1493377369}
   - component: {fileID: 1493377368}
   - component: {fileID: 1493377367}
+  - component: {fileID: 1493377371}
+  - component: {fileID: 1493377370}
   m_Layer: 5
   m_Name: Handle Bar
   m_TagString: Untagged
@@ -4741,7 +4772,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1493377365}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
@@ -4816,6 +4847,59 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1493377365}
   m_CullTransparentMesh: 1
+--- !u!114 &1493377370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1493377365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bf05f5de06004529bc596f54f6b05c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1493377371
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1493377365}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Delegates:
+  - eventID: 5
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1493377370}
+          m_TargetAssemblyTypeName: OnDrag, Assembly-CSharp
+          m_MethodName: OnDragHandler
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+        - m_Target: {fileID: 0}
+          m_TargetAssemblyTypeName: OnDrag, Assembly-CSharp
+          m_MethodName: 
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: 
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
 --- !u!1 &1497129637
 GameObject:
   m_ObjectHideFlags: 0
@@ -5860,6 +5944,7 @@ Transform:
   - {fileID: 660348882}
   - {fileID: 1630062161}
   - {fileID: 391313683}
+  - {fileID: 735221410}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5876,6 +5961,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _loggedInUser: {fileID: 11400000, guid: 06b3e3ee375604a1bad92cf42e0e2622, type: 2}
+  _GUIController: {fileID: 0}
+  _trackedImageManager: {fileID: 0}
   _poiDB: {fileID: 11400000, guid: 5b25993b2a3cf4beca3a8b382f165707, type: 2}
   _commentsDB: {fileID: 11400000, guid: 712017c42cd8d41f4bdaeea8dbc0a23b, type: 2}
   _threadsDB: {fileID: 11400000, guid: a20799954de494754bb306cb58b66a33, type: 2}
@@ -6632,7 +6719,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2083842948
 Transform:
   m_ObjectHideFlags: 0

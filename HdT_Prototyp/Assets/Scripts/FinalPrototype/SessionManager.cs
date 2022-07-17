@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.ARFoundation;
 
 public class SessionManager : MonoBehaviour
 {
@@ -13,6 +14,13 @@ public class SessionManager : MonoBehaviour
 
     public PointOfInterest ActivePOI { get; set; }
 
+
+    [SerializeField]
+    private MainGUIController _GUIController;
+
+    [SerializeField]
+    private ARTrackedImageManager _trackedImageManager;
+
     [SerializeField]
     private PointOfInterestDB _poiDB;
     public PointOfInterestDB POI_DB { get => _poiDB;  }
@@ -24,6 +32,12 @@ public class SessionManager : MonoBehaviour
     [SerializeField]
     private ThreadsDB _threadsDB;
     public ThreadsDB ThreadsDB { get => _threadsDB; }
+
+    private bool _sessionInProgress;
+
+    void OnEnable() => _trackedImageManager.trackedImagesChanged += OnTrackedImageChanged;
+
+    void OnDisable() => _trackedImageManager.trackedImagesChanged -= OnTrackedImageChanged;
 
     private void Awake()
     {
@@ -39,5 +53,22 @@ public class SessionManager : MonoBehaviour
         POI_DB.Setup();
         CommentsDB.Setup();
         ThreadsDB.Setup();
+    }
+
+    void OnTrackedImageChanged(ARTrackedImagesChangedEventArgs eventArgs)
+    {
+        foreach (var newImage in eventArgs.added)
+        {
+            //activate Session
+            if (!_sessionInProgress)
+            {
+                _sessionInProgress = true;
+                _GUIController.ShowMainGUI();
+            }
+
+            //_trackedImage = newImage;
+            //_transitionController.ActivateNewSession(newImage);
+            //_imageDetected++;
+        }
     }
 }
