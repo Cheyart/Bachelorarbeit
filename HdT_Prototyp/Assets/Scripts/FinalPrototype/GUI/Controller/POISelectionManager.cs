@@ -31,7 +31,6 @@ public class POISelectionManager : MonoBehaviour
 
     public void SetupPOIs()
     {
-        //_POIs = GetAllPOIsInScene();
         _POIs = FindObjectsOfType<POIHandler>(true);
 
 
@@ -56,7 +55,7 @@ public class POISelectionManager : MonoBehaviour
             if(poi != null && poi.Content.Id == idOfSelectedPOI)
             {
                 poi.SetColor(_selectedColor);
-               // _POIMenuManager.OpenMenu(poi.Content);
+                _POIMenuManager.OpenMenu(poi.Content);
                 SessionManager.Instance.ActivePOI = poi.Content;
                 //_sessionManager.ActivePOI = poi.Content;
 
@@ -94,19 +93,7 @@ public class POISelectionManager : MonoBehaviour
         return (SessionManager.Instance.ActivePOI != null && POIId == SessionManager.Instance.ActivePOI.Id);
     }
 
-   /* private POIHandler[] GetAllPOIsInScene()
-    {
-        List<POIHandler> poiInScene = new List<POIHandler>();
-        POIHandler[] POIs = Resources.FindObjectsOfTypeAll(typeof(POIHandler)) as POIHandler[];
-
-        foreach (POIHandler poi in POIs)
-        {
-            if (!EditorUtility.IsPersistent(poi.transform.root.gameObject) && !(poi.hideFlags == HideFlags.NotEditable || poi.hideFlags == HideFlags.HideAndDontSave))
-                poiInScene.Add(poi);
-        }
-
-        return poiInScene.ToArray();
-    }*/
+ 
 
     void OnGUI()
     {

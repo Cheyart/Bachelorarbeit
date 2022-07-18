@@ -10,8 +10,8 @@ public class OffScreenPointer : MonoBehaviour
     private GameObject _target;
     public GameObject Target { get => _target; set => _target = value; }
 
-    [SerializeField]
-    private MainGUIController _guiController;
+   // [SerializeField]
+    //private MainGUIController _guiController;
 
     [SerializeField]
     private GameObject _icon;
@@ -22,19 +22,19 @@ public class OffScreenPointer : MonoBehaviour
     private Vector3 _targetViewportPos;
     private float _angle;
 
-
     private RectTransform _rectTransform;
 
     [SerializeField]
     private Camera _camera;
 
-    private float _screenWidth;
-    private float _screenHeight;
     private Vector2 _viewportHeight;
     private Vector2 _viewportWidth;
+    private Vector2 _viewportCenter;
 
-    private Vector2 _screenCenter;
     private bool _isEnabled;
+    public bool IsEnabled { get => _isEnabled; set => _isEnabled = value; }
+
+    private bool _isVisible;
 
     //difference between isEnabled and isVisible;
 
@@ -42,40 +42,41 @@ public class OffScreenPointer : MonoBehaviour
     {
         _rectTransform = GetComponent<RectTransform>();
       
-        _screenWidth = Screen.width;
-        _screenHeight = Screen.height;
-        _viewportHeight = _guiController.GetViewportHeight();
-        _viewportWidth = _guiController.GetViewportWidth();
-        _screenCenter = new Vector2(_screenWidth / 2, _screenHeight / 2);
-        Enable(false);
-
+        _viewportHeight = new Vector2();
+        _viewportWidth = new Vector2();
+        _isEnabled = false;
+        ToggleVisibility(false);
     }
 
     void FixedUpdate()
     {
-        if (_target != null)
+        if (_target != null && _isEnabled && ViewportIsBigEnough())
         {
+            //_viewportHeight = _guiController.GetViewportHeight();
+            //_viewportCenter = CalculateViewportCenter(_viewportWidth, _viewportHeight);
             _targetPosition = _target.transform.position;
             //Vector3 direction = (_camera.transform.position - _targetPosition).normalized;
             _targetScreenPos = _camera.WorldToScreenPoint(_targetPosition); //get screen position
 
-            Vector2 direction = (_screenCenter - new Vector2(_targetScreenPos.x, _targetScreenPos.y)).normalized;
+            Vector2 direction = (_viewportCenter - new Vector2(_targetScreenPos.x, _targetScreenPos.y)).normalized;
 
-            _targetViewportPos = _camera.WorldToViewportPoint(_targetPosition); //get screen position
+            //_targetViewportPos = _camera.WorldToViewportPoint(_targetPosition); //get screen position
 
 
             if (TargetIsOffScreen(_targetScreenPos))
             {
-                if (!_isEnabled)
-                {
-                    Enable(true);
-                }
+                
                 float posX = Mathf.Clamp(_targetScreenPos.x, _viewportWidth.x, _viewportWidth.y);
                 float posY = Mathf.Clamp(_targetScreenPos.y, _viewportHeight.x, _viewportHeight.y);
                 _angle = GetAngleFromVector(direction);
 
                 _rectTransform.localEulerAngles = new Vector3(0, 0, _angle);
                 _rectTransform.anchoredPosition = new Vector2(posX, posY);
+
+                if (!_isVisible)
+                {
+                    ToggleVisibility(true);
+                }
             }
             else
             {
@@ -87,37 +88,38 @@ public class OffScreenPointer : MonoBehaviour
                     if (hit.collider.tag != "MainCamera") //hit something else before the camera
                     {
 
-                        if (!_isEnabled)
-                        {
-                            Enable(true);
-                        }
+                     
                         _rectTransform.anchoredPosition = _targetScreenPos;
 
                         float angle = GetAngleFromVector(direction);
 
                         _rectTransform.localEulerAngles = new Vector3(0, 0, angle);
+                        if (!_isVisible)
+                        {
+                            ToggleVisibility(true);
+                        }
                     }
                     else
                     {
-                        if (_isEnabled)
+                        if (_isVisible)
                         {
-                            Enable(false);
+                            ToggleVisibility(false);
                         }
                     }
                 }
                 else
                 {
-                    if (_isEnabled)
+                    if (_isVisible)
                     {
-                        Enable(false);
+                        ToggleVisibility(false);
                     }
                 }
             }
         }else
         {
-            if (_isEnabled)
+            if (_isVisible)
             {
-                Enable(false);
+                ToggleVisibility(false);
             }
         }
 
@@ -129,10 +131,25 @@ public class OffScreenPointer : MonoBehaviour
         return !(screenPos.x >= _viewportWidth.x && screenPos.x <= _viewportWidth.y && screenPos.y >= _viewportHeight.x && screenPos.y <= _viewportHeight.y);
     }
 
+    private bool ViewportIsBigEnough()
+    {
+        bool highEnough = (_viewportHeight.y - _viewportHeight.x) >= (2 * _rectTransform.rect.height);
+        bool wideEnough = (_viewportWidth.y - _viewportWidth.x) >= (2 * _rectTransform.rect.width);
+        return highEnough && wideEnough;
+    }
+
+
     //Util function
     private float GetAngleFromVector(Vector2 vec)
     {
         return (Mathf.Atan2(vec.y, vec.x) * Mathf.Rad2Deg) % 360;
+    }
+    private Vector2 CalculateViewportCenter(Vector2 widthCoordinates, Vector2 heightCoordinates)
+    {
+        float xPos = (widthCoordinates.y - widthCoordinates.x) / 2 + widthCoordinates.x;
+        float yPos = (heightCoordinates.y - heightCoordinates.x) / 2 + heightCoordinates.x;
+        return new Vector2(xPos, yPos);
+
     }
 
     //Util function
@@ -141,10 +158,23 @@ public class OffScreenPointer : MonoBehaviour
         return out1 + (val - in1) * (out2 - out1) / (in2 - in1);
     }*/
 
-    private void Enable(bool value)
+    /*private void Enable(bool value)
     {
         _isEnabled = value;
         _icon.gameObject.SetActive(value);
+    }*/
+
+    private void ToggleVisibility(bool value)
+    {
+        _isVisible = value;
+        _icon.gameObject.SetActive(value);
+    }
+
+    public void SetViewportDimensions(Vector2 viewportWidth, Vector2 viewportHeight)
+    {
+        _viewportWidth = viewportWidth;
+        _viewportHeight = viewportHeight;
+        _viewportCenter = CalculateViewportCenter(_viewportWidth, _viewportHeight);
     }
 
 
@@ -158,8 +188,8 @@ public class OffScreenPointer : MonoBehaviour
 
         }
 
-        GUI.Label(new Rect(200, 350, 400, 100), " Screen width: " + _screenWidth);
-        GUI.Label(new Rect(200, 400, 400, 100), " Screen heigth: " + _screenHeight);
+        GUI.Label(new Rect(200, 350, 400, 100), " Viewport width: " + _viewportWidth);
+        GUI.Label(new Rect(200, 400, 400, 100), " Viewport heigth: " + _viewportHeight);
         GUI.Label(new Rect(200, 450, 400, 100), " Is Enabled: " + _isEnabled);
         GUI.Label(new Rect(200, 500, 400, 100), " target Pos: " + _targetPosition);
         GUI.Label(new Rect(200, 550, 400, 100), " target Screen Pos: " + _targetScreenPos);

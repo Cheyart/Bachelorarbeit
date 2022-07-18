@@ -14,6 +14,9 @@ public class ModeManager : MonoBehaviour
     private Mode _currentMode;
 
     [SerializeField]
+    private OffScreenPointer _offScreenPointer;
+
+    [SerializeField]
     private GameObject _vrMode;
 
     // Start is called before the first frame update
@@ -21,6 +24,7 @@ public class ModeManager : MonoBehaviour
     {
         _previousMode = Mode.ARCamera;
         _currentMode = Mode.ARCamera;
+        _offScreenPointer.IsEnabled = true;
         _vrMode.SetActive(false);
     }
 
@@ -34,14 +38,20 @@ public class ModeManager : MonoBehaviour
     {
         if(_currentMode == Mode.ARCamera || _currentMode == Mode.ARPicture)
         {
+            _offScreenPointer.IsEnabled = false;
             _previousMode = _currentMode;
             _currentMode = Mode.Miniature;
             _vrMode.SetActive(true);
+
         } else
         {
             _currentMode = _previousMode;
             _previousMode = Mode.Miniature;
             _vrMode.SetActive(false);
+            if(_currentMode == Mode.ARCamera)
+            {
+                _offScreenPointer.IsEnabled = true;
+            }
         }
     }
 }

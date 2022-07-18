@@ -18,6 +18,9 @@ public class POIMenuManager : MonoBehaviour
     [SerializeField]
     private CommentManager _commentManager;
 
+    [SerializeField]
+    private MainGUIController _guiController;
+
 
     private POIMenuTransitionController _transitionController;
 
@@ -45,7 +48,8 @@ public class POIMenuManager : MonoBehaviour
 
         if(State == POIMenuState.closed) {
             _transitionController.TransitionFromTo(State, POIMenuState.medium);
-            State = POIMenuState.medium;
+            SwitchState(POIMenuState.medium);
+            
         }
     }
 
@@ -54,7 +58,9 @@ public class POIMenuManager : MonoBehaviour
         _POISelectionManager.DeselectCurrentPOI();
 
         _transitionController.TransitionFromTo(State, POIMenuState.closed);
-        State = POIMenuState.closed;
+        SwitchState(POIMenuState.closed);
+
+
     }
 
     public void StartCommentInput()
@@ -66,7 +72,8 @@ public class POIMenuManager : MonoBehaviour
 
         _transitionController.TransitionFromTo(State, POIMenuState.commentInput);
         _stateBeforeComment = State;
-        State = POIMenuState.commentInput;
+        SwitchState(POIMenuState.commentInput);
+
         //_transitionController.State = POIMenuState.commentInput;
     }
 
@@ -75,7 +82,7 @@ public class POIMenuManager : MonoBehaviour
         _contentController.SetCommentToReplyTo(commentToReplyTo.Message);
         _transitionController.TransitionFromTo(State, POIMenuState.replyInput);
         _stateBeforeComment = State;
-        State = POIMenuState.replyInput;
+        SwitchState(POIMenuState.replyInput);
 
         _commentToReplyTo = commentToReplyTo;
     }
@@ -108,14 +115,30 @@ public class POIMenuManager : MonoBehaviour
             _commentManager.AddReply(poster, message, _commentToReplyTo);
         }
         _transitionController.TransitionFromTo(State, _stateBeforeComment);
-        State = _stateBeforeComment;
+        SwitchState(_stateBeforeComment);
     }
 
     public void CancelComment()
     {
         _transitionController.TransitionFromTo(State, _stateBeforeComment);
-        State = _stateBeforeComment;
+        SwitchState(_stateBeforeComment);
     }
 
+    private void SwitchState(POIMenuState newState)
+    {
+        State = newState;
+        _guiController.SetPOIMenuHeight(GetMenuHeight());
+    }
+
+    private float GetMenuHeight()
+    {
+        if(State == POIMenuState.closed)
+        {
+            return 0f;
+        } else
+        {
+            return _transitionController.GetYPos(State);
+        }
+    }
    
 }

@@ -49,7 +49,7 @@ public class POIMenuTransitionController : MonoBehaviour
 
     private const float CLOSED_Y_POS = 140f;
     private const float SMALL_Y_POS = 370f;
-    private const float MEDIUM_Y_POS = 1330f;
+    private const float MEDIUM_Y_POS = 1100f;
     private const float BIG_Y_POS = 1960f;
 
     private const float TEXT_INPUT_SMALL = 90f;
@@ -103,7 +103,7 @@ public class POIMenuTransitionController : MonoBehaviour
 
     }
 
-    private float GetYPos(POIMenuState newState)
+    public float GetYPos(POIMenuState newState)
     {
         if (newState == POIMenuState.closed)
         {

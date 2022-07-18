@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class MainGUIController : MonoBehaviour
 {
+    //[SerializeField]
+    //private POIMenuManager _poiMenuManager;
+
+    [SerializeField]
+    private OffScreenPointer _offScreenPointer;
+
     [SerializeField]
     private GameObject _topBar;
 
@@ -13,10 +19,15 @@ public class MainGUIController : MonoBehaviour
     [SerializeField]
     private GameObject _bottomBar;
 
-    private float _screenWidth;
-    private float _screenHeight;
+    //private float _screenWidth;
+   // private float _screenHeight;
     private float _topBarHeight;
     private float _bottomBarHeight;
+
+    private float _poiMenuHeight;
+    private Vector2 _viewportHeightCoordinates;
+    private Vector2 _viewportWidthCoordinates;
+
 
 
     // Start is called before the first frame update
@@ -25,8 +36,12 @@ public class MainGUIController : MonoBehaviour
         _topBar.SetActive(false);
         _poiMenu.SetActive(false);
         _bottomBar.SetActive(false);
-        _screenWidth = Screen.width;
-        _screenHeight = Screen.height;
+        _poiMenuHeight = 0;
+        SetViewportDimensions(_poiMenuHeight);
+
+
+        //_screenWidth = Screen.width;
+        //_screenHeight = Screen.height;
 
         _topBarHeight = _topBar.GetComponent<RectTransform>().rect.height;
         _bottomBarHeight = _bottomBar.GetComponent<RectTransform>().rect.height;
@@ -45,16 +60,48 @@ public class MainGUIController : MonoBehaviour
         _poiMenu.SetActive(true);
     }
 
-    public Vector2 GetViewportHeight()
+    /*public Vector2 GetViewportHeight()
     {
-        float bottom = _bottomBarHeight;
+        
+
+        float bottom = _poiMenuManager.GetMenuHeight();
+        if (bottom == 0)
+        {
+            bottom = _bottomBarHeight;
+        }
+
         float top = _screenHeight - _topBarHeight;
 
         return new Vector2(bottom, top);
+    }*/
+
+    /*public void SetViewportWidthCoordinates()
+    {
+        _viewportHeightCoordinates = new Vector2()
+        return new Vector2(0, _screenWidth);
+    }*/
+
+    public void SetPOIMenuHeight(float poiMenuHeight)
+    {
+        _poiMenuHeight = poiMenuHeight;
+        SetViewportDimensions(poiMenuHeight);
     }
 
-    public Vector2 GetViewportWidth()
+    public void SetViewportDimensions(float poiMenuHeight)
     {
-        return new Vector2(0, _screenWidth);
+        _viewportWidthCoordinates = new Vector2(0, Screen.width);
+
+        float bottom = poiMenuHeight;
+        if (bottom == 0)
+        {
+            bottom = _bottomBarHeight;
+        }
+
+        float top = Screen.height - _topBarHeight;
+        _viewportHeightCoordinates = new Vector2(bottom, top);
+
+        _offScreenPointer.SetViewportDimensions(_viewportWidthCoordinates, _viewportHeightCoordinates);
     }
+
+
 }
