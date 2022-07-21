@@ -27,6 +27,9 @@ public class SessionManager : MonoBehaviour
     private POISelectionManager _poiSelectionManager;
 
     [SerializeField]
+    private ModeManager _modeManager;
+
+    [SerializeField]
     private ARTrackedImageManager _trackedImageManager;
 
     [SerializeField]
@@ -73,6 +76,7 @@ public class SessionManager : MonoBehaviour
                 _sessionInProgress = true;
                 _GUIController.ShowMainGUI();
                 _poiSelectionManager.SetupPOIs();
+                _modeManager.Setup();
             }
 
             //_trackedImage = newImage;

@@ -178,7 +178,7 @@ public class OffScreenPointer : MonoBehaviour
     }
 
 
-    void OnGUI()
+   /* void OnGUI()
     {
        
             GUI.Label(new Rect(200, 250, 400, 100), " target ist null: " + (_target == null));
@@ -196,30 +196,7 @@ public class OffScreenPointer : MonoBehaviour
         GUI.Label(new Rect(200, 600, 400, 100), " angle: " + _angle);
 
         GUI.Label(new Rect(200, 650, 400, 100), " camera Pos: " + _camera.transform.position);
-        //GUI.Label(new Rect(200, 650, 400, 100), " camera Pixel width: " + _camera.pixelWidth);
-       // GUI.Label(new Rect(200, 700, 400, 100), " camera Pixel height: " + _camera.pixelHeight);
-
-
-
-
-
-
-
-
-        /*GUI.Label(new Rect(200, 200, 400, 100), " saved tracked image position = " + _trackedImage.transform.position);
-        GUI.Label(new Rect(200, 250, 400, 100), " saved tracked image rotation = " + _trackedImage.transform.rotation);
-        GUI.Label(new Rect(200, 300, 400, 100), " Tracked image position (AR View) = " + _arView.TrackedImage.transform.position);
-        GUI.Label(new Rect(200, 350, 400, 100), " Tracked Image rotation = " + _arView.TrackedImage.transform.rotation);
-        GUI.Label(new Rect(200, 400, 400, 100), " ARCamera position = " + _arView.ArCamera.transform.position);*/
-
-
-        /*GUI.Label(new Rect(200, 250, 400, 100), " Automatic Transition enabled (in transition controller) = " + _automaticTransitionEnabled);
-        GUI.Label(new Rect(200, 300, 400, 100), " View Transition Switch To VR = " + _insideSwitchToVR);
-        GUI.Label(new Rect(200, 350, 400, 100), " View Transition Switch To AR = " + _insideSwitchToAR);
-        GUI.Label(new Rect(200, 450, 400, 100), " VR Scene is set up = " + _vrView.SceneIsSetup);*/
-
-
-
-    }
+   
+    }*/
 
 }

@@ -18,6 +18,10 @@ public class PointOfInterest : ScriptableObject
     private List<Thread> _threads;
     public List<Thread> Threads { get => _threads; }
 
+    [SerializeField]
+    private Sprite _picture;
+    public Sprite Picture { get => _picture; }
+
     private int _nrOfComments;
     public int NrOfComments { get => _nrOfComments; }
 

@@ -12,6 +12,9 @@ public class POISelectionManager : MonoBehaviour
     private POIMenuManager _POIMenuManager;
 
     [SerializeField]
+    private ModeManager _modeManager;
+
+    [SerializeField]
     private OffScreenPointer _offScreenPointer;
 
     [SerializeField]
@@ -58,14 +61,13 @@ public class POISelectionManager : MonoBehaviour
                 _POIMenuManager.OpenMenu(poi.Content);
                 SessionManager.Instance.ActivePOI = poi.Content;
                 //_sessionManager.ActivePOI = poi.Content;
+                _modeManager.PoiIsSelected = true;
 
                 if (poi.IsVisibleInAR)
                 {
                     _offScreenPointer.Target = poi.gameObject;
                 }
             
-               
-
 
             }
             else
@@ -86,6 +88,8 @@ public class POISelectionManager : MonoBehaviour
         }
         SessionManager.Instance.ActivePOI = null;
         _offScreenPointer.Target = null;
+        _modeManager.PoiIsSelected = false;
+
     }
 
     private bool IsActivePOI(int POIId)
