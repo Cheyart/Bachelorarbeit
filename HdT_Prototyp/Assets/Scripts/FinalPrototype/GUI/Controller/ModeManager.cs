@@ -150,7 +150,7 @@ public class ModeManager : MonoBehaviour
 
     ////Picture Mode
 
-    void OnGUI()
+    /*void OnGUI()
     {
 
         
@@ -160,7 +160,7 @@ public class ModeManager : MonoBehaviour
         GUI.Label(new Rect(200, 450, 400, 100), " POI is selected: " + _poiIsSelected);
   
 
-    }
+    }*/
 
 
 }
