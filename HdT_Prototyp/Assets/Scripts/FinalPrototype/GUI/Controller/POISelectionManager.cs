@@ -99,7 +99,7 @@ public class POISelectionManager : MonoBehaviour
 
  
 
-    void OnGUI()
+    /*void OnGUI()
     {
         if(_POIs != null)
         {
@@ -109,7 +109,7 @@ public class POISelectionManager : MonoBehaviour
        
 
 
-    }
+    }*/
 
 
 

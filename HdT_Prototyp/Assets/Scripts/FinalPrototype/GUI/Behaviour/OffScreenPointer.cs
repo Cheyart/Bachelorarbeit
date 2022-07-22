@@ -144,6 +144,7 @@ public class OffScreenPointer : MonoBehaviour
     {
         return (Mathf.Atan2(vec.y, vec.x) * Mathf.Rad2Deg) % 360;
     }
+
     private Vector2 CalculateViewportCenter(Vector2 widthCoordinates, Vector2 heightCoordinates)
     {
         float xPos = (widthCoordinates.y - widthCoordinates.x) / 2 + widthCoordinates.x;
