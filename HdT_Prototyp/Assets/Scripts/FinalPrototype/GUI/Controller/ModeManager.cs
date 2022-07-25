@@ -8,7 +8,7 @@ public enum Mode
     ARCamera, ARPicture, Miniature
 }
 
-// TO DO: inmplement animated transition between miniature and ar mode
+// TO DO: revise attributes (make more compact)
 public class ModeManager : MonoBehaviour
 {
     private Mode _standbyARMode; //AR mode which will be switched to when returning from Miniature mode
@@ -23,8 +23,6 @@ public class ModeManager : MonoBehaviour
     [SerializeField]
     private OffScreenPointer _offScreenPointer;
 
-    //[SerializeField]
-    //private GameObject _vrMode;
 
     [SerializeField]
     private MiniatureMode _miniatureMode;

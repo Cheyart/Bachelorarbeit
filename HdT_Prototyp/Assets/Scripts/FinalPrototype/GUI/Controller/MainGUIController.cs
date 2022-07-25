@@ -63,27 +63,6 @@ public class MainGUIController : MonoBehaviour
         _poiMenu.SetActive(true);
     }
 
-    /*public Vector2 GetViewportHeight()
-    {
-        
-
-        float bottom = _poiMenuManager.GetMenuHeight();
-        if (bottom == 0)
-        {
-            bottom = _bottomBarHeight;
-        }
-
-        float top = _screenHeight - _topBarHeight;
-
-        return new Vector2(bottom, top);
-    }*/
-
-    /*public void SetViewportWidthCoordinates()
-    {
-        _viewportHeightCoordinates = new Vector2()
-        return new Vector2(0, _screenWidth);
-    }*/
-
     public void SetPOIMenuHeight(float poiMenuHeight)
     {
         _poiMenuHeight = poiMenuHeight;

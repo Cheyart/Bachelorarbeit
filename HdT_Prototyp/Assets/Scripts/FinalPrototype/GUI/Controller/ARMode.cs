@@ -16,7 +16,7 @@ public class ARMode : MonoBehaviour
     [SerializeField]
     private Button _switchToCameraButton;
 
-    private Mode _currentMode;
+    //private Mode _currentMode;
 
     private int _currentPOIId;
 
@@ -24,7 +24,7 @@ public class ARMode : MonoBehaviour
     void Start()
     {
         //_contentPanel.gameObject.SetActive(true);
-        _currentMode = Mode.ARCamera;
+       // _currentMode = Mode.ARCamera;
         _switchToPictureButton.gameObject.SetActive(false);
         _switchToCameraButton.gameObject.SetActive(false);
     }
@@ -42,7 +42,7 @@ public class ARMode : MonoBehaviour
             {
                 Setup();
             }
-            _currentMode = Mode.ARPicture;
+           // _currentMode = Mode.ARPicture;
             StartCoroutine(ShowPictureMode());
 
            
@@ -81,7 +81,7 @@ public class ARMode : MonoBehaviour
     public void Hide()
     {
         
-        _currentMode = Mode.ARCamera;
+       // _currentMode = Mode.ARCamera;
         StartCoroutine(_poiImage.Hide());
         _switchToPictureButton.gameObject.SetActive(false);
         _switchToCameraButton.gameObject.SetActive(false);
@@ -124,9 +124,9 @@ public class ARMode : MonoBehaviour
 
 
         //
-        GUI.Label(new Rect(200, 300, 400, 100), " current POI " + _currentPOIId);
+        //GUI.Label(new Rect(200, 300, 400, 100), " current POI " + _currentPOIId);
 
-        GUI.Label(new Rect(200, 350, 400, 100), " current POI 2 " + SessionManager.Instance.ActivePOI.Id);
+       // GUI.Label(new Rect(200, 350, 400, 100), " current POI 2 " + SessionManager.Instance.ActivePOI.Id);
      
 
 

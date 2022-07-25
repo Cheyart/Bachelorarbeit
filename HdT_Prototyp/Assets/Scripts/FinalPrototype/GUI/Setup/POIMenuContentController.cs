@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -7,28 +8,28 @@ using UnityEngine.UI;
 public class POIMenuContentController : MonoBehaviour
 {
     [SerializeField]
-    private TextMeshProUGUI _title;
+    private TextMeshProUGUI _title; //main panel
 
     [SerializeField]
-    private TextMeshProUGUI _commentsTitle;
+    private TextMeshProUGUI _commentsTitle;  //main panel
 
     [SerializeField]
-    private TextMeshProUGUI _commentToReplyTo;
+    private TextMeshProUGUI _commentToReplyTo;  //comment input
 
     [SerializeField]
-    private LayoutGroup _contentContainerLayoutGroup;
+    private LayoutGroup _contentContainerLayoutGroup;  //menu manager (?)
 
     [SerializeField]
-    private Transform _commentsContainer;
+    private Transform _commentsContainer;  //Main panel
 
     [SerializeField]
-    private CommentPrefab _mainCommentPrefab;
+    private CommentPrefab _mainCommentPrefab; //main panel
 
     [SerializeField]
-    private CommentPrefab _subCommentPrefab;
+    private CommentPrefab _subCommentPrefab; //main panel
 
     [SerializeField]
-    private TMP_InputField _textInputField;
+    private TMP_InputField _textInputField; //comment input
 
     private PointOfInterest _poi;
 
@@ -46,7 +47,7 @@ public class POIMenuContentController : MonoBehaviour
         Refresh();
     }
 
-    public void Refresh()
+    public void Refresh()  //in menu manager
     {
         Reset();
         SetTitle(_poi.Title);

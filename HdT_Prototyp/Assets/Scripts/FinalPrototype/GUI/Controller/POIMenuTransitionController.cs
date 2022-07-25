@@ -17,21 +17,20 @@ public class POIMenuTransitionController : MonoBehaviour
     private float _transitionDuration = 1f;
 
     [SerializeField]
-    private RectTransform _mainPanel;
+    private RectTransform _mainPanel; 
 
     [SerializeField]
-    private RectTransform _mainPanelScrollBar;
+    private RectTransform _mainPanelScrollBar; 
+    [SerializeField]
+    private GameObject _mainPanelScrollBarGo; 
 
     [SerializeField]
-    private GameObject _mainPanelScrollBarGo;
+    private TMP_InputField _textInputField; 
+
+    private RectTransform _inputFieldRectTransform; 
 
     [SerializeField]
-    private TMP_InputField _textInputField;
-
-    private RectTransform _inputFieldRectTransform;
-
-    [SerializeField]
-    private GameObject _replyDisplay;
+    private GameObject _replyDisplay; 
 
     [SerializeField]
     private GameObject _textInputButtons;

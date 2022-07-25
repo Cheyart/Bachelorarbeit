@@ -6,6 +6,7 @@ public class Billboard : MonoBehaviour
 {
     [SerializeField]
     private Camera _camera;
+
     // Start is called before the first frame update
     void Start()
     {

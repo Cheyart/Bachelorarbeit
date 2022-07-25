@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 //https://stackoverflow.com/questions/41491765/detect-swipe-gesture-direction
 //detects swipe and calls function accordingly
 //rename: swipebar handler
-public class HandlebarHandler : MonoBehaviour
+public class OnSwipeHandler : MonoBehaviour
 {
     [SerializeField]
     private POIMenuManager _poiMenuManager;

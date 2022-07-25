@@ -11,10 +11,21 @@ public class UserInstructionController : MonoBehaviour
     [SerializeField]
     private GameObject _startScreen;
 
+    private Dictionary<Instructions, InstructionScreen> _instructionScreens;
+
+    private InstructionScreen _currentInstructionScreen;
+
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        InstructionScreen [] instructionScreens = FindObjectsOfType<InstructionScreen>(true);
+
+        _instructionScreens = new Dictionary<Instructions, InstructionScreen>();
+        foreach(InstructionScreen screen in instructionScreens)
+        {
+            _instructionScreens.Add(screen.Instruction, screen);
+        }
     }
 
     // Update is called once per frame
@@ -23,25 +34,27 @@ public class UserInstructionController : MonoBehaviour
         
     }
 
-    public void ShowInstruction(Instructions instructions)
+    public void ShowInstruction(Instructions instruction)
     {
-        switch (instructions)
-        {
-            case Instructions.scanQRCode:
-                _startScreen.SetActive(true);
-                break;
+        InstructionScreen screen;
 
+        if (_instructionScreens.TryGetValue(instruction, out screen))
+        {
+            if (!screen.HasBeenShowen)
+            {
+                screen.Show();
+                _currentInstructionScreen = screen;
+            }
         }
+
     }
 
     public void HideInstruction(Instructions instructions)
     {
-        switch (instructions)
+        if(_currentInstructionScreen != null)
         {
-            case Instructions.scanQRCode:
-                _startScreen.SetActive(false);
-                break;
-               
+            _currentInstructionScreen.Hide();
+
         }
     }
 }
