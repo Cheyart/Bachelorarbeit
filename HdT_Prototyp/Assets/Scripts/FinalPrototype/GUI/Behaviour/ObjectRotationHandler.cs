@@ -67,13 +67,4 @@ public class ObjectRotationHandler : MonoBehaviour
         GetComponent<MeshRenderer>().material.color = activeColor;*/
     }
 
-   
-
-    /*void OnGUI()
- {
-
-         GUI.Label(new Rect(200, 350, 400, 100), " ToggleActivation was called:  " + counter, guiStyle);
-
-
- }*/
 }

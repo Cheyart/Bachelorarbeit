@@ -170,7 +170,7 @@ public class ModeManager : MonoBehaviour
 
     ////Picture Mode
 
-   void OnGUI()
+  /* void OnGUI()
     {
 
         
@@ -184,7 +184,7 @@ public class ModeManager : MonoBehaviour
 
 
 
-    }
+    }*/
 
 
 }

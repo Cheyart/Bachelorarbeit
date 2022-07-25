@@ -2,22 +2,36 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum EasingFunction{
+    easeIn, easeOut, easeInAndOut, linear
+}
 //source for easing transitions: https://www.febucci.com/2018/08/easing-functions/
 //rename: animation helper
-public static class TransitionHelper 
+public static class AnimationHelper 
 {
+    public static float CalculateEasing(float t, EasingFunction easing)
+    {
+        switch (easing)
+        {
+            case EasingFunction.linear: return t;
+            case EasingFunction.easeIn: return EaseIn(t);
+            case EasingFunction.easeOut: return EaseOut(t);
+            case EasingFunction.easeInAndOut: return EaseInAndOut(t);
+            default: return t;
+        }
+    }
 
-    public static float EaseInAndOut(float t)
+    private static float EaseInAndOut(float t)
     {
         return t * t * (3f - 2f * t);
     }
 
-    public static float EaseIn(float t)
+    private static float EaseIn(float t)
     {
          return Square(t);
     }
 
-    public static float EaseOut(float t)
+    private static float EaseOut(float t)
     {
         return Flip(Square(Flip(t)));
     }

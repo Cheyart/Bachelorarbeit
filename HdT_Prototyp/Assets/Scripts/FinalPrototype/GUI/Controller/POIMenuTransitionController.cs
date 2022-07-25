@@ -296,7 +296,7 @@ public class POIMenuTransitionController : MonoBehaviour
        
 
      //
-     GUI.Label(new Rect(200, 350, 400, 100), " Scrollbar active: " + _mainPanelScrollBarGo.activeSelf);
+    // GUI.Label(new Rect(200, 350, 400, 100), " Scrollbar active: " + _mainPanelScrollBarGo.activeSelf);
     /* GUI.Label(new Rect(200, 400, 400, 100), " ScrollMask width: " + _scrollMask.rect.width);
     GUI.Label(new Rect(200, 450, 400, 100), " scrollbar heigth: " + _mainPanelScrollBar.rect.width);
     GUI.Label(new Rect(200, 500, 400, 100), " mainPanel y position: " + _mainPanel.anchoredPosition.y);

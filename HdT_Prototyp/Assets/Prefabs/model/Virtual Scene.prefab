@@ -2285,6 +2285,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6450678337851183714}
+  - component: {fileID: 7755967099789788323}
   m_Layer: 3
   m_Name: Camera Rotation Container
   m_TagString: Untagged
@@ -2308,6 +2309,18 @@ Transform:
   m_Father: {fileID: 7921683820303558792}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7755967099789788323
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6450678337851183713}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 045a3929975b84842b9fb36cfe180f24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6450966894547102474
 GameObject:
   m_ObjectHideFlags: 0
@@ -2866,8 +2879,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f28a134c2b4c245cabc7cf98c0282689, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _camera: {fileID: 7921683820303558843}
-  _cameraContainer: {fileID: 6450678337851183713}
+  _miniatureCamera: {fileID: 5643843507190464793}
+  _cameraContainer: {fileID: 7755967099789788323}
   _userPosition: {fileID: 7921683820303559064}
 --- !u!1 &7921683820303558690
 GameObject:
@@ -3686,6 +3699,8 @@ GameObject:
   - component: {fileID: 7921683820303558843}
   - component: {fileID: 7921683820303558919}
   - component: {fileID: 7921683820303558712}
+  - component: {fileID: 3959790618683850900}
+  - component: {fileID: 5643843507190464793}
   m_Layer: 3
   m_Name: Camera
   m_TagString: Untagged
@@ -3774,6 +3789,31 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   m_MaxRayIntersections: 0
+--- !u!114 &3959790618683850900
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7921683820303558699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 045a3929975b84842b9fb36cfe180f24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5643843507190464793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7921683820303558699}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21ccf76b7e3694f389d7ed4423483167, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _thisCamera: {fileID: 7921683820303558843}
 --- !u!1 &7921683820303558700
 GameObject:
   m_ObjectHideFlags: 0
