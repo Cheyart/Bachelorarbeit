@@ -30,6 +30,9 @@ public class SessionManager : MonoBehaviour
     private ModeManager _modeManager;
 
     [SerializeField]
+    private UserInstructionController _instructionController;
+
+    [SerializeField]
     private ARTrackedImageManager _trackedImageManager;
 
     [SerializeField]
@@ -61,6 +64,7 @@ public class SessionManager : MonoBehaviour
             Instance = this;
         }
 
+        _instructionController.ShowInstruction(Instructions.scanQRCode);
         POI_DB.Setup();
         CommentsDB.Setup();
         ThreadsDB.Setup();
@@ -73,6 +77,7 @@ public class SessionManager : MonoBehaviour
             //activate Session
             if (!_sessionInProgress)
             {
+                _instructionController.HideInstruction(Instructions.scanQRCode);
                 _sessionInProgress = true;
                 _GUIController.ShowMainGUI();
                 _poiSelectionManager.SetupPOIs();
