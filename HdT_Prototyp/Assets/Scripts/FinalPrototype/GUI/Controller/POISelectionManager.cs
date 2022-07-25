@@ -25,6 +25,8 @@ public class POISelectionManager : MonoBehaviour
 
     private SessionManager _sessionManager;
 
+    private int selectionCouner = 0;
+
     // Start is called before the first frame update
     void Awake()
     {
@@ -47,7 +49,7 @@ public class POISelectionManager : MonoBehaviour
 
     public void SelectPOI (int idOfSelectedPOI)
     {
-
+        selectionCouner++;
         if(IsActivePOI(idOfSelectedPOI))
         {
             return;
@@ -99,17 +101,16 @@ public class POISelectionManager : MonoBehaviour
 
  
 
-    /*void OnGUI()
+    void OnGUI()
     {
-        if(_POIs != null)
-        {
-            GUI.Label(new Rect(200, 700, 400, 100), " Nr of POIs = " + _POIs.Length);
+        
+            GUI.Label(new Rect(200, 700, 400, 100), " Selection Counter = " + selectionCouner);
 
-        }
+        
        
 
 
-    }*/
+    }
 
 
 

@@ -23,14 +23,14 @@ public class ModeManager : MonoBehaviour
     [SerializeField]
     private OffScreenPointer _offScreenPointer;
 
-    [SerializeField]
-    private GameObject _vrMode;
+    //[SerializeField]
+    //private GameObject _vrMode;
 
     [SerializeField]
     private MiniatureMode _miniatureMode;
 
     [SerializeField]
-    private PictureMode _pictureMode;
+    private ARMode _arMode;
 
     [SerializeField]
     private Camera _arCamera;
@@ -53,7 +53,7 @@ public class ModeManager : MonoBehaviour
                     _offScreenPointer.IsEnabled = false;
                     _currentMode = Mode.ARPicture;
                     _standbyARMode = Mode.ARPicture;
-                    _pictureMode.Show(_currentMode);
+                    _arMode.Show(_currentMode);
                 } else if(_currentMode == Mode.Miniature)
                 {
                     _standbyARMode = Mode.ARPicture;
@@ -61,16 +61,23 @@ public class ModeManager : MonoBehaviour
                    
             } else if (!_poiIsSelected) 
             {
+                _standbyARMode = Mode.ARCamera;
+                _arMode.Hide();
+
                 if(_currentMode == Mode.ARPicture)
                 {
-                    _standbyARMode = Mode.ARCamera;
                     _currentMode = Mode.ARCamera;
-                    _pictureMode.Hide();
-                } else if (_currentMode == Mode.Miniature)
-                {
-                    _standbyARMode = Mode.ARCamera;
                 }
-               
+
+                /* if (_currentMode == Mode.ARPicture || )
+                 {
+                     _standbyARMode = Mode.ARCamera;
+                     _currentMode = Mode.ARCamera;
+                     _arMode.Hide();
+                 } else if (_currentMode == Mode.Miniature)
+                 {
+                 }*/
+
             }
         }
     }
@@ -78,7 +85,7 @@ public class ModeManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _miniatureMode.Show();
+        //_miniatureMode.Show();
         _poiIsSelected = false;
         _standbyARMode = Mode.ARCamera;
         _currentMode = Mode.ARCamera;
@@ -116,7 +123,7 @@ public class ModeManager : MonoBehaviour
 
 
 
-            _pictureMode.Hide();
+            _arMode.Hide();
           
 
             _currentMode = Mode.Miniature;
@@ -131,7 +138,7 @@ public class ModeManager : MonoBehaviour
 
             if(_poiIsSelected)
             {
-                _pictureMode.Show(_currentMode);
+                _arMode.Show(_currentMode);
             }
 
             //_vrMode.SetActive(false);
@@ -151,29 +158,33 @@ public class ModeManager : MonoBehaviour
     {
         _currentMode = Mode.ARCamera;
         _standbyARMode = Mode.ARCamera;
-        _pictureMode.Show(_currentMode);
+        _arMode.Show(_currentMode);
     }
 
     public void SwitchToPictureMode()
     {
         _currentMode = Mode.ARPicture;
         _standbyARMode = Mode.ARPicture;
-        _pictureMode.Show(_currentMode);
+        _arMode.Show(_currentMode);
     }
 
     ////Picture Mode
 
-    /*void OnGUI()
+   void OnGUI()
     {
 
         
 
-        GUI.Label(new Rect(200, 350, 400, 100), " Current Mode: " + _currentMode);
-        GUI.Label(new Rect(200, 400, 400, 100), " AR standby mode: " + _standbyARMode);
-        GUI.Label(new Rect(200, 450, 400, 100), " POI is selected: " + _poiIsSelected);
-  
+        GUI.Label(new Rect(200, 400, 400, 100), " Current Mode: " + _currentMode);
+        GUI.Label(new Rect(200, 450, 400, 100), " AR standby mode: " + _standbyARMode);
+        GUI.Label(new Rect(200, 500, 400, 100), " POI is selected: " + _poiIsSelected);
+        GUI.Label(new Rect(200, 550, 400, 100), " AR physics raycaster: " + _arPhysicsRaycaster.enabled);
+        GUI.Label(new Rect(200, 550, 400, 100), " miniature physics raycaster: " + _miniaturePhysicsRaycaster.enabled);
 
-    }*/
+
+
+
+    }
 
 
 }
