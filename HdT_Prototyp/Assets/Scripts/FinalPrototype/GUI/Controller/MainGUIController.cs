@@ -22,7 +22,11 @@ public class MainGUIController : MonoBehaviour
     //private float _screenWidth;
    // private float _screenHeight;
     private float _topBarHeight;
+    public float TopBarHeight { get => _topBarHeight; }
+
     private float _bottomBarHeight;
+    public float BottomBarHeight { get => _bottomBarHeight; }
+
 
     private float _poiMenuHeight;
     private Vector2 _viewportHeightCoordinates;
@@ -40,8 +44,7 @@ public class MainGUIController : MonoBehaviour
         SetViewportDimensions(_poiMenuHeight);
 
 
-        //_screenWidth = Screen.width;
-        //_screenHeight = Screen.height;
+       
 
         _topBarHeight = _topBar.GetComponent<RectTransform>().rect.height;
         _bottomBarHeight = _bottomBar.GetComponent<RectTransform>().rect.height;

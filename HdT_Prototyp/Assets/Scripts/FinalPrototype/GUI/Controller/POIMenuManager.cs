@@ -38,6 +38,7 @@ public class POIMenuManager : MonoBehaviour
         _transitionController = gameObject.GetComponent<POIMenuTransitionController>();
         _contentController = gameObject.GetComponent<POIMenuContentController>();
         State = POIMenuState.closed;
+       // State = POIMenuState.medium; //FOR TESTING
         _contentController.Init(this);
     }
 
@@ -61,6 +62,33 @@ public class POIMenuManager : MonoBehaviour
         SwitchState(POIMenuState.closed);
 
 
+    }
+
+    public void ExpandMenu()
+    {
+        if(State == POIMenuState.medium)
+        {
+            _transitionController.TransitionFromTo(State, POIMenuState.big);
+            SwitchState(POIMenuState.big);
+        } else if(State == POIMenuState.small)
+        {
+            _transitionController.TransitionFromTo(State, POIMenuState.medium);
+            SwitchState(POIMenuState.medium);
+        }
+    }
+
+    public void ContractMenu()
+    {
+        if (State == POIMenuState.medium)
+        {
+            _transitionController.TransitionFromTo(State, POIMenuState.small);
+            SwitchState(POIMenuState.small);
+        }
+        else if (State == POIMenuState.big)
+        {
+            _transitionController.TransitionFromTo(State, POIMenuState.medium);
+            SwitchState(POIMenuState.medium);
+        }
     }
 
     public void StartCommentInput()

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public enum Mode
 {
@@ -12,6 +13,12 @@ public class ModeManager : MonoBehaviour
 {
     private Mode _standbyARMode; //AR mode which will be switched to when returning from Miniature mode
     private Mode _currentMode;
+
+    [SerializeField]
+    private PhysicsRaycaster _arPhysicsRaycaster;
+
+    [SerializeField]
+    private PhysicsRaycaster _miniaturePhysicsRaycaster;
 
     [SerializeField]
     private OffScreenPointer _offScreenPointer;
@@ -91,6 +98,7 @@ public class ModeManager : MonoBehaviour
         if(_miniatureMode != null)
         {
             _miniatureMode.Setup(_arCamera);
+            _miniaturePhysicsRaycaster = _miniatureMode.Camera.GetComponent<PhysicsRaycaster>();
         }
     }
 
@@ -103,8 +111,11 @@ public class ModeManager : MonoBehaviour
 
             //_vrMode.SetActive(true);
             _miniatureMode.Show();
-            
-          
+            _arPhysicsRaycaster.enabled = false;
+            _miniaturePhysicsRaycaster.enabled = true;
+
+
+
             _pictureMode.Hide();
           
 
@@ -125,6 +136,8 @@ public class ModeManager : MonoBehaviour
 
             //_vrMode.SetActive(false);
             _miniatureMode.Hide();
+            _arPhysicsRaycaster.enabled = true;
+            _miniaturePhysicsRaycaster.enabled = false;
 
 
             if (_currentMode == Mode.ARCamera)

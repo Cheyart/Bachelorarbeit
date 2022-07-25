@@ -43,18 +43,17 @@ public class ObjectRotationHandler : MonoBehaviour
                     }
                 }
 
-                /*if (screenTouch.phase == TouchPhase.Ended)
+                if (screenTouch.phase == TouchPhase.Ended)
                 {
-                    isActive = false;
-                    _touchPhaseEnded++;
-                }*/
+                    _isActive = false;
+                }
             }
         }
     }
 
-    public void ToggleActivation(bool value)
+    public void Activate()
     {
-        _isActive = value;
+        _isActive = true;
         counter++;
 
        /* if (_isActive)

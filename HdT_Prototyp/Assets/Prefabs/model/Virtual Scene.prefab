@@ -2985,8 +2985,8 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 7921683820303558713}
           m_TargetAssemblyTypeName: ObjectRotationHandler, Assembly-CSharp
-          m_MethodName: ToggleActivation
-          m_Mode: 6
+          m_MethodName: Activate
+          m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
             m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2994,22 +2994,6 @@ MonoBehaviour:
             m_FloatArgument: 0
             m_StringArgument: 
             m_BoolArgument: 1
-          m_CallState: 2
-  - eventID: 3
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 7921683820303558713}
-          m_TargetAssemblyTypeName: ObjectRotationHandler, Assembly-CSharp
-          m_MethodName: ToggleActivation
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
           m_CallState: 2
 --- !u!1 &7921683820303558693
 GameObject:
@@ -3845,7 +3829,7 @@ Transform:
   m_GameObject: {fileID: 7921683820303558703}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.21, y: -1.27, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children: []
   m_Father: {fileID: 7921683820303558805}
   m_RootOrder: 1
@@ -4324,7 +4308,7 @@ Transform:
   m_GameObject: {fileID: 7921683820303558708}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.43, y: 0.05, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children: []
   m_Father: {fileID: 7921683820303558805}
   m_RootOrder: 0
@@ -4464,7 +4448,7 @@ Transform:
   m_GameObject: {fileID: 7921683820303558710}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -2.09, y: 0.1, z: 0}
-  m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
+  m_LocalScale: {x: 0.3, y: 0.3, z: 0.3}
   m_Children: []
   m_Father: {fileID: 7921683820303558805}
   m_RootOrder: 2

@@ -9,6 +9,7 @@ public class MiniatureMode : MonoBehaviour
 {
     [SerializeField]
     private Camera _camera;
+    public Camera Camera { get => _camera; }
 
     [SerializeField]
     private GameObject _cameraContainer;
