@@ -1125,6 +1125,7 @@ GameObject:
   - component: {fileID: 334654200}
   - component: {fileID: 334654199}
   - component: {fileID: 334654198}
+  - component: {fileID: 334654202}
   m_Layer: 5
   m_Name: Scroll Mask
   m_TagString: Untagged
@@ -1234,6 +1235,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 334654196}
   m_CullTransparentMesh: 1
+--- !u!114 &334654202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 334654196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cc67721eaf8a46e2ae4cf59017a4afd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _guiController: {fileID: 735221411}
+  _scrollBar: {fileID: 1503200260}
 --- !u!1 &340783105
 GameObject:
   m_ObjectHideFlags: 0
@@ -2318,7 +2333,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 400, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &568953051
@@ -2831,17 +2846,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _contentContainerLayoutGroup: {fileID: 117399424}
   _transitionDuration: 0.5
-  _mainPanel: {fileID: 2073426234}
-  _mainPanelScrollBar: {fileID: 1503200260}
-  _mainPanelScrollBarGo: {fileID: 1535040382}
   _textInputField: {fileID: 1947353118}
   _replyDisplay: {fileID: 106396643}
   _textInputButtons: {fileID: 1927487741}
   _textInputScrollBar: {fileID: 279640548}
-  _handleBar: {fileID: 1493377365}
-  _commentsContainer: {fileID: 568953049}
-  _commentsHeader: {fileID: 1170092506}
-  _scrollMask: {fileID: 334654197}
   _guiController: {fileID: 735221411}
 --- !u!114 &660348885
 MonoBehaviour:
@@ -8044,6 +8052,7 @@ GameObject:
   - component: {fileID: 2073426236}
   - component: {fileID: 2073426235}
   - component: {fileID: 2073426237}
+  - component: {fileID: 2073426238}
   m_Layer: 5
   m_Name: POI Menu Panel
   m_TagString: Untagged
@@ -8122,10 +8131,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7b4a9418698b41a6b0d841bd4cf1e6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _commentsContainer: {fileID: 568953053}
+  _scrollMask: {fileID: 334654202}
+  _commentsHeader: {fileID: 1170092506}
   _title: {fileID: 340783107}
   _commentsTitle: {fileID: 352984289}
-  _commentsContainer: {fileID: 568953053}
   _layoutGroup: {fileID: 117399427}
+  _scrollbarHandle: {fileID: 1535040382}
+--- !u!114 &2073426238
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2073426233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 261afe6ef7bae4ba3948f668a470ee0f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2083842947
 GameObject:
   m_ObjectHideFlags: 0
