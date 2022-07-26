@@ -19,6 +19,8 @@ public class MainGUIController : MonoBehaviour
     [SerializeField]
     private GameObject _bottomBar;
 
+    //add Viewport; ?
+
     //private float _screenWidth;
    // private float _screenHeight;
     private float _topBarHeight;
@@ -32,22 +34,27 @@ public class MainGUIController : MonoBehaviour
     private Vector2 _viewportHeightCoordinates;
     private Vector2 _viewportWidthCoordinates;
 
+    private void Awake()
+    {
+        Debug.Log("AWAKE MAIN GUI Controller");
+        _topBar.SetActive(false);
+        _poiMenu.SetActive(false);
+        _bottomBar.SetActive(false);
 
+        //DELETE
+        _poiMenuHeight = 0;
+        SetViewportDimensions(_poiMenuHeight);
+
+        _topBarHeight = _topBar.GetComponent<RectTransform>().rect.height;
+        _bottomBarHeight = _bottomBar.GetComponent<RectTransform>().rect.height;
+        Debug.Log("Bottom Bar height = " + _bottomBarHeight);
+
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        _topBar.SetActive(false);
-        _poiMenu.SetActive(false);
-        _bottomBar.SetActive(false);
-        _poiMenuHeight = 0;
-        SetViewportDimensions(_poiMenuHeight);
-
-
-       
-
-        _topBarHeight = _topBar.GetComponent<RectTransform>().rect.height;
-        _bottomBarHeight = _bottomBar.GetComponent<RectTransform>().rect.height;
+    
     }
 
     // Update is called once per frame

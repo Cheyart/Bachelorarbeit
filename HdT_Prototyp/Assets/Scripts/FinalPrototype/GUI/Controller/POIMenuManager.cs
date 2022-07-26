@@ -8,7 +8,7 @@ public enum POIMenuState
     closed, small, medium, big, commentInput, replyInput
 }
 
-
+//manages the POI menu behaviour. sets upp the content and communicates to the Transition Controller when a transition from one state to another is required.
 [RequireComponent(typeof(POIMenuTransitionController))]
 public class POIMenuManager : MonoBehaviour
 {
@@ -42,6 +42,8 @@ public class POIMenuManager : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log("AWAKE POI Menu Manager");
+       
         _transitionController = gameObject.GetComponent<POIMenuTransitionController>();
         _transitionController.Init(_menuPanel, _inputSection);
         State = POIMenuState.closed;
@@ -56,8 +58,7 @@ public class POIMenuManager : MonoBehaviour
 
         if(State == POIMenuState.closed) {
             _transitionController.TransitionFromTo(State, POIMenuState.medium);
-            SwitchState(POIMenuState.medium);
-            
+            SwitchState(POIMenuState.medium);   
         }
     }
 
@@ -67,8 +68,6 @@ public class POIMenuManager : MonoBehaviour
 
         _transitionController.TransitionFromTo(State, POIMenuState.closed);
         SwitchState(POIMenuState.closed);
-
-
     }
 
     public void ExpandMenu()
@@ -108,8 +107,6 @@ public class POIMenuManager : MonoBehaviour
         _transitionController.TransitionFromTo(State, POIMenuState.commentInput);
         _stateBeforeComment = State;
         SwitchState(POIMenuState.commentInput);
-
-        //_transitionController.State = POIMenuState.commentInput;
     }
 
     public void StartReplyInput(Comment commentToReplyTo)
@@ -123,7 +120,6 @@ public class POIMenuManager : MonoBehaviour
     }
 
 
-    //ADD: Comment Input Handler
     public void SaveComment()
     {
         User poster = SessionManager.Instance.LoggedInUser;
@@ -166,6 +162,8 @@ public class POIMenuManager : MonoBehaviour
         _guiController.SetPOIMenuHeight(GetMenuHeight());
     }
 
+
+    //add viewport script
     private float GetMenuHeight()
     {
         if(State == POIMenuState.closed)

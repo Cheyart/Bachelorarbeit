@@ -27,8 +27,8 @@ public class POIMenuPanel : MonoBehaviour
     [SerializeField]
     private RefreshLayoutGroup _layoutGroup;
 
-    // [SerializeField]
-    //private GameObject _handleBar;
+    [SerializeField]
+    private GameObject _handleBar;
 
 
     [SerializeField]
@@ -80,6 +80,7 @@ public class POIMenuPanel : MonoBehaviour
         _commentsContainer.gameObject.SetActive(value);
         _commentsHeader.SetActive(value);
         _scrollbarHandle.SetActive(value);
+        _handleBar.SetActive(value);
     }
 
 

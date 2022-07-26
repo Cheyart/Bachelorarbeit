@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//rename: animatedRectTransform
 [RequireComponent(typeof(RectTransform))]
 public class AnimatedUIElement : MonoBehaviour
 {
@@ -46,7 +47,6 @@ public class AnimatedUIElement : MonoBehaviour
          while (time < duration)
          {
              float t = time / duration;
-             //t = t * t * (3f - 2f * t);
              _rectTransform.sizeDelta = Vector2.Lerp(startSize, targetSize, AnimationHelper.CalculateEasing(t, easing));
 
 
@@ -55,4 +55,22 @@ public class AnimatedUIElement : MonoBehaviour
          }
          _rectTransform.sizeDelta = targetSize;
      }
+
+    public IEnumerator LerpOffsetMin(Vector2 startOffset, Vector2 targetOffset, float duration, EasingFunction easing)
+    {
+
+        float time = 0;
+        _rectTransform.offsetMin = startOffset;
+
+        while (time < duration)
+        {
+            float t = time / duration;
+            _rectTransform.offsetMin = Vector2.Lerp(startOffset, targetOffset, AnimationHelper.CalculateEasing(t, easing));
+
+
+            time += Time.deltaTime;
+            yield return null;
+        }
+        _rectTransform.offsetMin = targetOffset;
+    }
 }

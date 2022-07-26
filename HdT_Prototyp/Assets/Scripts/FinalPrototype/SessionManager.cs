@@ -22,6 +22,7 @@ public class SessionManager : MonoBehaviour
 
     [SerializeField]
     private MainGUIController _GUIController;
+    public MainGUIController GUIController { get => _GUIController; }
 
     [SerializeField]
     private POISelectionManager _poiSelectionManager;
@@ -64,6 +65,7 @@ public class SessionManager : MonoBehaviour
             Instance = this;
         }
 
+        Debug.Log("AWAKE SessionManager");
         _instructionController.ShowInstruction(Instructions.scanQRCode);
         POI_DB.Setup();
         CommentsDB.Setup();
