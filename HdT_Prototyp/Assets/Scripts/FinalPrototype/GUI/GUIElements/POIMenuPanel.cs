@@ -99,8 +99,7 @@ public class POIMenuPanel : MonoBehaviour
         {
             SetComponents();
         }
-        counter += 5;
-        _targetYPos = targetYPos;
+      
         Vector2 targetPosition = new Vector2(_rectTransform.anchoredPosition.x, targetYPos);
         yield return StartCoroutine(_animation.LerpPosition(_rectTransform.anchoredPosition, targetPosition, duration, easing));
         _scrollMask.SetHeight(_rectTransform.anchoredPosition.y);

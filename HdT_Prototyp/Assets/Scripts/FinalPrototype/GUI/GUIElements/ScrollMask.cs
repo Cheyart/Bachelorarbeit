@@ -21,12 +21,6 @@ public class ScrollMask : MonoBehaviour
         _rectTransform = GetComponent<RectTransform>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void SetHeight(float mainPanelYPos)
     {
         float newHeight = mainPanelYPos - _guiController.BottomBarHeight + _rectTransform.anchoredPosition.y;

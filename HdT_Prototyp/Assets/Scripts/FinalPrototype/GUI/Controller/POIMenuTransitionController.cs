@@ -13,7 +13,8 @@ public class POIMenuTransitionController : MonoBehaviour
     private CommentInputSection _inputSection;
 
     [SerializeField]
-   private LayoutGroup _contentContainerLayoutGroup;
+    //private LayoutGroup _contentContainerLayoutGroup;
+    private RefreshLayoutGroup _layoutGroup;
 
     [SerializeField]
     private float _transitionDuration = 1f;
@@ -26,19 +27,19 @@ public class POIMenuTransitionController : MonoBehaviour
     //[SerializeField]
     //private GameObject _mainPanelScrollBarGo; 
 
-    [SerializeField]
-    private TMP_InputField _textInputField; 
+   // [SerializeField]
+   // private TMP_InputField _textInputField; 
 
-    private RectTransform _inputFieldRectTransform; 
+   // private RectTransform _inputFieldRectTransform; 
 
-    [SerializeField]
-    private GameObject _replyDisplay; 
+   // [SerializeField]
+  //  private GameObject _replyDisplay; 
 
-    [SerializeField]
-    private GameObject _textInputButtons;
+   // [SerializeField]
+   // private GameObject _textInputButtons;
 
-    [SerializeField]
-    private GameObject _textInputScrollBar;
+   // [SerializeField]
+   // private GameObject _textInputScrollBar;
 
     //[SerializeField]
    // private GameObject _handleBar;
@@ -52,10 +53,10 @@ public class POIMenuTransitionController : MonoBehaviour
     //[SerializeField]
     //private RectTransform _scrollMask;
 
-    [SerializeField]
-    private MainGUIController _guiController;
+    //[SerializeField]
+    //private MainGUIController _guiController;
 
-    private Vector3 _mainPanelPosition;
+    //private Vector3 _mainPanelPosition;
 
     private const float CLOSED_Y_POS = 140f;
     private const float SMALL_Y_POS = 370f;
@@ -66,14 +67,13 @@ public class POIMenuTransitionController : MonoBehaviour
     private const float TEXT_INPUT_BIG = 300f;
 
    
-    private int _counter = 0;
+   // private int _counter = 0;
 
 
     // Start is called before the first frame update
     void Awake()
     {
 
-        _counter += 2;
         //_state = POIMenuState.closed;
        // _contentController = gameObject.GetComponent<POIMenuContentController>();
        /* _inputFieldRectTransform = _textInputField.GetComponent<RectTransform>();
@@ -93,7 +93,7 @@ public class POIMenuTransitionController : MonoBehaviour
         _menuPanel = menuPanel;
         _inputSection = inputSection;
 
-        _inputFieldRectTransform = _textInputField.GetComponent<RectTransform>();
+       // _inputFieldRectTransform = _textInputField.GetComponent<RectTransform>();
         //ResetToDefault();
         _menuPanel.SetYPosition(CLOSED_Y_POS);
     }
@@ -116,17 +116,17 @@ public class POIMenuTransitionController : MonoBehaviour
         float menuPanelYPos = GetMenuPanelYPos(newState);
         bool refreshAfterTransition = false;
 
-        if (oldState == POIMenuState.closed)
+        if (oldState == POIMenuState.closed) //if new state == closed
         {
             ResetToDefault();
         }
 
-        //if transitioning from main state to comment/reply view state
+        //if transitioning from main state to comment/reply state
         if (oldState != POIMenuState.commentInput && oldState != POIMenuState.replyInput)
         {
             if (newState == POIMenuState.commentInput || newState == POIMenuState.replyInput)
             {
-                TransitionToCommentInput(newState);
+                StartCoroutine(TransitionToCommentInput(newState));
             }
 
         }
@@ -134,7 +134,7 @@ public class POIMenuTransitionController : MonoBehaviour
         else
         {
             refreshAfterTransition = true;
-            TransitionFromCommentInput(oldState, newState);
+            StartCoroutine(TransitionFromCommentInput(oldState));
         }
 
         //yield return StartCoroutine(LerpMainPanelPosition(new Vector3(_mainPanelPosition.x, menuPanelYPos, _mainPanelPosition.z), refreshAfterTransition));
@@ -151,7 +151,7 @@ public class POIMenuTransitionController : MonoBehaviour
        
     }
 
-
+    //make private?
     public float GetMenuPanelYPos(POIMenuState newState)
     {
         if (newState == POIMenuState.closed)
@@ -180,14 +180,24 @@ public class POIMenuTransitionController : MonoBehaviour
         _mainPanelScrollBar.sizeDelta = new Vector2(newHeight, _mainPanelScrollBar.sizeDelta.y);
     }*/
 
-    private void TransitionToCommentInput(POIMenuState replyState)
+    private IEnumerator TransitionToCommentInput(POIMenuState replyState)
     {
 
         _menuPanel.ShowContent(false);
         // _contentController.SetTextInputPlaceholderContent(replyState);
         _inputSection.SetTextInputPlaceholderContent(replyState);
 
-        StartCoroutine(LerpTextInputHeight(TEXT_INPUT_BIG, replyState));
+        //StartCoroutine(LerpTextInputHeight(TEXT_INPUT_BIG, replyState));
+        yield return StartCoroutine(_inputSection.AnimatedTextInputHeightChange(TEXT_INPUT_BIG, _transitionDuration, EasingFunction.easeInAndOut));
+
+        if (replyState == POIMenuState.replyInput)
+        {
+            _inputSection.ShowReplyInputElements(true);
+            // StartCoroutine(UpdateLayoutGroup());
+            _layoutGroup.NeedsRefresh = true;
+        }
+        _inputSection.ShowCommentInputElements(true);
+
     }
 
     /*private void TransitionToReplyInput()
@@ -200,33 +210,42 @@ public class POIMenuTransitionController : MonoBehaviour
 
 
 
-    private void TransitionFromCommentInput(POIMenuState oldState, POIMenuState newState)
+    private IEnumerator TransitionFromCommentInput(POIMenuState oldState)
     {
-        DisplayCommentInputElements(false);
+        // DisplayCommentInputElements(false);
+        _inputSection.ShowCommentInputElements(false);
         _inputSection.ClearTextInputContent();
 
-        StartCoroutine(LerpTextInputHeight(TEXT_INPUT_SMALL, newState));
-
-        if(oldState == POIMenuState.replyInput)
+        if (oldState == POIMenuState.replyInput)
         {
-            DisplayReplyInputElements(false);
-            _inputSection.SetTextInputPlaceholderContent(oldState);
+            //DisplayReplyInputElements(false);
+            _inputSection.ShowReplyInputElements(false);
+            _inputSection.SetTextInputPlaceholderContent(POIMenuState.commentInput);
         }
+
+
+        // StartCoroutine(LerpTextInputHeight(TEXT_INPUT_SMALL, newState));
+        yield return StartCoroutine(_inputSection.AnimatedTextInputHeightChange(TEXT_INPUT_SMALL, _transitionDuration, EasingFunction.easeInAndOut));
+
+        _menuPanel.ShowContent(true);
+
         //_contentController.Refresh();
 
 
     }
 
+
     private void ResetToDefault()
     {
-        _inputFieldRectTransform.sizeDelta = new Vector2(_inputFieldRectTransform.sizeDelta.x, TEXT_INPUT_SMALL);
+        //_inputFieldRectTransform.sizeDelta = new Vector2(_inputFieldRectTransform.sizeDelta.x, TEXT_INPUT_SMALL);
         //_textInputField.text = "";
+        _inputSection.SetTextInputHeight(TEXT_INPUT_SMALL);
 
-        DisplayCommentInputElements(false);
-        DisplayReplyInputElements(false);
+        // DisplayCommentInputElements(false);
+        //DisplayReplyInputElements(false);
+        _inputSection.ShowCommentInputElements(false);
+        _inputSection.ShowReplyInputElements(false);
         _menuPanel.ShowContent(true);
-
-
     }
 
   /* private IEnumerator LerpMainPanelPosition(Vector3 targetPosition, bool refreshAfterTransition)
@@ -252,7 +271,7 @@ public class POIMenuTransitionController : MonoBehaviour
         }
     }*/
 
-    private IEnumerator LerpTextInputHeight(float targetHeight, POIMenuState newState)
+   /* private IEnumerator LerpTextInputHeight(float targetHeight, POIMenuState newState)
     {
 
         float time = 0;
@@ -282,9 +301,9 @@ public class POIMenuTransitionController : MonoBehaviour
         {
             _menuPanel.ShowContent(true);
         }
-    }
+    }*/
 
-    private void DisplayCommentInputElements(bool value)
+   /* private void DisplayCommentInputElements(bool value)
     {
         _textInputButtons.SetActive(value);
         _textInputScrollBar.SetActive(value);
@@ -293,7 +312,7 @@ public class POIMenuTransitionController : MonoBehaviour
     private void DisplayReplyInputElements(bool value)
     {
         _replyDisplay.SetActive(value);
-    }
+    }*/
 
     /*private void DisplayMainPanelElements(bool value)
     {
@@ -306,18 +325,18 @@ public class POIMenuTransitionController : MonoBehaviour
 
     }*/
 
-    IEnumerator UpdateLayoutGroup()
+    /*IEnumerator UpdateLayoutGroup()
     {
         _contentContainerLayoutGroup.enabled = false;
         yield return new WaitForEndOfFrame();
         _contentContainerLayoutGroup.enabled = true;
-    }
+    }*/
 
     void OnGUI()
     {
 
 
-        GUI.Label(new Rect(200, 450, 400, 100), " transition  counter = " + _counter);
+       // GUI.Label(new Rect(200, 450, 400, 100), " transition  counter = " + _counter);
 
 
     }

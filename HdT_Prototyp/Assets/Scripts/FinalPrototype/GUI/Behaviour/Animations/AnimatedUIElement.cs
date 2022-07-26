@@ -36,26 +36,23 @@ public class AnimatedUIElement : MonoBehaviour
         yield return null;
     }
 
-    //LerpSize
-    /* public IEnumerator LerpSize(Vector2 startSize, Vector2 targetSize, float duration, EasingFunction easing)
+ 
+    public IEnumerator LerpSize(Vector2 startSize, Vector2 targetSize, float duration, EasingFunction easing)
      {
 
          float time = 0;
          _rectTransform.sizeDelta = startSize;
-        // Vector2 startSize = _inputFieldRectTransform.sizeDelta;
-         //Vector2 targetSize = new Vector2(startSize.x, targetHeight);
+
          while (time < duration)
          {
-             float t = time / _transitionDuration;
+             float t = time / duration;
              //t = t * t * (3f - 2f * t);
-             _rectTransform.sizeDelta = Vector2.Lerp(startSize, targetSize, );
+             _rectTransform.sizeDelta = Vector2.Lerp(startSize, targetSize, AnimationHelper.CalculateEasing(t, easing));
 
 
              time += Time.deltaTime;
              yield return null;
          }
-
-         }
          _rectTransform.sizeDelta = targetSize;
-     }*/
+     }
 }

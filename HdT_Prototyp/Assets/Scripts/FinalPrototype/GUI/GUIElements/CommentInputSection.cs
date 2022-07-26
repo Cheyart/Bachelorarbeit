@@ -6,10 +6,19 @@ using UnityEngine;
 public class CommentInputSection : MonoBehaviour
 {
     [SerializeField]
+    private CommentInputField _commentInputField;
+
+    [SerializeField]
+    private GameObject _replyToSection;
+    //set in start? -> child of ReplyDisplay
+    [SerializeField]
     private TextMeshProUGUI _commentToReplyTo;
 
     [SerializeField]
-    private TMP_InputField _textInputField;
+    private GameObject _buttons;
+
+    [SerializeField]
+    private GameObject _scrollBar;
 
 
     // Start is called before the first frame update
@@ -31,27 +40,39 @@ public class CommentInputSection : MonoBehaviour
 
     public void SetTextInputPlaceholderContent(POIMenuState replyState)
     {
-        TextMeshProUGUI placeholder = (TextMeshProUGUI)_textInputField.placeholder;
-
-        if (replyState == POIMenuState.replyInput)
-        {
-            placeholder.text = "Leave a reply...";
-        }
-        else
-        {
-            placeholder.text = "Leave a comment...";
-        }
+        _commentInputField.SetPlaceholderContent(replyState);
     }
 
     public string GetTextInputContent()
     {
-        return _textInputField.text;
+        return _commentInputField.GetContent();
     }
 
     public void ClearTextInputContent()
     {
-        _textInputField.text = "";
+        _commentInputField.ClearContent();
     }
 
-  
+    public void SetTextInputHeight(float height)
+    {
+        _commentInputField.SetHeight(height);
+    }
+
+    public IEnumerator AnimatedTextInputHeightChange(float targetHeight, float duration, EasingFunction easing)
+    {
+        yield return _commentInputField.AnimatedHeightChange(targetHeight, duration, easing);
+    }
+
+    public void ShowCommentInputElements(bool value)
+    {
+        _buttons.SetActive(value);
+        _scrollBar.SetActive(value);
+    }
+
+    public void ShowReplyInputElements(bool value)
+    {
+        _replyToSection.SetActive(value);
+    }
+
+
 }
