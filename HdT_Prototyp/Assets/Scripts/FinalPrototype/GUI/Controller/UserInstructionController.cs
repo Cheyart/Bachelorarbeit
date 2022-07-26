@@ -19,13 +19,7 @@ public class UserInstructionController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        InstructionScreen [] instructionScreens = FindObjectsOfType<InstructionScreen>(true);
-
-        _instructionScreens = new Dictionary<Instructions, InstructionScreen>();
-        foreach(InstructionScreen screen in instructionScreens)
-        {
-            _instructionScreens.Add(screen.Instruction, screen);
-        }
+        SetInstructionScreens();
     }
 
     // Update is called once per frame
@@ -37,6 +31,10 @@ public class UserInstructionController : MonoBehaviour
     public void ShowInstruction(Instructions instruction)
     {
         InstructionScreen screen;
+        if(_instructionScreens == null)
+        {
+            SetInstructionScreens();
+        }
 
         if (_instructionScreens.TryGetValue(instruction, out screen))
         {
@@ -55,6 +53,18 @@ public class UserInstructionController : MonoBehaviour
         {
             _currentInstructionScreen.Hide();
 
+        }
+    }
+
+    private void SetInstructionScreens()
+    {
+        InstructionScreen[] instructionScreens = FindObjectsOfType<InstructionScreen>(true);
+        Debug.Log("Instruction Screens length = " + instructionScreens.Length);
+
+        _instructionScreens = new Dictionary<Instructions, InstructionScreen>();
+        foreach (InstructionScreen screen in instructionScreens)
+        {
+            _instructionScreens.Add(screen.Instruction, screen);
         }
     }
 }

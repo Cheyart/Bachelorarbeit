@@ -9,6 +9,8 @@ using UnityEngine.UI;
 public class POIMenuTransitionController : MonoBehaviour
 {
     private POIMenuContentController _contentController;
+    private POIMenuPanel _menuPanel;
+    private CommentInputSection _inputSection;
 
     [SerializeField]
     private LayoutGroup _contentContainerLayoutGroup;
@@ -63,6 +65,8 @@ public class POIMenuTransitionController : MonoBehaviour
     private const float TEXT_INPUT_SMALL = 90f;
     private const float TEXT_INPUT_BIG = 300f;
 
+    private int _counter = 0;
+
 
     // Start is called before the first frame update
     void Awake()
@@ -81,9 +85,16 @@ public class POIMenuTransitionController : MonoBehaviour
 
     }
 
+    public void Init(POIMenuPanel menuPanel, CommentInputSection inputSection)
+    {
+        _menuPanel = menuPanel;
+        _inputSection = inputSection;
+    }
+
 
     public void TransitionFromTo(POIMenuState oldState, POIMenuState newState)
     {
+        _counter++;
         Debug.Log("TRANSITION from " + oldState.ToString() + " to " + newState.ToString());
 
         StartCoroutine(TransitionFromToCoroutine(oldState, newState));
@@ -161,7 +172,8 @@ public class POIMenuTransitionController : MonoBehaviour
     {
         
         DisplayMainPanelElements(false);
-        _contentController.SetTextInputPlaceholderContent(replyState);
+       // _contentController.SetTextInputPlaceholderContent(replyState);
+        _inputSection.SetTextInputPlaceholderContent(replyState);
 
         StartCoroutine(LerpTextInputHeight(TEXT_INPUT_BIG, replyState));
     }
@@ -179,14 +191,14 @@ public class POIMenuTransitionController : MonoBehaviour
     private void TransitionFromCommentInput(POIMenuState oldState, POIMenuState newState)
     {
         DisplayCommentInputElements(false);
-        _contentController.ClearTextInputContent();
+        _inputSection.ClearTextInputContent();
 
         StartCoroutine(LerpTextInputHeight(TEXT_INPUT_SMALL, newState));
 
         if(oldState == POIMenuState.replyInput)
         {
             DisplayReplyInputElements(false);
-            _contentController.SetTextInputPlaceholderContent(oldState);
+            _inputSection.SetTextInputPlaceholderContent(oldState);
         }
         //_contentController.Refresh();
 
@@ -223,7 +235,8 @@ public class POIMenuTransitionController : MonoBehaviour
      
         if (refreshAfterTransition)
         {
-            _contentController.Refresh();
+            //_contentController.Refresh();
+            _menuPanel.Refresh();
         }
 
     }
@@ -289,21 +302,11 @@ public class POIMenuTransitionController : MonoBehaviour
         _contentContainerLayoutGroup.enabled = true;
     }
 
-     void OnGUI()
-  {
+    void OnGUI()
+    {
 
-       
 
-     //
-    // GUI.Label(new Rect(200, 350, 400, 100), " Scrollbar active: " + _mainPanelScrollBarGo.activeSelf);
-    /* GUI.Label(new Rect(200, 400, 400, 100), " ScrollMask width: " + _scrollMask.rect.width);
-    GUI.Label(new Rect(200, 450, 400, 100), " scrollbar heigth: " + _mainPanelScrollBar.rect.width);
-    GUI.Label(new Rect(200, 500, 400, 100), " mainPanel y position: " + _mainPanel.anchoredPosition.y);
-    GUI.Label(new Rect(200, 550, 400, 100), " bottom bar height: " + _guiController.BottomBarHeight);
-    GUI.Label(new Rect(200, 600, 400, 100), " scroll mask anchored position: " + _scrollMask.anchoredPosition.y);
-        GUI.Label(new Rect(200, 650, 400, 100), " scroll mask size delta y: " + _scrollMask.sizeDelta.y);
-        GUI.Label(new Rect(200, 700, 400, 100), " scroll mask size delta x: " + _scrollMask.sizeDelta.x);*/
-
+        GUI.Label(new Rect(200, 450, 400, 100), " transition  counter = " + _counter);
 
 
     }

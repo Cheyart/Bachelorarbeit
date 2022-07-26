@@ -721,6 +721,7 @@ GameObject:
   - component: {fileID: 1797048579087565733}
   - component: {fileID: 1797048579087565730}
   - component: {fileID: 4755144452158885953}
+  - component: {fileID: 4738559322185874333}
   m_Layer: 5
   m_Name: Sub Comment
   m_TagString: Untagged
@@ -845,9 +846,20 @@ MonoBehaviour:
   _date: {fileID: 1797048578518542414}
   _message: {fileID: 1797048577824324526}
   _profilePic: {fileID: 0}
-  _layoutGroup: {fileID: 1797048579087565729}
-  _commmentsDB: {fileID: 11400000, guid: 712017c42cd8d41f4bdaeea8dbc0a23b, type: 2}
+  _layoutGroup: {fileID: 1797048577824324524}
   _highlightColor: {r: 0, g: 0.4, b: 1, a: 1}
+--- !u!114 &4738559322185874333
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1797048579087565758}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ff2e773aa125471a9e57a4d55aee5e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1797048579345610268
 GameObject:
   m_ObjectHideFlags: 0

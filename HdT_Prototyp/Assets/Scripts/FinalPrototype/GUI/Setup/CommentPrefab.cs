@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class CommentPrefab : MonoBehaviour
 {
  
-    private POIMenuManager _poiMenuManager;
 
     [SerializeField]
     private TextMeshProUGUI _username;
@@ -22,13 +21,9 @@ public class CommentPrefab : MonoBehaviour
     private Sprite _profilePic;
 
     [SerializeField]
-    private RectTransform _layoutGroup;
-
-    [SerializeField]
-    private CommentsDB _commmentsDB;
-
-    [SerializeField]
     private Color _highlightColor;
+
+    private POIMenuManager _poiMenuManager;
 
     private Comment _comment;
 
@@ -41,8 +36,10 @@ public class CommentPrefab : MonoBehaviour
 
         if(content.ReplyTo != -1)
         {
-            User replyToPoster = _commmentsDB.GetPosterOfComment(content.ReplyTo);
-            if(replyToPoster != null && replyToPoster.Username != null)
+            User replyToPoster = SessionManager.Instance.CommentsDB.GetPosterOfComment(content.ReplyTo);
+
+
+            if (replyToPoster != null && replyToPoster.Username != null)
             {
                 _username.text = content.Poster.Username + "   @" + replyToPoster.Username;
             } else
@@ -62,7 +59,8 @@ public class CommentPrefab : MonoBehaviour
         _date.text = content.Date.ToString("dd.MM.yy");
         _message.text = content.Message;
         //update layout group (necessary for size adjustment)
-        LayoutRebuilder.ForceRebuildLayoutImmediate(_layoutGroup);
+        RectTransform rectTransform = _message.GetComponent<RectTransform>();
+        LayoutRebuilder.ForceRebuildLayoutImmediate(rectTransform);
     }
 
     public void ReplyButtonHandler()

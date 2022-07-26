@@ -7,41 +7,41 @@ using UnityEngine.UI;
 
 public class POIMenuContentController : MonoBehaviour
 {
-    [SerializeField]
-    private TextMeshProUGUI _title; //main panel
+   // [SerializeField]
+    //private TextMeshProUGUI _title; //main panel
 
-    [SerializeField]
-    private TextMeshProUGUI _commentsTitle;  //main panel
+    //[SerializeField]
+    //private TextMeshProUGUI _commentsTitle;  //main panel
 
-    [SerializeField]
-    private TextMeshProUGUI _commentToReplyTo;  //comment input
+  //  [SerializeField]
+  //  private TextMeshProUGUI _commentToReplyTo;  //comment input
 
-    [SerializeField]
-    private LayoutGroup _contentContainerLayoutGroup;  //menu manager (?)
+   // [SerializeField]
+    //private LayoutGroup _contentContainerLayoutGroup;  //menu manager (?)
 
-    [SerializeField]
-    private Transform _commentsContainer;  //Main panel
+   // [SerializeField]
+    //private Transform _commentsContainer;  //Main panel
 
-    [SerializeField]
-    private CommentPrefab _mainCommentPrefab; //main panel
+   // [SerializeField]
+    //private CommentPrefab _mainCommentPrefab; //main panel
 
-    [SerializeField]
-    private CommentPrefab _subCommentPrefab; //main panel
+    //[SerializeField]
+    //private CommentPrefab _subCommentPrefab; //main panel
 
-    [SerializeField]
-    private TMP_InputField _textInputField; //comment input
+    //[SerializeField]
+    //private TMP_InputField _textInputField; //comment input
 
-    private PointOfInterest _poi;
+   // private PointOfInterest _poi;
 
-    private POIMenuManager _poiMenuManager;
+  /*  private POIMenuManager _poiMenuManager;
 
     public void Init(POIMenuManager poiMenuManager)
     {
         _poiMenuManager = poiMenuManager;
-    }
+    }*/
 
 
-    public void Setup (PointOfInterest poi)
+    /*public void Setup (PointOfInterest poi)
     {
         _poi = poi;
         Refresh();
@@ -64,14 +64,14 @@ public class POIMenuContentController : MonoBehaviour
         {
             Destroy(child.gameObject);
         }
-    }
+    }*/
 
-    public void SetCommentToReplyTo(string message)
+    /*public void SetCommentToReplyTo(string message)
     {
         _commentToReplyTo.text = message;
-    }
+    }*/
 
-    private void SetTitle(string title)
+    /*private void SetTitle(string title)
     {
         _title.text = title;
     }
@@ -111,9 +111,9 @@ public class POIMenuContentController : MonoBehaviour
         _contentContainerLayoutGroup.enabled = false;
         yield return new WaitForEndOfFrame();
         _contentContainerLayoutGroup.enabled = true;
-    }
+    }*/
 
-    public string GetTextInputContent()
+   /* public string GetTextInputContent()
     {
         return _textInputField.text;
     }
@@ -134,7 +134,7 @@ public class POIMenuContentController : MonoBehaviour
         {
             placeholder.text = "Leave a comment...";
         }
-    }
+    }*/
 
 
 }

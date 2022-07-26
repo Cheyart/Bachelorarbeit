@@ -24,7 +24,14 @@ public class POIMenuManager : MonoBehaviour
 
     private POIMenuTransitionController _transitionController;
 
+    //Delete?
     private POIMenuContentController _contentController;
+
+    [SerializeField]
+    private POIMenuPanel _menuPanel;
+
+    [SerializeField]
+    private CommentInputSection _inputSection;
 
     public POIMenuState State { get; private set; }
 
@@ -32,20 +39,25 @@ public class POIMenuManager : MonoBehaviour
 
     private Comment _commentToReplyTo;
 
+    private int _clickCounter;
+
 
     private void Awake()
     {
         _transitionController = gameObject.GetComponent<POIMenuTransitionController>();
+        _transitionController.Init(_menuPanel, _inputSection);
         _contentController = gameObject.GetComponent<POIMenuContentController>();
         State = POIMenuState.closed;
        // State = POIMenuState.medium; //FOR TESTING
-        _contentController.Init(this);
+       // _contentController.Init(this);
     }
 
 
     public void OpenMenu(PointOfInterest content)
     {
-       _contentController.Setup(content);
+        _clickCounter++;
+        //_contentController.Setup(content);
+        _menuPanel.Setup(content);
 
         if(State == POIMenuState.closed) {
             _transitionController.TransitionFromTo(State, POIMenuState.medium);
@@ -107,7 +119,8 @@ public class POIMenuManager : MonoBehaviour
 
     public void StartReplyInput(Comment commentToReplyTo)
     {
-        _contentController.SetCommentToReplyTo(commentToReplyTo.Message);
+        // _contentController.SetCommentToReplyTo(commentToReplyTo.Message);
+        _inputSection.SetCommentToReplyTo(commentToReplyTo.Message);
         _transitionController.TransitionFromTo(State, POIMenuState.replyInput);
         _stateBeforeComment = State;
         SwitchState(POIMenuState.replyInput);
@@ -126,7 +139,9 @@ public class POIMenuManager : MonoBehaviour
             return;
         }
 
-        string message = _contentController.GetTextInputContent();
+        //string message = _contentController.GetTextInputContent();
+        string message = _inputSection.GetTextInputContent();
+
         if (message == null || message == "")
         {
             Debug.LogError("The message is invalid");
@@ -168,5 +183,14 @@ public class POIMenuManager : MonoBehaviour
             return _transitionController.GetYPos(State);
         }
     }
-   
+
+    void OnGUI()
+ {
+
+
+         GUI.Label(new Rect(200, 500, 400, 100), " Menu open click counter = " + _clickCounter);
+
+
+ }
+
 }
