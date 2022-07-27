@@ -8,8 +8,6 @@ public class MainViewport : MonoBehaviour
     private AnimatedUIElement _animator;
     private RectTransform _rectTransform;
 
-    // public Vector2 WidthCoordinates { get => new Vector2(_rectTransform.offsetMin.x, _rectTransform.offsetMax.x); }
-    //public Vector2 HeightCoordinates { get => new Vector2(_rectTransform.offsetMin.y, _rectTransform.offsetMax.y); }
      public Vector2 WidthCoordinates { get => new Vector2(_rectTransform.offsetMin.x, _screenWidth + _rectTransform.offsetMax.x); }
      public Vector2 HeightCoordinates { get => new Vector2(_rectTransform.offsetMin.y, _screenHeight + _rectTransform.offsetMax.y); }
 
@@ -79,27 +77,6 @@ public class MainViewport : MonoBehaviour
         _animator = GetComponent<AnimatedUIElement>();
         _rectTransform = GetComponent<RectTransform>();
     }
-
-    //returns x= bottomOffset, y=topOffset
-   /* public Vector2 GetHeightCoordinates()
-    {
-        return new Vector2 (_rectTransform.offsetMin.y, _rectTransform.offsetMax.y );
-    }*/
-
-    //returns x= leftOffset, y=rightOffset
-    /*public Vector2 GetWidthCoordinates()
-    {
-        return new Vector2(_rectTransform.offsetMin.x, _rectTransform.offsetMax.x);
-    }*/
-
-   /* public Vector2 GetCenterpoint()
-    {
-        // float xPos = (widthCoordinates.y - widthCoordinates.x) / 2 + widthCoordinates.x;
-        //float yPos = (heightCoordinates.y - heightCoordinates.x) / 2 + heightCoordinates.x;
-        float xPos = (_rectTransform.offsetMax.y - _rectTransform.offsetMin.y) / 2 + _rectTransform.offsetMin.y;
-        float yPos = (_rectTransform.offsetMax.x - _rectTransform.offsetMin.x) / 2 + _rectTransform.offsetMin.x;
-        return new Vector2(xPos, yPos);
-    }*/
 
 
 }
