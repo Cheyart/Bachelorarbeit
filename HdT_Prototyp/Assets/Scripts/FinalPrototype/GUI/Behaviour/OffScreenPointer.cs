@@ -6,11 +6,10 @@ using UnityEngine;
 
 //TO DO: add offset, so that arrow only appears when POI is completely off screen
 //TO DO: appear on correct time
-//TO DO: check behaviour when z is negative
 [RequireComponent(typeof(RectTransform))]
 public class OffScreenPointer : MonoBehaviour
 {
-   // [SerializeField] //for Testing
+    // [SerializeField] //for Testing
     private GameObject _target;
     public GameObject Target { get => _target; set => _target = value; }
 
@@ -34,7 +33,7 @@ public class OffScreenPointer : MonoBehaviour
     void Start()
     {
         _rectTransform = GetComponent<RectTransform>();
-        _isEnabled = false;  
+        _isEnabled = false;
         SetVisibility(false);
     }
 
@@ -50,7 +49,7 @@ public class OffScreenPointer : MonoBehaviour
             {
                 Vector3 targetWorldPos = _target.transform.position;
                 Vector3 targetScreenPos = _camera.WorldToScreenPoint(targetWorldPos);
-                
+
                 if (TargetIsOffScreen(targetScreenPos, viewportHeight, viewportWidth))
                 {
                     if (TargetIsBehindScreen(targetScreenPos))
@@ -105,7 +104,7 @@ public class OffScreenPointer : MonoBehaviour
     private bool TargetIsObscured(Vector3 targetWorldPos)
     {
         RaycastHit hit;
-        Vector3 direction = _camera.transform.position - targetWorldPos; 
+        Vector3 direction = _camera.transform.position - targetWorldPos;
         if (Physics.Raycast(targetWorldPos, direction, out hit) && (hit.collider.tag != "MainCamera"))
         {
             return true;

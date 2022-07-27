@@ -40,9 +40,9 @@ public class MiniatureMode : MonoBehaviour
         StartCoroutine(ExecuteTransition(Transition.toMiniature));
     }
 
-    public void Hide()
+    public IEnumerator Hide()
     {
-        StartCoroutine(ExecuteTransition(Transition.fromMiniature));
+        yield return StartCoroutine(ExecuteTransition(Transition.fromMiniature));
     }
 
 

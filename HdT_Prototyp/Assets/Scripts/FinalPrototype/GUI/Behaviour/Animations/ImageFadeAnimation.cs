@@ -52,6 +52,19 @@ public class ImageFadeAnimation : MonoBehaviour
 
     public void SetToTransparent()
     {
+        if (_image == null)
+        {
+            SetComponents();
+        }
+        _image.color = TRANSPARENT_COLOR;
+    }
+
+    public void SetToOpaque()
+    {
+        if (_image == null)
+        {
+            SetComponents();
+        }
         _image.color = TRANSPARENT_COLOR;
     }
 

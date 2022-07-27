@@ -83,7 +83,7 @@ public class SessionManager : MonoBehaviour
                 _sessionInProgress = true;
                 _GUIController.ShowMainGUI();
                 _poiSelectionManager.SetupPOIs();
-                _modeManager.Setup();
+                _modeManager.SetupMiniatureMode();
             }
 
             //_trackedImage = newImage;

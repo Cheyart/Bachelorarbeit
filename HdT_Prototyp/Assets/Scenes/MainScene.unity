@@ -2335,7 +2335,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 400, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &568953051
@@ -3188,7 +3188,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1124858547}
         m_TargetAssemblyTypeName: ModeManager, Assembly-CSharp
-        m_MethodName: SwitchToPictureMode
+        m_MethodName: SwitchToPictureSubmode
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3484,9 +3484,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a49ef40e73ec446db119886142c7ee8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _camera: {fileID: 1354141926}
   _icon: {fileID: 526117672}
   _viewport: {fileID: 1057605656}
-  _camera: {fileID: 1354141926}
 --- !u!1 &834758388
 GameObject:
   m_ObjectHideFlags: 0
@@ -3502,7 +3502,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &834758389
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4387,12 +4387,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 071942eec543b4e729ef63b06f85dbfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _arPhysicsRaycaster: {fileID: 1354141931}
-  _miniaturePhysicsRaycaster: {fileID: 0}
-  _offScreenPointer: {fileID: 813084663}
-  _miniatureMode: {fileID: 0}
-  _arMode: {fileID: 1124858548}
   _arCamera: {fileID: 1354141926}
+  _miniatureMode: {fileID: 0}
 --- !u!114 &1124858548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4406,8 +4402,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _poiImage: {fileID: 1838856080}
+  _poiOffScreenPointer: {fileID: 813084663}
   _switchToPictureButton: {fileID: 751544392}
   _switchToCameraButton: {fileID: 2006035832}
+  _sessionManager: {fileID: 0}
 --- !u!1 &1170092506
 GameObject:
   m_ObjectHideFlags: 0
@@ -5039,7 +5037,7 @@ GameObject:
   - component: {fileID: 1354108034}
   - component: {fileID: 1354108033}
   m_Layer: 5
-  m_Name: --AR Mode GUI--
+  m_Name: --AR Submode--
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6302,7 +6300,7 @@ RectTransform:
   - {fileID: 1044108985}
   - {fileID: 1013991325}
   m_Father: {fileID: 2045929718}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -7196,7 +7194,7 @@ RectTransform:
   - {fileID: 2073426234}
   - {fileID: 54587664}
   m_Father: {fileID: 2045929718}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -7856,7 +7854,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1124858547}
         m_TargetAssemblyTypeName: ModeManager, Assembly-CSharp
-        m_MethodName: SwitchToCameraMode
+        m_MethodName: SwitchToCameraSubmode
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7997,8 +7995,8 @@ RectTransform:
   m_Children:
   - {fileID: 813084660}
   - {fileID: 1354108032}
-  - {fileID: 1587839410}
   - {fileID: 1875843557}
+  - {fileID: 1587839410}
   - {fileID: 1380784503}
   - {fileID: 834758389}
   - {fileID: 1803971740}

@@ -8,8 +8,8 @@ public class MainViewport : MonoBehaviour
     private AnimatedUIElement _animator;
     private RectTransform _rectTransform;
 
-     public Vector2 WidthCoordinates { get => new Vector2(_rectTransform.offsetMin.x, _screenWidth + _rectTransform.offsetMax.x); }
-     public Vector2 HeightCoordinates { get => new Vector2(_rectTransform.offsetMin.y, _screenHeight + _rectTransform.offsetMax.y); }
+    public Vector2 WidthCoordinates { get => new Vector2(_rectTransform.offsetMin.x, _screenWidth + _rectTransform.offsetMax.x); }
+    public Vector2 HeightCoordinates { get => new Vector2(_rectTransform.offsetMin.y, _screenHeight + _rectTransform.offsetMax.y); }
 
     public Vector2 Centerpoint
     {
@@ -24,7 +24,6 @@ public class MainViewport : MonoBehaviour
     private float _screenHeight;
     private float _screenWidth;
 
-    
 
     // Start is called before the first frame update
     void Start()
@@ -42,15 +41,6 @@ public class MainViewport : MonoBehaviour
     }
 
 
-    //Bottom == offsetMin.y
-
-    // Update is called once per frame
-    void Update()
-    {
-        //Debug.Log("Offset Min:" + _rectTransform.offsetMin);
-       //Debug.Log("Offset Max:" + _rectTransform.offsetMax);
-    }
-
     public void SetBottomOffset(float bottomOffset)
     {
         if (_rectTransform == null)
@@ -62,7 +52,7 @@ public class MainViewport : MonoBehaviour
 
     public void AnimatedBottomOffsetTransition(float targetOffset, float duration, EasingFunction easing)
     {
-        if(_animator == null)
+        if (_animator == null)
         {
             SetComponents();
         }
@@ -70,7 +60,7 @@ public class MainViewport : MonoBehaviour
         Vector2 newOffset = new Vector2(_rectTransform.offsetMin.x, targetOffset);
         StartCoroutine(_animator.LerpOffsetMin(_rectTransform.offsetMin, newOffset, duration, easing));
     }
-    
+
 
     private void SetComponents()
     {

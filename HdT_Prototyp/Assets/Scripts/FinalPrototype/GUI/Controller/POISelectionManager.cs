@@ -30,7 +30,7 @@ public class POISelectionManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        //_sessionManager = SessionManager.Instance;
+        _sessionManager = SessionManager.Instance;
   
     }
 
@@ -61,8 +61,8 @@ public class POISelectionManager : MonoBehaviour
             {
                 poi.SetColor(_selectedColor);
                 _POIMenuManager.OpenMenu(poi.Content);
-                SessionManager.Instance.ActivePOI = poi.Content;
-                //_sessionManager.ActivePOI = poi.Content;
+                //SessionManager.Instance.ActivePOI = poi.Content;
+                _sessionManager.ActivePOI = poi.Content;
                 _modeManager.PoiIsSelected = true;
 
                 if (poi.IsVisibleInAR)
@@ -88,7 +88,8 @@ public class POISelectionManager : MonoBehaviour
                 poi.SetColor(_idleColor);
             }
         }
-        SessionManager.Instance.ActivePOI = null;
+        //SessionManager.Instance.ActivePOI = null;
+        _sessionManager.ActivePOI = null;
         _offScreenPointer.Target = null;
         _modeManager.PoiIsSelected = false;
 
@@ -104,10 +105,7 @@ public class POISelectionManager : MonoBehaviour
     void OnGUI()
     {
         
-            GUI.Label(new Rect(200, 700, 400, 100), " Selection Counter = " + selectionCouner);
-
-        
-       
+            //GUI.Label(new Rect(200, 700, 400, 100), " Selection Counter = " + selectionCouner);
 
 
     }

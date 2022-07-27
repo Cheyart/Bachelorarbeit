@@ -5,33 +5,33 @@ using UnityEngine.EventSystems;
 
 public enum Mode
 {
-    ARCamera, ARPicture, Miniature
+    AR, ARCamera, ARPicture, Miniature
 }
 
 // TO DO: revise attributes (make more compact)
+[RequireComponent(typeof(ARSubmodeController))]
 public class ModeManager : MonoBehaviour
 {
-    private Mode _standbyARMode; //AR mode which will be switched to when returning from Miniature mode
-    private Mode _currentMode;
+   
 
     [SerializeField]
+    private Camera _arCamera;
+    //[SerializeField]
     private PhysicsRaycaster _arPhysicsRaycaster;
 
-    [SerializeField]
+    //[SerializeField]
     private PhysicsRaycaster _miniaturePhysicsRaycaster;
-
-    [SerializeField]
-    private OffScreenPointer _offScreenPointer;
-
 
     [SerializeField]
     private MiniatureMode _miniatureMode;
 
-    [SerializeField]
-    private ARMode _arMode;
+    private ARSubmodeController _arSubmode;
 
-    [SerializeField]
-    private Camera _arCamera;
+    //[SerializeField]
+    //private OffScreenPointer _offScreenPointer;
+
+    private Mode _standbyARMode; //AR mode which will be switched to when returning from Miniature mode
+    private Mode _currentMode;
 
     private bool _poiIsSelected;
     public bool PoiIsSelected
@@ -46,12 +46,12 @@ public class ModeManager : MonoBehaviour
 
             if(_poiIsSelected)
             {
-                if (_currentMode == Mode.ARCamera)
+                if (_currentMode == Mode.AR)
                 {
-                    _offScreenPointer.IsEnabled = false;
+                    //_offScreenPointer.IsEnabled = false;
                     _currentMode = Mode.ARPicture;
                     _standbyARMode = Mode.ARPicture;
-                    _arMode.Show(_currentMode);
+                    _arSubmode.Show(_currentMode);
                 } else if(_currentMode == Mode.Miniature)
                 {
                     _standbyARMode = Mode.ARPicture;
@@ -59,12 +59,12 @@ public class ModeManager : MonoBehaviour
                    
             } else if (!_poiIsSelected) 
             {
-                _standbyARMode = Mode.ARCamera;
-                _arMode.Hide();
+                _standbyARMode = Mode.AR;
+                _arSubmode.Hide();
 
-                if(_currentMode == Mode.ARPicture)
+                if(CurrentModeIsARSubmode())
                 {
-                    _currentMode = Mode.ARCamera;
+                    _currentMode = Mode.AR;
                 }
 
                 /* if (_currentMode == Mode.ARPicture || )
@@ -83,21 +83,26 @@ public class ModeManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //_miniatureMode.Show();
+        // _standbyARMode = Mode.ARCamera;
+        // _currentMode = Mode.ARCamera;
+
         _poiIsSelected = false;
-        _standbyARMode = Mode.ARCamera;
-        _currentMode = Mode.ARCamera;
-        _offScreenPointer.IsEnabled = true;
-        //_vrMode.SetActive(false);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
+        _standbyARMode = Mode.AR;
+        _currentMode = Mode.AR;
+        //_offScreenPointer.IsEnabled = false;
+        _arSubmode = GetComponent<ARSubmodeController>();
+        _arPhysicsRaycaster = _arCamera.GetComponent<PhysicsRaycaster>();
         
+
+        if (_miniatureMode != null)
+        {
+            _miniatureMode.Setup(_arCamera);
+            _miniaturePhysicsRaycaster = _miniatureMode.Camera.GetComponent<PhysicsRaycaster>();
+        }
     }
 
-    public void Setup()
+   
+    public void SetupMiniatureMode()
     {
         _miniatureMode = FindObjectOfType<MiniatureMode>();
         if(_miniatureMode != null)
@@ -109,80 +114,103 @@ public class ModeManager : MonoBehaviour
 
     public void SwitchMode()
     {
-        if(_currentMode == Mode.ARCamera || _currentMode == Mode.ARPicture)
+        //Switch from Miniature mode
+        if(_currentMode == Mode.Miniature)
         {
-            _offScreenPointer.IsEnabled = false;
-            _standbyARMode = _currentMode;
-
-            //_vrMode.SetActive(true);
-            _miniatureMode.Show();
-            _arPhysicsRaycaster.enabled = false;
-            _miniaturePhysicsRaycaster.enabled = true;
-
-
-
-            _arMode.Hide();
-          
-
-            _currentMode = Mode.Miniature;
-
-
+            StartCoroutine(SwitchToARMode());
         }
+        //switch from AR Mode
         else
         {
-            
-            _currentMode = _standbyARMode;
-            //_standbyARMode = _currentMode;
+            _standbyARMode = _currentMode;
+            _miniatureMode.Show();
 
-            if(_poiIsSelected)
+            if (CurrentModeIsARSubmode())
             {
-                _arMode.Show(_currentMode);
+                _arSubmode.Hide();
             }
+            _currentMode = Mode.Miniature;
 
-            //_vrMode.SetActive(false);
-            _miniatureMode.Hide();
-            _arPhysicsRaycaster.enabled = true;
-            _miniaturePhysicsRaycaster.enabled = false;
-
-
-            if (_currentMode == Mode.ARCamera)
-            {
-                _offScreenPointer.IsEnabled = true;
-            }
         }
+
+        SwitchPhysicsRaycaster(_currentMode);
     }
 
-    public void SwitchToCameraMode()
+ 
+
+    private IEnumerator SwitchToARMode()
+    {
+        _currentMode = _standbyARMode;
+
+        if (_currentMode == Mode.ARPicture)
+        {
+            _arSubmode.Show(_currentMode);
+        }
+
+
+        yield return StartCoroutine(_miniatureMode.Hide());
+
+        if (_currentMode == Mode.ARCamera)
+        {
+            _arSubmode.Show(_currentMode);
+        }
+
+    }
+
+
+
+    public void SwitchToCameraSubmode()
     {
         _currentMode = Mode.ARCamera;
         _standbyARMode = Mode.ARCamera;
-        _arMode.Show(_currentMode);
+        _arSubmode.Show(_currentMode);
     }
 
-    public void SwitchToPictureMode()
+    public void SwitchToPictureSubmode()
     {
         _currentMode = Mode.ARPicture;
         _standbyARMode = Mode.ARPicture;
-        _arMode.Show(_currentMode);
+        _arSubmode.Show(_currentMode);
     }
+
+    private bool CurrentModeIsARSubmode()
+    {
+        return (_currentMode == Mode.ARCamera || _currentMode == Mode.ARPicture);
+    }
+
+    private void SwitchPhysicsRaycaster(Mode currentMode)
+    {
+        if (currentMode == Mode.Miniature)
+        {
+            _arPhysicsRaycaster.enabled = false;
+            _miniaturePhysicsRaycaster.enabled = true;
+        }
+        else
+        {
+            _arPhysicsRaycaster.enabled = true;
+            _miniaturePhysicsRaycaster.enabled = false;
+        }
+    }
+
+
 
     ////Picture Mode
 
-  /* void OnGUI()
-    {
-
-        
-
-        GUI.Label(new Rect(200, 400, 400, 100), " Current Mode: " + _currentMode);
-        GUI.Label(new Rect(200, 450, 400, 100), " AR standby mode: " + _standbyARMode);
-        GUI.Label(new Rect(200, 500, 400, 100), " POI is selected: " + _poiIsSelected);
-        GUI.Label(new Rect(200, 550, 400, 100), " AR physics raycaster: " + _arPhysicsRaycaster.enabled);
-        GUI.Label(new Rect(200, 550, 400, 100), " miniature physics raycaster: " + _miniaturePhysicsRaycaster.enabled);
+    /* void OnGUI()
+      {
 
 
 
+          GUI.Label(new Rect(200, 400, 400, 100), " Current Mode: " + _currentMode);
+          GUI.Label(new Rect(200, 450, 400, 100), " AR standby mode: " + _standbyARMode);
+          GUI.Label(new Rect(200, 500, 400, 100), " POI is selected: " + _poiIsSelected);
+          GUI.Label(new Rect(200, 550, 400, 100), " AR physics raycaster: " + _arPhysicsRaycaster.enabled);
+          GUI.Label(new Rect(200, 550, 400, 100), " miniature physics raycaster: " + _miniaturePhysicsRaycaster.enabled);
 
-    }*/
+
+
+
+      }*/
 
 
 }

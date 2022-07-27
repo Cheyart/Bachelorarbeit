@@ -9,13 +9,14 @@ public class POIImage : MonoBehaviour
     private Sprite _sprite;
     private ImageFadeAnimation _fadeAnimation;
 
+    private int counter;
+
 
     // Start is called before the first frame update
     void Start()
     {
         SetComponents();
-        _fadeAnimation.SetToTransparent();
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -35,18 +36,37 @@ public class POIImage : MonoBehaviour
         _sprite = image;
     }
 
-    public IEnumerator Show()
+    public IEnumerator FadeIn()
     {
-        Debug.Log("Inside POI IMage Show");
+        counter++;
         gameObject.SetActive(true);
-
         yield return StartCoroutine(_fadeAnimation.FadeIn());
     }
 
-    public IEnumerator Hide()
+    public IEnumerator FadeOut()
     {
         yield return StartCoroutine(_fadeAnimation.FadeOut());
         gameObject.SetActive(false);
+    }
+
+    public void SetToTransparent()
+    {
+        if(_fadeAnimation == null)
+        {
+            SetComponents();
+        }
+        _fadeAnimation.SetToTransparent();
+        gameObject.SetActive(false);
+    }
+
+    void OnGUI()
+    {
+
+        GUI.Label(new Rect(200, 400, 400, 100), " picture fade in counter = " + counter);
+        GUI.Label(new Rect(200, 450, 400, 100), " Picture is active = " + gameObject.activeSelf);
 
     }
+
+
+
 }
