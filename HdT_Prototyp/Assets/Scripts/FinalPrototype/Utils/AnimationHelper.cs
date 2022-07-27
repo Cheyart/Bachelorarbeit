@@ -37,7 +37,7 @@ public static class AnimationHelper
     }
 
     //return euler rotation angle of a direction vector
-    public static float GetRotationFromDirectionVector(Vector2 vec)
+    public static float GetAngleFromDirectionVector(Vector2 vec)
     {
         return (Mathf.Atan2(vec.y, vec.x) * Mathf.Rad2Deg) % 360;
     }

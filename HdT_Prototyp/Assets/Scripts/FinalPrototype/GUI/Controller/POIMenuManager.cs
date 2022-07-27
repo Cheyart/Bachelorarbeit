@@ -159,12 +159,12 @@ public class POIMenuManager : MonoBehaviour
     private void SwitchState(POIMenuState newState)
     {
         State = newState;
-        _guiController.SetPOIMenuHeight(GetMenuHeight());
+       // _guiController.SetPOIMenuHeight(GetMenuHeight());
     }
 
 
     //add viewport script
-    private float GetMenuHeight()
+   /* private float GetMenuHeight()
     {
         if(State == POIMenuState.closed)
         {
@@ -173,7 +173,7 @@ public class POIMenuManager : MonoBehaviour
         {
             return _transitionController.GetMenuPanelYPos(State);
         }
-    }
+    }*/
 
    /* void OnGUI()
  {

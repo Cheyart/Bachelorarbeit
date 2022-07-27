@@ -92,7 +92,7 @@ public class SessionManager : MonoBehaviour
         }
     }
 
-   
+   //DELETE?
     public void SetTarget(GameObject go)
     {
         _offscreenPointer.Target = go;

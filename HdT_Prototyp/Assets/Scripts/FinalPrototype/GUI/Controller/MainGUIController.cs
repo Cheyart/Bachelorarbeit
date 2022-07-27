@@ -7,8 +7,8 @@ public class MainGUIController : MonoBehaviour
     //[SerializeField]
     //private POIMenuManager _poiMenuManager;
 
-    [SerializeField]
-    private OffScreenPointer _offScreenPointer;
+    //[SerializeField]
+    //private OffScreenPointer _offScreenPointer;
 
     [SerializeField]
     private GameObject _topBar;
@@ -30,9 +30,9 @@ public class MainGUIController : MonoBehaviour
     public float BottomBarHeight { get => _bottomBarHeight; }
 
 
-    private float _poiMenuHeight;
-    private Vector2 _viewportHeightCoordinates;
-    private Vector2 _viewportWidthCoordinates;
+   // private float _poiMenuHeight;
+    //private Vector2 _viewportHeightCoordinates;
+    //private Vector2 _viewportWidthCoordinates;
 
     private void Awake()
     {
@@ -42,8 +42,8 @@ public class MainGUIController : MonoBehaviour
         _bottomBar.SetActive(false);
 
         //DELETE
-        _poiMenuHeight = 0;
-        SetViewportDimensions(_poiMenuHeight);
+        //_poiMenuHeight = 0;
+       // SetViewportDimensions(_poiMenuHeight);
 
         _topBarHeight = _topBar.GetComponent<RectTransform>().rect.height;
         _bottomBarHeight = _bottomBar.GetComponent<RectTransform>().rect.height;
@@ -70,13 +70,13 @@ public class MainGUIController : MonoBehaviour
         _poiMenu.SetActive(true);
     }
 
-    public void SetPOIMenuHeight(float poiMenuHeight)
+   /* public void SetPOIMenuHeight(float poiMenuHeight)
     {
         _poiMenuHeight = poiMenuHeight;
         SetViewportDimensions(poiMenuHeight);
-    }
+    }*/
 
-    public void SetViewportDimensions(float poiMenuHeight)
+    /*public void SetViewportDimensions(float poiMenuHeight)
     {
         _viewportWidthCoordinates = new Vector2(0, Screen.width);
 
@@ -90,7 +90,7 @@ public class MainGUIController : MonoBehaviour
         _viewportHeightCoordinates = new Vector2(bottom, top);
 
         _offScreenPointer.SetViewportDimensions(_viewportWidthCoordinates, _viewportHeightCoordinates);
-    }
+    }*/
 
 
 }

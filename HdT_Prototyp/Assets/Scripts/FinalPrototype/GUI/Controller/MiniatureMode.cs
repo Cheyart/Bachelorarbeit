@@ -89,7 +89,7 @@ public class MiniatureMode : MonoBehaviour
     private float GetCameraContainerRotationWithFrontalUserPos()
     {
         Vector3 direction = AnimationHelper.GetNormalizedDirectionVector(_cameraContainer.transform.localPosition, _userPosition.transform.localPosition);
-        float angle = AnimationHelper.GetRotationFromDirectionVector(new Vector2(direction.x, direction.y));
+        float angle = AnimationHelper.GetAngleFromDirectionVector(new Vector2(direction.x, direction.y));
         return angle;
     }
 
