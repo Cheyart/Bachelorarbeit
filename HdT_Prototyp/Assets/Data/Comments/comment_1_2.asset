@@ -17,6 +17,7 @@ MonoBehaviour:
   _message: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy
     eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. '
   _replyTo: 1
+  _belongsToThread: 1
   _year: 2022
   _month: 7
   _day: 7

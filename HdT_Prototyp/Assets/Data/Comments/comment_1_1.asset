@@ -17,6 +17,7 @@ MonoBehaviour:
   _message: 'At vero eos et accusam et justo duo dolores et ea rebum. Stet clita
     kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. '
   _replyTo: -1
+  _belongsToThread: 1
   _year: 2022
   _month: 7
   _day: 7
