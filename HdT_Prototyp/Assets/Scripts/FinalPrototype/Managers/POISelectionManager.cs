@@ -36,7 +36,7 @@ public class POISelectionManager : MonoBehaviour
 
         foreach (POIHandler poi in _POIs)
         {
-            poi.Setup(this, _idleColor);
+            poi.Setup(this, _idleColor, _modeManager.ARCamera);
         }
     }
 
@@ -57,10 +57,10 @@ public class POISelectionManager : MonoBehaviour
                 _sessionManager.ActivePOI = poi.Content;
                 _modeManager.PoiIsSelected = true;
 
-                if (poi.IsVisibleInAR)
-                {
-                    _offScreenPointer.Target = poi.gameObject;
-                }
+                //if (poi.IsVisibleInAR)
+                //{
+                    _offScreenPointer.Target = poi.ARSphereGO;
+               // }
             }
             else
             {

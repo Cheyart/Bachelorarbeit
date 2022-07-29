@@ -6,6 +6,7 @@ public class Billboard : MonoBehaviour
 {
     [SerializeField]
     private Camera _camera;
+    public Camera Camera { get => _camera; set => _camera = value; }
 
     [SerializeField]
     private bool _fixXAxis;

@@ -19,6 +19,7 @@ public class ModeManager : MonoBehaviour
 
     [SerializeField]
     private Camera _arCamera;
+    public Camera ARCamera { get => _arCamera;}
 
 
    // [SerializeField]
