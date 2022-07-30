@@ -50,18 +50,22 @@ public class Billboard : MonoBehaviour
 
         _multiplicationVector = new Vector3(x, y, z);
 
+
     }
 
     // Update is called once per frame
     void LateUpdate()
     {
-        transform.LookAt(_camera.transform, _camera.transform.up);
+        if (_camera != null)
+        {
+            transform.LookAt(_camera.transform, _camera.transform.up);
 
-       
-        
-        transform.localRotation = Quaternion.Euler(Vector3.Scale(transform.localRotation.eulerAngles, _multiplicationVector));
-        Vector3 currentRot = transform.localRotation.eulerAngles;
-        transform.localRotation = Quaternion.Euler(currentRot.x + _xOffset, currentRot.y + _yOffset, currentRot.z + _zOffset);
+
+
+            transform.localRotation = Quaternion.Euler(Vector3.Scale(transform.localRotation.eulerAngles, _multiplicationVector));
+            Vector3 currentRot = transform.localRotation.eulerAngles;
+            transform.localRotation = Quaternion.Euler(currentRot.x + _xOffset, currentRot.y + _yOffset, currentRot.z + _zOffset);
+        }
         
     }
 }

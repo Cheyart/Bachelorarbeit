@@ -44,7 +44,6 @@ public class ARSubmodeController : MonoBehaviour
 
             if (_currentPOIId != _sessionManager.ActivePOI.Id)
             {
-                counter += 3;
                 SetupContent();
             }
             StartCoroutine(ShowPictureMode());
@@ -92,6 +91,7 @@ public class ARSubmodeController : MonoBehaviour
 
     private void SetupContent()
     {
+        Debug.Log("Inside Setup content");
         _currentPOIId = _sessionManager.ActivePOI.Id;
         _poiImage.SetImage(_sessionManager.ActivePOI.Picture);
         

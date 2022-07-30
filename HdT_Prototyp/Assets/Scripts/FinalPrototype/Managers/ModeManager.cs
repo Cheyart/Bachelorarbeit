@@ -194,11 +194,6 @@ public class ModeManager : MonoBehaviour
 
 
 
-    private void OnGUI()
-    {
-        GUI.Label(new Rect(200, 300, 400, 200), "TEST in ModeManager");
-        GUI.Label(new Rect(200, 400, 400, 200), "TEST in ModeManager");
-
-    }
+ 
 
 }

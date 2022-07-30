@@ -6,7 +6,9 @@ using UnityEngine.UI;
 [RequireComponent(typeof(ImageFadeAnimation), typeof(Image))]
 public class POIImage : MonoBehaviour
 {
-    private Sprite _sprite;
+    //private Sprite _sprite;
+    private Image _image;
+
     private ImageFadeAnimation _fadeAnimation;
 
     private int counter;
@@ -27,13 +29,17 @@ public class POIImage : MonoBehaviour
 
     private void SetComponents()
     {
-        _sprite = GetComponent<Image>().sprite;
+        _image = GetComponent< Image>();
+        //_sprite = _image.sprite;
         _fadeAnimation = GetComponent<ImageFadeAnimation>();
     }
 
     public void SetImage(Sprite image)
     {
-        _sprite = image;
+        Debug.Log("Set Image");
+        Debug.Log("sprite = " + image);
+        _image.sprite = image;
+        //_sprite = image;
     }
 
     public IEnumerator FadeIn()

@@ -113,7 +113,7 @@ public class SessionManager : MonoBehaviour
     {
         _sessionInProgress = true;
         InstructionController.HideInstruction(Instructions.scanQRCode);
-        GUIController.ShowMainGUI();
+        GUIController.ShowMainGUI(); //for ScreenShots
         POISelectionManager.SetupPOIs();
         ModeManager.SetupSession();
         Debug.Log("Inside Activate Session");

@@ -31,6 +31,9 @@ public class OffScreenPointer : MonoBehaviour
     public bool IsEnabled { get => _isEnabled; set => _isEnabled = value; }
     private bool _isVisible;
 
+    private bool _targetIsOffScreen;
+    private bool _targetIsObscured;
+
 
     void Start()
     {
@@ -57,6 +60,7 @@ public class OffScreenPointer : MonoBehaviour
 
                 if (TargetIsOffScreen(targetScreenPos, viewportHeight, viewportWidth))
                 {
+                    _targetIsOffScreen = true;
                     if (TargetIsBehindScreen(targetScreenPos))
                     {
                         targetScreenPos = ReverseScreenPos(targetScreenPos);
@@ -73,6 +77,7 @@ public class OffScreenPointer : MonoBehaviour
                 }
                 else if (!TargetIsBehindScreen(targetScreenPos) && TargetIsObscured(targetWorldPos))
                 {
+                    _targetIsObscured = true;
                     SetIconRotation(targetScreenPos);
                     _rectTransform.anchoredPosition = targetScreenPos;
 
@@ -83,6 +88,8 @@ public class OffScreenPointer : MonoBehaviour
                 }
                 else
                 {
+                    _targetIsObscured = false;
+                    _targetIsOffScreen = false;
                     if (_isVisible)
                     {
                         SetVisibility(false);
@@ -156,5 +163,13 @@ public class OffScreenPointer : MonoBehaviour
         _isVisible = value;
         _icon.gameObject.SetActive(value);
     }
+
+    /*private void OnGUI()
+    {
+        GUI.Label(new Rect(200, 600, 400, 200), "(target is off screen: " + _targetIsOffScreen);
+        GUI.Label(new Rect(200, 650, 400, 200), "(target is obscured: " + _targetIsObscured);
+
+
+    }*/
 
 }
