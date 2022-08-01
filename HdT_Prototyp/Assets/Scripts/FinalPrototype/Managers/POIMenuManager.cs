@@ -30,6 +30,8 @@ public class POIMenuManager : MonoBehaviour
 
     private string _debugText = "";
 
+    private bool _instructionWasShown;
+
 
     private void Awake()
     {
@@ -53,6 +55,15 @@ public class POIMenuManager : MonoBehaviour
             _transitionController.TransitionFromTo(_state, POIMenuState.medium);
             _state = POIMenuState.medium;
         }
+
+        if (!_instructionWasShown)
+        {
+            //add wait time?
+            SessionManager.Instance.InstructionController.ShowInstruction(Instructions.adjustMenuSize);
+            _instructionWasShown = true;
+        }
+
+
     }
 
     public void CloseMenu()

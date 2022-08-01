@@ -23,6 +23,7 @@ public class MiniatureMode : MonoBehaviour
     private const float ROTATION_TRANSITION_DURATION = 1.4f;
     private const float CAMERA_CONTAINER_OFFSET = 90f;
 
+    private bool _instructionWasShown;
 
     public void Setup(Camera arCamera)
     {
@@ -52,6 +53,12 @@ public class MiniatureMode : MonoBehaviour
             _miniatureCamera.gameObject.SetActive(true);
             yield return StartCoroutine(_miniatureCamera.TransitionToMiniatureMode(CAMERA_TRANSITION_DURATION));
             StartCameraContainerRotation();
+
+            if (!_instructionWasShown)
+            {
+                SessionManager.Instance.InstructionController.ShowInstruction(Instructions.rotateModel);
+                _instructionWasShown = true;
+            }
 
         }
         else if (transition == Transition.fromMiniature)

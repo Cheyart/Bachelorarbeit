@@ -30,6 +30,7 @@ public class UserInstructionManager : MonoBehaviour
 
     public void ShowInstruction(Instructions instruction)
     {
+        //Debug.Log("Show Instruction: " + instruction);
         InstructionScreen screen;
         if(_instructionScreens == null)
         {
@@ -64,6 +65,7 @@ public class UserInstructionManager : MonoBehaviour
         _instructionScreens = new Dictionary<Instructions, InstructionScreen>();
         foreach (InstructionScreen screen in instructionScreens)
         {
+            screen.Init();
             _instructionScreens.Add(screen.Instruction, screen);
         }
     }

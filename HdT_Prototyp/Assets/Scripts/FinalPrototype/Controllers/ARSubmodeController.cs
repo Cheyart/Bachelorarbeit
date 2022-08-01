@@ -24,6 +24,8 @@ public class ARSubmodeController : MonoBehaviour
 
     private int counter;
 
+    private bool _instructionWasShown;
+
 
     // Start is called before the first frame update
     void Start()
@@ -74,6 +76,12 @@ public class ARSubmodeController : MonoBehaviour
 
         _switchToPictureButton.gameObject.SetActive(false);
         _switchToCameraButton.gameObject.SetActive(true);
+
+        if (!_instructionWasShown)
+        {
+            SessionManager.Instance.InstructionController.ShowInstruction(Instructions.switchView);
+            _instructionWasShown = true;
+        }
     }
 
     private IEnumerator ShowCameraMode()

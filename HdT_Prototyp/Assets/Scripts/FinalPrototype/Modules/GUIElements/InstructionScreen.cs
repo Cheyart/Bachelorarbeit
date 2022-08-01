@@ -23,6 +23,11 @@ public class InstructionScreen : MonoBehaviour
         
     }
 
+    public void Init()
+    {
+        gameObject.SetActive(false);
+    }
+
     public void Show()
     {
         gameObject.SetActive(true);

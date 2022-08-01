@@ -113,6 +113,8 @@ public class SessionManager : MonoBehaviour
     {
         _sessionInProgress = true;
         InstructionController.HideInstruction(Instructions.scanQRCode);
+        //add wait time
+        InstructionController.ShowInstruction(Instructions.switchMode);
         GUIController.ShowMainGUI(); //for ScreenShots
         POISelectionManager.SetupPOIs();
         ModeManager.SetupSession();
