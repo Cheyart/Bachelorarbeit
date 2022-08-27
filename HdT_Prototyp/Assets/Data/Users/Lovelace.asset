@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Lovelace
   m_EditorClassIdentifier: 
   _username: lovelace
-  _profilePic: {fileID: 0}
+  _profilePic: {fileID: 21300000, guid: 2afbcebf6a5aa42eba17ba225ebb1276, type: 3}

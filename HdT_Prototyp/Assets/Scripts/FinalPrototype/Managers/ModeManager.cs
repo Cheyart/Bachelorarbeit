@@ -32,6 +32,11 @@ public class ModeManager : MonoBehaviour
     private Mode _standbyARMode; //AR mode which will be switched to when returning from Miniature mode
     private Mode _currentMode;
 
+    private bool _miniatureInstructionWasShown;
+
+    private SessionManager _sessionManager;
+   
+
     private bool _poiIsSelected;
     public bool PoiIsSelected
     {
@@ -80,10 +85,11 @@ public class ModeManager : MonoBehaviour
 
     void Start()
     {
-
+        _sessionManager = SessionManager.Instance;
         _poiIsSelected = false;
         _standbyARMode = Mode.AR;
-        _currentMode = Mode.AR;
+        //_currentMode = Mode.AR;
+        _currentMode = Mode.Miniature;
         _arSubmode = GetComponent<ARSubmodeController>();
         _arPhysicsRaycaster = _arCamera.GetComponent<PhysicsRaycaster>();
 
@@ -124,6 +130,15 @@ public class ModeManager : MonoBehaviour
            // _modelOffscreenPointer.IsEnabled = false;
 
             _miniatureMode.Show();
+            if (!_miniatureInstructionWasShown)
+            {
+                if(_sessionManager.POIMenuManager.State == POIMenuState.big)
+                {
+                    _sessionManager.POIMenuManager.ContractMenu();
+                }
+                _sessionManager.InstructionController.ShowInstruction(Instructions.rotateModel, 2f, true);
+                _miniatureInstructionWasShown = true;
+            }
 
             if (CurrentModeIsARSubmode())
             {
@@ -191,9 +206,5 @@ public class ModeManager : MonoBehaviour
             _miniaturePhysicsRaycaster.enabled = false;
         }
     }
-
-
-
- 
 
 }

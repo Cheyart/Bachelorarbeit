@@ -5,6 +5,7 @@ using UnityEngine;
 public static class VectorCalculationHelper 
 {
     //return euler rotation angle of a direction vector
+    //RENAME, GetZRotationFromDirectionVector
     public static float GetAngleFromDirectionVector(Vector2 vec)
     {
         return (Mathf.Atan2(vec.y, vec.x) * Mathf.Rad2Deg) % 360;

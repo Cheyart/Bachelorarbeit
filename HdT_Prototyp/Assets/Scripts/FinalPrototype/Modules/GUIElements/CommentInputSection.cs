@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CommentInputSection : MonoBehaviour
 {
@@ -20,22 +21,19 @@ public class CommentInputSection : MonoBehaviour
     [SerializeField]
     private GameObject _scrollBar;
 
+    [SerializeField]
+    private Image _profilePic;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        _profilePic.sprite = SessionManager.Instance.LoggedInUser.ProfilePic;
     }
 
     public void SetCommentToReplyTo(string message)
     {
-        _commentToReplyTo.text = message;
+        _commentToReplyTo.text = "\n" + message;
     }
 
     public void SetTextInputPlaceholderContent(POIMenuState replyState)

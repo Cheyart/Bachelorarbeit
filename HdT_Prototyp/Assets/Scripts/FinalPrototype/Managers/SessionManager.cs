@@ -25,7 +25,10 @@ public class SessionManager : MonoBehaviour
     public ModeManager ModeManager { get; private set; }
     public POIMenuManager POIMenuManager { get; private set; }
     public CommentManager CommentManager { get; private set; }
-    public UserInstructionManager InstructionController { get; private set; }
+
+    [SerializeField]
+    private UserInstructionManager _instructionController;
+    public UserInstructionManager InstructionController { get => _instructionController; }
 
     [SerializeField]
     private ARTrackedImageManager _trackedImageManager;
@@ -74,7 +77,7 @@ public class SessionManager : MonoBehaviour
             ActivateSession();
         } else
         {
-            InstructionController.ShowInstruction(Instructions.scanQRCode);
+            InstructionController.ShowInstruction(Instructions.scanQRCode, 0, false);
         }
     }
 
@@ -97,7 +100,7 @@ public class SessionManager : MonoBehaviour
         ModeManager = GetComponentInChildren<ModeManager>();
         POIMenuManager = GetComponentInChildren<POIMenuManager>();
         CommentManager = GetComponentInChildren<CommentManager>();
-        InstructionController = GetComponentInChildren<UserInstructionManager>();
+        //InstructionController = GetComponentInChildren<UserInstructionManager>();
         
 
     }
@@ -112,9 +115,9 @@ public class SessionManager : MonoBehaviour
     private void ActivateSession()
     {
         _sessionInProgress = true;
-        InstructionController.HideInstruction(Instructions.scanQRCode);
+        InstructionController.HideInstructionScreen();
         //add wait time
-        InstructionController.ShowInstruction(Instructions.switchMode);
+        InstructionController.ShowInstruction(Instructions.switchMode, 7f, true);
         GUIController.ShowMainGUI(); //for ScreenShots
         POISelectionManager.SetupPOIs();
         ModeManager.SetupSession();

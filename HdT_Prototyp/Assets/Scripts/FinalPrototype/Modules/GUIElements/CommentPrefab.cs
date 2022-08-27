@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
+//TO DO: Vererbung für Comment und Reply Prefab 
 public class CommentPrefab : MonoBehaviour
 {
  
@@ -18,7 +19,7 @@ public class CommentPrefab : MonoBehaviour
     private TextMeshProUGUI _message;
 
     [SerializeField]
-    private Sprite _profilePic;
+    private Image _profilePic;
 
     [SerializeField]
     private Color _highlightColor;
@@ -56,6 +57,12 @@ public class CommentPrefab : MonoBehaviour
         {
             _username.color = _highlightColor;
         }
+
+        if(_profilePic != null)
+        {
+            _profilePic.sprite = content.Poster.ProfilePic;
+        }
+
         _date.text = content.Date.ToString("dd.MM.yy");
         _message.text = content.Message;
         //update layout group (necessary for size adjustment)

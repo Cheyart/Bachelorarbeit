@@ -54,11 +54,11 @@ public class MiniatureMode : MonoBehaviour
             yield return StartCoroutine(_miniatureCamera.TransitionToMiniatureMode(CAMERA_TRANSITION_DURATION));
             StartCameraContainerRotation();
 
-            if (!_instructionWasShown)
+           /* if (!_instructionWasShown)
             {
-                SessionManager.Instance.InstructionController.ShowInstruction(Instructions.rotateModel);
+                SessionManager.Instance.InstructionController.ShowInstruction(Instructions.rotateModel, 2f);
                 _instructionWasShown = true;
-            }
+            }*/
 
         }
         else if (transition == Transition.fromMiniature)

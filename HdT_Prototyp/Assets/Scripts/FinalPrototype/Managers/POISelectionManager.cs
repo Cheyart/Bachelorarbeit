@@ -50,8 +50,6 @@ public class POISelectionManager : MonoBehaviour
             poi.Setup(this, _idleColor, _modeManager.ARCamera);
             //poi.Setup(this, _selectedColor, _modeManager.ARCamera);
             //poi.ShowBillboard(false);
-
-
         }
     }
 

@@ -38,13 +38,11 @@ public class RefreshLayoutGroup : MonoBehaviour
 
     IEnumerator Refresh()
     {
-        _layoutGroup.enabled = false;
-        yield return new WaitForEndOfFrame();
-        _layoutGroup.enabled = true;
+         _layoutGroup.enabled = false;
+         yield return new WaitForEndOfFrame();
+         _layoutGroup.enabled = true;
+  
     }
 
-  /*  public void ForceRebuild()
-    {
-        LayoutRebuilder.ForceRebuildLayoutImmediate(_rectTransform);
-    }*/
+ 
 }

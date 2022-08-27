@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d8b2f3a1323345e996577adcb513b9f, type: 3}
+  m_Name: comment_3_2_2
+  m_EditorClassIdentifier: 
+  _id: 12
+  _poster: {fileID: 11400000, guid: ee54bba13e7234c62abec6aca8c31f8a, type: 2}
+  _message: "Die Kritik kann ich gut nachvollziehen. Ich finde aber die Idee generell
+    von der Fensterwand sehr toll. Vielleicht kann die Platzierung etwas abge\xE4ndert
+    werden."
+  _replyTo: 11
+  _belongsToThread: 2
+  _year: 2022
+  _month: 7
+  _day: 25

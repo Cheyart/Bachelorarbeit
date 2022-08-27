@@ -79,7 +79,7 @@ public class ARSubmodeController : MonoBehaviour
 
         if (!_instructionWasShown)
         {
-            SessionManager.Instance.InstructionController.ShowInstruction(Instructions.switchView);
+            SessionManager.Instance.InstructionController.ShowInstruction(Instructions.switchView, 1f, true);
             _instructionWasShown = true;
         }
     }

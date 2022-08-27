@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Musterstudent
   m_EditorClassIdentifier: 
   _username: musterstudent
-  _profilePic: {fileID: 0}
+  _profilePic: {fileID: 21300000, guid: dd4c5660108e149fd9656839e3cb1a93, type: 3}

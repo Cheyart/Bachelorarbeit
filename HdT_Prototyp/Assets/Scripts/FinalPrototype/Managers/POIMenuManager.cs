@@ -25,6 +25,8 @@ public class POIMenuManager : MonoBehaviour
     private POIMenuTransitionController _transitionController;
 
     private POIMenuState _state;
+    public POIMenuState State { get => _state; }
+
     private POIMenuState _stateBeforeComment;
     private Comment _commentToReplyTo;
 
@@ -43,23 +45,27 @@ public class POIMenuManager : MonoBehaviour
         _transitionController.Init(_menuPanel, _inputSection);
         _state = POIMenuState.closed;
 
+        Debug.Log("AWAKE POI Menu Manager");
     }
 
 
     public void OpenMenu(PointOfInterest content)
     {
+        Debug.Log("OPEN POI Menu Manager");
+
         _menuPanel.SetupContent(content);
 
         if (_state == POIMenuState.closed)
         {
-            _transitionController.TransitionFromTo(_state, POIMenuState.medium);
+             _transitionController.TransitionFromTo(_state, POIMenuState.medium);
             _state = POIMenuState.medium;
+          
         }
 
         if (!_instructionWasShown)
         {
             //add wait time?
-            SessionManager.Instance.InstructionController.ShowInstruction(Instructions.adjustMenuSize);
+            SessionManager.Instance.InstructionController.ShowInstruction(Instructions.adjustMenuSize, 1f, true);
             _instructionWasShown = true;
         }
 

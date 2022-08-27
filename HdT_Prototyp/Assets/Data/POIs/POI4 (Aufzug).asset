@@ -15,8 +15,7 @@ MonoBehaviour:
   _id: 4
   _title: Aufzug
   _threads:
-  - {fileID: 11400000, guid: 14c83bca701a64480ac6f6e9832b8d24, type: 2}
   - {fileID: 11400000, guid: 8744b747f73c746eeb7c6a3742a935fe, type: 2}
-  - {fileID: 11400000, guid: 32e1ad22c1fa741b48ab0806f96849dc, type: 2}
-  - {fileID: 11400000, guid: 4b126598c702f45d9b1fdff2d6706610, type: 2}
+  - {fileID: 11400000, guid: 1e11ca557fe5a42598a94c18fda1b4ff, type: 2}
+  - {fileID: 11400000, guid: 5ebf443300ec64edbbfec218a0a6f1ce, type: 2}
   _picture: {fileID: 21300000, guid: b0ab2abe97e3347ea926db65986a305d, type: 3}

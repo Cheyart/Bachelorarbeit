@@ -22,7 +22,7 @@ public class MainGUIManager : MonoBehaviour
     public float BottomBarHeight { get; private set; }
 
 
-    private void Awake()
+    private void Start()
     {
         _topBar.SetActive(false);
         _poiMenu.SetActive(false);
