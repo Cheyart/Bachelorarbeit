@@ -9,13 +9,16 @@ public class Thread : ScriptableObject
     private static int IdCounter = 100;
 
     [SerializeField]
-    private int _id;
-    public int Id { get => _id; }
+    private int _id; /** unique ID*/
+    public int Id { get => _id; } /** unique ID*/
 
     [SerializeField]
-    private List<Comment> _comments;
-    public List <Comment> Comments { get => _comments; }
+    private List<Comment> _comments; /** List of comments saved in this thread */
+    public List <Comment> Comments { get => _comments; } /** List of comments saved in this thread */
 
+    /** Initializes a new thread
+     * @param firstComment first comment to be saved in this thread
+     */
     public void Init(Comment firstComment)
     {
         _id = IdCounter++;
@@ -24,7 +27,10 @@ public class Thread : ScriptableObject
         _comments.Add(firstComment);
     }
 
-
+    /**
+     * Add a new comment
+     * @param newComment Comment to be added
+     */
     public void AddComment (Comment newComment)
     {
         if(newComment != null)

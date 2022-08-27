@@ -10,15 +10,15 @@ using UnityEngine.EventSystems;
  */
 public class OnSwipeHandler : MonoBehaviour
 {
-    private POIMenuManager _poiMenuManager;
+    private POIMenuManager _poiMenuManager; /** POI Menu Manager*/
 
-    private bool _isActive;
-    private Vector2 _pointerDownPos;
-    private Vector2 _currentPointerPos;
+    private bool _isActive; /** True if a swipe was detected*/
+    private Vector2 _pointerDownPos; /** Screen position where the first touch was detected*/
+    private Vector2 _currentPointerPos; /**current touch position*/
 
-    public bool _detectSwipeOnlyAfterRelease = false;
+    public bool _detectSwipeOnlyAfterRelease = false; /**true if the detection should only be registered after the touch was released*/
 
-    private const float SWIPE_THRESHOLD = 150f;
+    private const float SWIPE_THRESHOLD = 150f; /** Swipe treshold (threshold when swipe should be registered) */
 
     private void Start()
     {
@@ -66,6 +66,7 @@ public class OnSwipeHandler : MonoBehaviour
         _isActive = true;
     }
 
+    /** Checks the type of the swipe which was detected (horizonatl or vertical)*/
     void checkSwipe()
     {
         //float verticalDelta = verticalMove();
@@ -88,7 +89,7 @@ public class OnSwipeHandler : MonoBehaviour
         }
 
         //Check if Horizontal swipe
-        else if (this.horizontalMove() > SWIPE_THRESHOLD && this.horizontalMove() > verticalMove())
+      /*  else if (this.horizontalMove() > SWIPE_THRESHOLD && this.horizontalMove() > verticalMove())
         {
             if (_currentPointerPos.x - _pointerDownPos.x > 0)//Right swipe
             {
@@ -101,20 +102,23 @@ public class OnSwipeHandler : MonoBehaviour
                 _isActive = false;
                 OnSwipeLeft();
             }
-        }
+        }*/
     }
 
+    /** Checks if a horizontal swipe was registered*/
     float verticalMove()
     {
         return Mathf.Abs(_currentPointerPos.y - _pointerDownPos.y);
     }
 
+    /** Checks if a vertical swipe was registered*/
     float horizontalMove()
     {
         return Mathf.Abs(_currentPointerPos.x - _pointerDownPos.x);
     }
 
     //////////////////////////////////CALLBACK FUNCTIONS/////////////////////////////
+    /**On Swipe Up Handler*/
     private void OnSwipeUp()
     {
         if (gameObject.tag == "Handlebar")
@@ -123,6 +127,7 @@ public class OnSwipeHandler : MonoBehaviour
         }
     }
 
+      /**On Swipe Down Handler*/
     private void OnSwipeDown()
     {
 
@@ -132,13 +137,13 @@ public class OnSwipeHandler : MonoBehaviour
         }
     }
 
-    void OnSwipeLeft()
+    /*void OnSwipeLeft()
     {
     }
 
     void OnSwipeRight()
     {
-    }
+    }*/
 
 
 

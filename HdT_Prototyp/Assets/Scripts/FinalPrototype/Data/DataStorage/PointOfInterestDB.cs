@@ -8,8 +8,10 @@ public class PointOfInterestDB : ScriptableObject
 {
 
     [SerializeField]
-    private List<PointOfInterest> _poiDB;
+    private List<PointOfInterest> _poiDB; /** List simulating the POI database*/
 
+    /** Sets up the databse (deletes void entries)
+     */
     public void Setup()
     {
         _poiDB.RemoveAll(poi => poi == null);

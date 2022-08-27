@@ -13,22 +13,23 @@ public class MiniatureModeController : MonoBehaviour
 {
 
     [SerializeField]
-    private MiniatureCamera _miniatureCamera;
-    public Camera Camera { get => _miniatureCamera.Camera; }
+    private MiniatureCamera _miniatureCamera; /** Camera used in the Miniature mode*/
+    public Camera Camera { get => _miniatureCamera.Camera; }  /** Camera used in the Miniature mode*/
 
     [SerializeField]
-    private AnimatedTransform _cameraContainer;
+    private AnimatedTransform _cameraContainer; /** Container of the Miniature Camera */
 
     [SerializeField]
-    private UserPosition _userPosition;
+    private UserPosition _userPosition; /** user position object */
 
 
-    private const float CAMERA_TRANSITION_DURATION = 0.7f;
-    private const float ROTATION_TRANSITION_DURATION = 1.4f;
-    private const float CAMERA_CONTAINER_OFFSET = 90f;
+    private const float CAMERA_TRANSITION_DURATION = 0.7f; /** camera transition time to transition between AR and Miniature mode */
+    private const float ROTATION_TRANSITION_DURATION = 1.4f; /** rotation transition duration after switch to Miniature mode */
+    private const float CAMERA_CONTAINER_OFFSET = 90f; /** z-rotation offset of the camera container */
 
-    private bool _instructionWasShown;
-
+    /** Sets up the Miniature mode
+     * @param arCamera Camera active in AR mode
+     */
     public void Setup(Camera arCamera)
     {
         _userPosition.ArCamera = arCamera;
@@ -36,17 +37,24 @@ public class MiniatureModeController : MonoBehaviour
 
     }
 
+    /** Transition to Miniature Mode
+     */
     public void Show()
     {
         StartCoroutine(ExecuteTransition(Transition.toMiniature));
     }
 
+    /**
+     * Transition out of Miniature Mode
+     */
     public IEnumerator Hide()
     {
         yield return StartCoroutine(ExecuteTransition(Transition.fromMiniature));
     }
 
-
+    /** Executes a transition to or from Miniature mode
+     * @paramn transition Indicates if the transition should be to or from Miniature mode
+     */
     private IEnumerator ExecuteTransition(Transition transition)
     {
         if (transition == Transition.toMiniature)
@@ -67,7 +75,8 @@ public class MiniatureModeController : MonoBehaviour
         }
     }
 
-
+    /** Animated the Miniature Camera Rotation according the the user position
+     */
     private void StartCameraContainerRotation()
     {
         float startValue = _cameraContainer.transform.localRotation.eulerAngles.z;
@@ -86,6 +95,9 @@ public class MiniatureModeController : MonoBehaviour
         StartCoroutine(_cameraContainer.LerpRotation(Quaternion.Euler(0, 0, startValue), Quaternion.Euler(0, 0, angle), ROTATION_TRANSITION_DURATION, Space.Self, EasingFunction.easeOut));
     }
 
+    /** Determines the Camera Container z-rotation so that the user position faces the camera
+     * @return z-rotation for the camera container
+     */
     private float GetCameraContainerRotationWithFrontalUserPos()
     {
         Vector3 direction = VectorCalculationHelper.GetNormalizedDirectionVector(_cameraContainer.transform.localPosition, _userPosition.transform.localPosition);

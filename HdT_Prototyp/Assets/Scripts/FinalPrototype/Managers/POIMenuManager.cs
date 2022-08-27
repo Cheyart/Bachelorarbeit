@@ -17,27 +17,25 @@ public class POIMenuManager : MonoBehaviour
 {
 
     [SerializeField]
-    private POIMenuPanel _menuPanel;
+    private POIMenuPanel _menuPanel; /** The main panel of the POI menu*/
 
     [SerializeField]
-    private CommentInputSection _inputSection;
+    private CommentInputSection _inputSection; /** The comment input section of the POI menu*/
 
-    private SessionManager _sessionManager;
-    private POISelectionManager _POISelectionManager;
-    private CommentManager _commentManager;
-    private POIMenuTransitionController _transitionController;
-    private POIMenuContentController _contentController;
+    private SessionManager _sessionManager; /** Session Manager */
+    private POISelectionManager _POISelectionManager; /** POI Selection Manager */
+    private CommentManager _commentManager; /** Comment Manager */
+    private POIMenuTransitionController _transitionController; /** POI Menu Transition Controller */
+    private POIMenuContentController _contentController; /** POI Menu Content Controller */
 
 
-    private POIMenuState _state;
-    public POIMenuState State { get => _state; }
+    private POIMenuState _state; /** the current state of the menu */
+    public POIMenuState State { get => _state; } /** the current state of the menu */
 
-    private POIMenuState _stateBeforeComment;
-    private Comment _commentToReplyTo;
+    private POIMenuState _stateBeforeComment; /** the menu state before it was switched to comment input */
+    private Comment _commentToReplyTo; /** the comment which is currently being replied to */
 
-    private string _debugText = "";
-
-    private bool _instructionWasShown;
+    private bool _instructionWasShown; /** Value indicating if the instruction for the POI Menu was already shown */
 
 
     private void Awake()
@@ -56,10 +54,12 @@ public class POIMenuManager : MonoBehaviour
     }
 
 
+    /** Setup the content and open (show) the menu 
+     * @param content Content of the POI which will be displayed in the menu
+     */
     public void OpenMenu(PointOfInterest content)
     {
 
-        //_menuPanel.SetupContent(content);
         _contentController.Setup(content);
 
         if (_state == POIMenuState.closed)
@@ -74,10 +74,10 @@ public class POIMenuManager : MonoBehaviour
             SessionManager.Instance.InstructionController.ShowInstruction(Instructions.adjustMenuSize, 1f, true);
             _instructionWasShown = true;
         }
-
-
     }
 
+    /** Close (hide) the menu
+     */
     public void CloseMenu()
     {
         _POISelectionManager.DeselectCurrentPOI();
@@ -86,6 +86,8 @@ public class POIMenuManager : MonoBehaviour
         _state = POIMenuState.closed;
     }
 
+    /** Expand the menu size
+     */
     public void ExpandMenu()
     {
         if (_state == POIMenuState.medium)
@@ -100,6 +102,8 @@ public class POIMenuManager : MonoBehaviour
         }
     }
 
+    /** Contract the menu size
+     */
     public void ContractMenu()
     {
         if (_state == POIMenuState.medium)
@@ -114,6 +118,8 @@ public class POIMenuManager : MonoBehaviour
         }
     }
 
+    /** Switch to comment input state
+     */
     public void StartCommentInput()
     {
         if (_state == POIMenuState.replyInput)
@@ -126,6 +132,9 @@ public class POIMenuManager : MonoBehaviour
         _state = POIMenuState.commentInput;
     }
 
+    /** Switch to reply input state
+     * @param commentToReplyTo Comment for which a reply will be written
+     */
     public void StartReplyInput(Comment commentToReplyTo)
     {
         _inputSection.SetCommentToReplyTo(commentToReplyTo.Message);
@@ -136,7 +145,8 @@ public class POIMenuManager : MonoBehaviour
         _commentToReplyTo = commentToReplyTo;
     }
 
-
+    /** Saves the current user input as a new comment and switches back to the default state
+     */
     public void SaveComment()
     {
         User poster = _sessionManager.LoggedInUser;
@@ -146,7 +156,6 @@ public class POIMenuManager : MonoBehaviour
             return;
         }
 
-        //string message = _inputSection.GetTextInputContent();
         string message = _contentController.GetCommentInput();
 
         if (message == null || message == "")
@@ -167,6 +176,8 @@ public class POIMenuManager : MonoBehaviour
         _state = _stateBeforeComment;
     }
 
+    /** Resets the current user input and switches back to the default state
+     */
     public void CancelComment()
     {
         _transitionController.TransitionFromTo(_state, _stateBeforeComment);

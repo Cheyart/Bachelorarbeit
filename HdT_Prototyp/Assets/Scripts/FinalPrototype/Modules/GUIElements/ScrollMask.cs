@@ -9,11 +9,11 @@ public class ScrollMask : MonoBehaviour
 {
 
     [SerializeField]
-    private RectTransform _scrollBar;
+    private RectTransform _scrollBar; /** Scrollbar related to the scroll mask*/
 
-    private RectTransform _rectTransform;
+    private RectTransform _rectTransform; /** RectTransform Component*/
 
-    private float _bottomOffset;
+    private float _bottomOffset; /** bottom offset*/
 
     void Start()
     {
@@ -21,6 +21,9 @@ public class ScrollMask : MonoBehaviour
         _bottomOffset = SessionManager.Instance.GUIController.BottomBarHeight;
     }
 
+    /** Set Height of the scrollmask according to the POI menu panel position
+     * @param mainPanelYPos POI menu panel y position
+     */
     public void SetHeight(float mainPanelYPos)
     {
         float newHeight = mainPanelYPos - _bottomOffset + _rectTransform.anchoredPosition.y;

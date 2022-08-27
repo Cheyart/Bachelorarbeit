@@ -7,25 +7,23 @@ using UnityEngine.UI;
  */
 public class ARSubmodeController : MonoBehaviour
 {
-    private SessionManager _sessionManager;
+    private SessionManager _sessionManager; /** Session Manager*/
 
     [SerializeField]
-    private POIImage _poiImage;
+    private POIImage _poiImage; /** POI Image which is displayed in the Picture Sub mode*/
 
     [SerializeField]
-    private OffScreenPointer _poiOffScreenPointer;
+    private OffScreenPointer _poiOffScreenPointer; /** Off-Screen pointer for the currently selected POI */
 
     [SerializeField]
-    private Button _switchToPictureButton;
+    private Button _switchToPictureButton; /** Switch to Picture mode button */
 
     [SerializeField]
-    private Button _switchToCameraButton;
+    private Button _switchToCameraButton; /** Switch to Camera mode button */
 
-    private int _currentPOIId;
+    private int _currentPOIId; /** Id of the currently selected POI */
 
-    private int counter;
-
-    private bool _instructionWasShown;
+    private bool _instructionWasShown; /** value indicating if the user instruction for the AR submodes was already displayed */
 
 
     void Start()
@@ -39,6 +37,9 @@ public class ARSubmodeController : MonoBehaviour
 
     }
 
+    /** Shows one of the AR submodes
+     * @param mode Submode which will be shown
+     */
     public void Show(Mode mode)
     {
         if (mode == Mode.ARPicture)
@@ -46,7 +47,7 @@ public class ARSubmodeController : MonoBehaviour
 
             if (_currentPOIId != _sessionManager.ActivePOI.Id)
             {
-                SetupContent();
+                SetupPictureContent();
             }
             StartCoroutine(ShowPictureMode());
         }
@@ -56,7 +57,8 @@ public class ARSubmodeController : MonoBehaviour
         }
     }
 
-
+    /** Hides the current mode
+     */
     public void Hide()
     {
         StartCoroutine(_poiImage.FadeOut());
@@ -65,9 +67,10 @@ public class ARSubmodeController : MonoBehaviour
         _poiOffScreenPointer.IsEnabled = false;
     }
 
+    /** Shows the Picture Submode
+     */
     private IEnumerator ShowPictureMode()
     {
-        counter++;
         _poiOffScreenPointer.IsEnabled = false;
         _switchToPictureButton.gameObject.SetActive(false);
         _switchToCameraButton.gameObject.SetActive(false);
@@ -84,6 +87,8 @@ public class ARSubmodeController : MonoBehaviour
         }
     }
 
+    /** Shows the Camera submode
+     */
     private IEnumerator ShowCameraMode()
     {
 
@@ -97,7 +102,9 @@ public class ARSubmodeController : MonoBehaviour
         _poiOffScreenPointer.IsEnabled = true;
     }
 
-    private void SetupContent()
+    /** Sets up the content for the picture submode
+     */
+    private void SetupPictureContent()
     {
         _currentPOIId = _sessionManager.ActivePOI.Id;
         _poiImage.SetImage(_sessionManager.ActivePOI.Picture);

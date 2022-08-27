@@ -16,28 +16,32 @@ public enum Instructions
 public class UserInstructionController : MonoBehaviour
 {
 
-    private Dictionary<Instructions, InstructionScreen> _instructionScreens;
+    private Dictionary<Instructions, InstructionScreen> _instructionScreens; /** Dictionary with all the instruction screens currently in the scene*/
 
     [SerializeField]
-    private CanvasFadeAnimation _fadeAnimator;
+    private CanvasFadeAnimation _fadeAnimator; /** Canvas Fade Animator */
 
     [SerializeField]
-    private GameObject _canvas;
+    private GameObject _canvas; /** Canvas which contains the instruction screens*/
 
-    private InstructionScreen _currentInstructionScreen;
+    private InstructionScreen _currentInstructionScreen; /** Currently active instruction screen */
 
-    private List<InstructionScreen> _instructionQueue = new List<InstructionScreen>();
+    private List<InstructionScreen> _instructionQueue = new List<InstructionScreen>(); /** Queue containing instruction screens which will be shown next */
 
-    private const float FADE_IN_DURATION = 1f;
-    private const float FADE_OUT_DURATION = 0.3f;
+    private const float FADE_IN_DURATION = 1f; /** Fade in duration for the instruction screens*/
+    private const float FADE_OUT_DURATION = 0.3f; /** Fade out duration for the instruction screens*/
 
 
-    // Start is called before the first frame update
     void Start()
     {
         SetInstructionScreens();
     }
 
+    /** Shows a specified instruction in a given amount of time
+     * @param instruction Enum indicating which instruction should be shown
+     * @param delayInSeconds Seconds to wait until showing the instruction
+     * @param fadeAnimation Value indiciating if a fade animation should be used to show the instruction screen
+     */
     public void ShowInstruction(Instructions instruction, float delayInSeconds, bool fadeAnimation)
     {
        InstructionScreen screen;
@@ -64,6 +68,11 @@ public class UserInstructionController : MonoBehaviour
 
     }
 
+    /** Shows an instruction screen in a given amount of time
+     * @param screen Screen which will be shown
+     * @param delayInSeconds Seconds to wait until showing the instruction
+     * @param fadeAnimation Value indiciating if a fade animation should be used to show the instruction screen
+     */
     private IEnumerator ShowScreen(InstructionScreen screen, float delayInSeconds, bool fadeAnimation)
     {
         _currentInstructionScreen = screen;
@@ -84,7 +93,8 @@ public class UserInstructionController : MonoBehaviour
         _currentInstructionScreen = screen;
     }
 
-
+    /** Hides the current instruction screen 
+     */
     public void HideInstructionScreen()
     {
 
@@ -94,6 +104,8 @@ public class UserInstructionController : MonoBehaviour
         }
     }
 
+    /** Coroutine which hides the current instruction screen
+     */
     private IEnumerator HideCurrentScreen()
     {
 
@@ -128,6 +140,8 @@ public class UserInstructionController : MonoBehaviour
         }
     }
 
+    /** Sets a new instruction screen
+     */
     private void SetInstructionScreens()
     {
         InstructionScreen[] instructionScreens = FindObjectsOfType<InstructionScreen>(true);

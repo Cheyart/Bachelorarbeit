@@ -6,21 +6,21 @@ using UnityEngine;
  */
 public class CommentContainer : MonoBehaviour
 {
-    //get from Session Manager
-    //[SerializeField]
-    private POIMenuManager _poiMenuManager;
+
+    private POIMenuManager _poiMenuManager; /** POI Menu Manager*/
 
     [SerializeField]
-    private CommentPrefab _mainCommentPrefab;
+    private CommentPrefab _mainCommentPrefab; /** Main Comment Prefab*/
 
     [SerializeField]
-    private CommentPrefab _subCommentPrefab;
+    private CommentPrefab _subCommentPrefab; /** Sub Comment (Reply) Prefab */
 
     public void Start()
     {
         _poiMenuManager = SessionManager.Instance.POIMenuManager;
     }
 
+    /** Deletes current content*/
     public void DeleteContent()
     {
         foreach (Transform child in transform)
@@ -29,6 +29,9 @@ public class CommentContainer : MonoBehaviour
         }
     }
 
+    /** Sets content to new comments
+     * @param threads Threads which will be added to the container
+     */
     public void SetComments(List<Thread> threads)
     {
 

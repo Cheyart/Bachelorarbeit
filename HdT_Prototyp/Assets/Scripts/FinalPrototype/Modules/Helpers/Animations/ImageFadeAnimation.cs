@@ -9,12 +9,12 @@ using UnityEngine.UI;
 public class ImageFadeAnimation : MonoBehaviour
 {
     [SerializeField]
-    private float _transitionDuration = 0.5f;
+    private float _transitionDuration = 0.5f; /** Animation duration*/
 
 
-    private Image _image;
+    private Image _image; /** Image for which the opacity and Color will be adjusted*/
 
-    private  Color TRANSPARENT_COLOR = new Color(1, 1, 1, 0);
+    private Color TRANSPARENT_COLOR = new Color(1, 1, 1, 0); 
 
     private Color OPAQUE_COLOR = new Color(1, 1, 1, 1);
 
@@ -24,10 +24,11 @@ public class ImageFadeAnimation : MonoBehaviour
         SetComponents();
     }
 
-
+    /** Execute Fade In animation (from current color to opaque)
+    */
     public IEnumerator FadeIn()
     {
-        if(_image == null)
+        if (_image == null)
         {
             SetComponents();
         }
@@ -35,6 +36,8 @@ public class ImageFadeAnimation : MonoBehaviour
         yield return StartCoroutine(LerpColor(_image.color, OPAQUE_COLOR));
     }
 
+    /** Execute Fade In animation (from current color to transparent)
+   */
     public IEnumerator FadeOut()
     {
         if (_image == null)
@@ -44,6 +47,7 @@ public class ImageFadeAnimation : MonoBehaviour
         yield return StartCoroutine(LerpColor(_image.color, TRANSPARENT_COLOR));
     }
 
+    /** Set Image to transparent*/
     public void SetToTransparent()
     {
         if (_image == null)
@@ -53,6 +57,7 @@ public class ImageFadeAnimation : MonoBehaviour
         _image.color = TRANSPARENT_COLOR;
     }
 
+    /** Set Image to opaque*/
     public void SetToOpaque()
     {
         if (_image == null)
@@ -62,9 +67,14 @@ public class ImageFadeAnimation : MonoBehaviour
         _image.color = TRANSPARENT_COLOR;
     }
 
+    /** Lerp the color of the image
+     * @param startColor Start color
+     * @param targetColor Target Color
+     * 
+     */
     public IEnumerator LerpColor(Color startColor, Color targetColor)
     {
-       
+
         if (_image == null)
         {
             SetComponents();
@@ -73,7 +83,7 @@ public class ImageFadeAnimation : MonoBehaviour
         float time = 0;
 
         Color color = startColor;
-       
+
         while (time < _transitionDuration)
         {
             float t = time / _transitionDuration;
@@ -86,10 +96,12 @@ public class ImageFadeAnimation : MonoBehaviour
         _image.color = targetColor;
     }
 
-
+    /**
+  * Sets the components needed for this class
+  */
     private void SetComponents()
     {
-       
+
         _image = GetComponent<Image>();
     }
 }

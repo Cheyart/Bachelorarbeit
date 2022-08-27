@@ -11,25 +11,29 @@ public class CommentPrefab : MonoBehaviour
  
 
     [SerializeField]
-    private TextMeshProUGUI _username;
+    private TextMeshProUGUI _username; /** Text component displaying the poster of the comment*/
 
     [SerializeField]
-    private TextMeshProUGUI _date;
+    private TextMeshProUGUI _date; /** Text component displaying the date when the comment was posted*/
 
     [SerializeField]
-    private TextMeshProUGUI _message;
+    private TextMeshProUGUI _message; /** Text component displaying the comment*/
 
     [SerializeField]
-    private Image _profilePic;
+    private Image _profilePic; /** Image component displaying the profile picture of the poster*/
 
     [SerializeField]
-    private Color _highlightColor;
+    private Color _highlightColor; /** Highlight Color for comments which have been posted by the currently active user*/
 
-    private POIMenuManager _poiMenuManager;
+    private POIMenuManager _poiMenuManager; /** POI Menu Manager*/
 
-    private Comment _comment;
+    private Comment _comment; /** Comment displayed in this object*/
 
-
+    /**
+     * Sets up the Content
+     * @param content Comment and related content which will be display
+     * @param poiMenuManager reference to POIMenuManager
+     */
     public void Setup(Comment content, POIMenuManager poiMenuManager)
     {
         _poiMenuManager = poiMenuManager;
@@ -71,6 +75,8 @@ public class CommentPrefab : MonoBehaviour
 
     }
 
+    /**Reply Button Handler
+     */
     public void ReplyButtonHandler()
     {
         _poiMenuManager.StartReplyInput(_comment);

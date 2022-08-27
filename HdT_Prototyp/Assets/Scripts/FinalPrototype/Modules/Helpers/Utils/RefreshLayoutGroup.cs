@@ -8,9 +8,9 @@ using UnityEngine.UI;
 [RequireComponent(typeof(LayoutGroup), typeof(RectTransform))]
 public class RefreshLayoutGroup : MonoBehaviour
 {
-    private LayoutGroup _layoutGroup;
+    private LayoutGroup _layoutGroup; /** LayoutGroup Component which will be refreshed*/
 
-    private bool _needsRefresh;
+    private bool _needsRefresh; /** value which indicates if the layout group needs to be refreshed for the current frame*/
     public bool NeedsRefresh {
         get { return _needsRefresh; }
         set {
@@ -30,6 +30,8 @@ public class RefreshLayoutGroup : MonoBehaviour
         _layoutGroup = GetComponent<LayoutGroup>();
     }
 
+    /**
+     * Refreshes the layout group at the end of the frame*/
     IEnumerator Refresh()
     {
          _layoutGroup.enabled = false;

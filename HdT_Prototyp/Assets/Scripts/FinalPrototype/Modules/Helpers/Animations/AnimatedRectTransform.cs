@@ -7,13 +7,19 @@ using UnityEngine;
 [RequireComponent(typeof(RectTransform))]
 public class AnimatedRectTransform : MonoBehaviour
 {
-    private RectTransform _rectTransform;
+    private RectTransform _rectTransform; /** RectTransform Component which will be animated */
 
     void Start()
     {
         _rectTransform = GetComponent<RectTransform>();
     }
 
+    /** Lerp the position of the RectTransform component
+    * @param startValue Start position
+    * @param targetValue Target position
+    * @param duration Duration of the animation
+    * @param easing Easing function which will be used for the animation
+    */
     public IEnumerator LerpPosition(Vector2 startPosition, Vector2 targetPosition, float duration, EasingFunction easing)
     {
         float time = 0;
@@ -30,7 +36,12 @@ public class AnimatedRectTransform : MonoBehaviour
         yield return null;
     }
 
-
+    /** Lerp the size of the RectTransform component
+    * @param startValue Start size
+    * @param targetValue Target size
+    * @param duration Duration of the animation
+    * @param easing Easing function which will be used for the animation
+    */
     public IEnumerator LerpSize(Vector2 startSize, Vector2 targetSize, float duration, EasingFunction easing)
     {
         float time = 0;
@@ -46,6 +57,12 @@ public class AnimatedRectTransform : MonoBehaviour
         _rectTransform.sizeDelta = targetSize;
     }
 
+    /** Lerp the OffsetMin of the RectTransform component
+   * @param startValue Start Offset
+   * @param targetValue Target Offset
+   * @param duration Duration of the animation
+   * @param easing Easing function which will be used for the animation
+   */
     public IEnumerator LerpOffsetMin(Vector2 startOffset, Vector2 targetOffset, float duration, EasingFunction easing)
     {
 

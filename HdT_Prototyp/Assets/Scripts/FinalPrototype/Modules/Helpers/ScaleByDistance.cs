@@ -8,26 +8,25 @@ public class ScaleByDistance : MonoBehaviour
 {
 
     [SerializeField]
-    private Camera _camera;
+    private Camera _camera; /** Active Camera which will be used to determine the distance to the object*/
     public Camera Camera { get => _camera; set => _camera = value; }
 
     [SerializeField]
-    private float _minDistance;
+    private float _minDistance; /** Minimum Distance of the scaling (under this distance no scaling will take place)*/
 
     [SerializeField]
-    private float _maxDistance;
+    private float _maxDistance; /** Maximum Distance of the scaling (over this distance no scaling will take place)*/
 
     [SerializeField]
-    private float _scaleAtMinDist;
+    private float _scaleAtMinDist; /** The Scale of the object at the Minimum Distance*/
 
     [SerializeField]
-    private float _scaleAtMaxDist;
+    private float _scaleAtMaxDist; /** The Scale of the object at the Maximum Distance*/
 
-    private float _distance;
-    private float _scale;
+    private float _distance; /** current distance to the camera*/
+    private float _scale; /** current scale*/
 
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         _distance = Vector3.Distance(_camera.transform.position, transform.position);
@@ -36,7 +35,9 @@ public class ScaleByDistance : MonoBehaviour
         transform.localScale = new Vector3(_scale, _scale, _scale);
     }
 
-
+    /**
+     * Sets the values for this class
+     */
     public void SetValues(float minDist, float maxDist, float scaleAtMinDist, float scaleAtMaxDist)
     {
         _minDistance = minDist;
@@ -44,12 +45,5 @@ public class ScaleByDistance : MonoBehaviour
         _scaleAtMinDist = scaleAtMinDist;
         _scaleAtMaxDist = scaleAtMaxDist;
     }
-
-    //util
-    /*public static float Remap(float val, float in1, float in2, float out1, float out2)
-    {
-        return out1 + (val - in1) * (out2 - out1) / (in2 - in1);
-    }*/
-
 
 }

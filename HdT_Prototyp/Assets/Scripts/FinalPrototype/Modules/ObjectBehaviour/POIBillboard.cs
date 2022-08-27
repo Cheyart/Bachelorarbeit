@@ -16,22 +16,24 @@ public enum FacingDirection
 public class POIBillboard : MonoBehaviour
 {
     [SerializeField]
-    private ScaleByDistance _scaleByDistance;
+    private ScaleByDistance _scaleByDistance; /** Scale by Distance helper*/
+
+    private Billboard _billboard; /** Billboard helper*/
+
 
     [SerializeField]
-    private FacingDirection _facing;
+    private FacingDirection _facing; /** direction in which the billboard is facing (in relation to the model)*/
 
     [SerializeField]
-    private TextMeshProUGUI _title;
+    private TextMeshProUGUI _title; /** Text component displaying the billboard title*/
 
     [SerializeField]
-    private TextMeshProUGUI _commentAmount;
+    private TextMeshProUGUI _commentAmount; /** Text component display the comment number*/
 
-    private Billboard _billboard;
 
-    private RectTransform _rectTransform;
+    private RectTransform _rectTransform; /** RectTransform Component of this object */
 
-    private PointOfInterest _thisPOI;
+    private PointOfInterest _thisPOI; /** POI which this billboard is attached to*/
 
     void Start()
     {
@@ -40,7 +42,9 @@ public class POIBillboard : MonoBehaviour
 
     }
 
-
+    /**
+     * sets up the billboard
+     * */
     public void Setup(Camera arCamera, PointOfInterest poi)
     {
         if(_billboard == null)
@@ -54,6 +58,8 @@ public class POIBillboard : MonoBehaviour
         SetupContent(poi);
     }
 
+    /** Sets the components relevant for this class
+     */
     private void SetComponents()
     {
         _billboard = GetComponent<Billboard>();
@@ -76,11 +82,13 @@ public class POIBillboard : MonoBehaviour
         }
      
         _rectTransform.pivot = new Vector2(xPivot, 0.5f);
-
-
-
     }
 
+
+    /**
+     * Maps the pivot point of the billboard according to the y-Rotation (for billboards facing to the front side of the model)
+     * @param yRot y-rotation to which the pivot point will be adjusted to
+     */
     private float MapPivotToFaceFront(float yRot)
     {
         float xPivot = 0;
@@ -101,6 +109,10 @@ public class POIBillboard : MonoBehaviour
         return xPivot;
     }
 
+    /**
+   * Maps the pivot point of the billboard according to the y-Rotation (for billboards facing to the left side of the model)
+   * @param yRot y-rotation to which the pivot point will be adjusted to
+   */
     private float MapPivotToFaceLeft(float yRot)
     {
         float xPivot = 0;
@@ -117,21 +129,23 @@ public class POIBillboard : MonoBehaviour
         return xPivot;
     }
 
+    /*
+     * Sets up the content of the billboard
+     * @param poi POI for which the content will be set up
+     */
     public void SetupContent(PointOfInterest poi)
     {
         _title.text = poi.Title;
         _commentAmount.text = "(" + poi.NrOfComments + ")";
     }
 
+    /** Adjusts the visibility of the billboad
+     * @param value Value which indicates the state of the visibility
+     */
     public void ShowBillboard(bool value)
     {
         SetupContent(_thisPOI);
         _billboard.gameObject.SetActive(value);
     }
 
-    //util function
-    /*public static float Remap(float val, float in1, float in2, float out1, float out2)
-    {
-        return out1 + (val - in1) * (out2 - out1) / (in2 - in1);
-    }*/
 }

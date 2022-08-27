@@ -7,13 +7,13 @@ using UnityEngine;
 [RequireComponent(typeof(RectTransform), typeof(AnimatedRectTransform))]
 public class MainViewport : MonoBehaviour
 {
-    private AnimatedRectTransform _animator;
-    private RectTransform _rectTransform;
+    private AnimatedRectTransform _animator; /** Animator for the RectTransform component*/
+    private RectTransform _rectTransform; /** RectTransform component*/
 
-    public Vector2 WidthCoordinates { get => new Vector2(_rectTransform.offsetMin.x, _screenWidth + _rectTransform.offsetMax.x); }
-    public Vector2 HeightCoordinates { get => new Vector2(_rectTransform.offsetMin.y, _screenHeight + _rectTransform.offsetMax.y); }
+    public Vector2 WidthCoordinates { get => new Vector2(_rectTransform.offsetMin.x, _screenWidth + _rectTransform.offsetMax.x); } /** width coordinates*/
+    public Vector2 HeightCoordinates { get => new Vector2(_rectTransform.offsetMin.y, _screenHeight + _rectTransform.offsetMax.y); } /** height coordinated */
 
-    public Vector2 Centerpoint
+    public Vector2 Centerpoint /** centerpoint of the RectTransform component*/
     {
         get
         {
@@ -23,8 +23,8 @@ public class MainViewport : MonoBehaviour
         }
     }
 
-    private float _screenHeight;
-    private float _screenWidth;
+    private float _screenHeight; /** Screen height*/
+    private float _screenWidth; /** Screen width */
 
 
     void Start()
@@ -41,7 +41,10 @@ public class MainViewport : MonoBehaviour
 
     }
 
-
+    /**
+     * Set Bottom Offset
+     * @param bottomOffset value which the offset will be set to
+     */
     public void SetBottomOffset(float bottomOffset)
     {
         if (_rectTransform == null)
@@ -51,6 +54,12 @@ public class MainViewport : MonoBehaviour
         _rectTransform.offsetMin = new Vector2(_rectTransform.offsetMin.x, bottomOffset);
     }
 
+    /**
+     * Animated transition of the bottom offset
+     * @param targetOffset target value for the bottom offset
+     * @param duration Duration of the animation
+     * @param easing Easing function for the animation
+     */
     public void AnimatedBottomOffsetTransition(float targetOffset, float duration, EasingFunction easing)
     {
         if (_animator == null)
@@ -62,6 +71,9 @@ public class MainViewport : MonoBehaviour
         StartCoroutine(_animator.LerpOffsetMin(_rectTransform.offsetMin, newOffset, duration, easing));
     }
 
+    /**
+     * Set Components for this class
+     */
     private void SetComponents()
     {
         _animator = GetComponent<AnimatedRectTransform>();

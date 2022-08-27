@@ -7,12 +7,12 @@ using UnityEngine;
 public class ObjectRotationHandler : MonoBehaviour
 {
     [SerializeField]
-    private GameObject _objectToRotate;
+    private GameObject _objectToRotate; /** Object which is rotated*/
 
     [SerializeField]
-    private float _rotationSpeed;
+    private float _rotationSpeed; /** Rotation speed*/
 
-    private bool _isActive;
+    private bool _isActive; /**True when a swipe on the object is registered*/
 
 
     void Start()

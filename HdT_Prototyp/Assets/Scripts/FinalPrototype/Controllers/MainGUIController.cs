@@ -8,17 +8,17 @@ public class MainGUIController : MonoBehaviour
 {
     
     [SerializeField]
-    private GameObject _topBar;
+    private GameObject _topBar; /** Menu Top Bar */
 
     [SerializeField]
-    private GameObject _poiMenu;
+    private GameObject _poiMenu; /** POI menu */
 
     [SerializeField]
-    private GameObject _bottomBar;
+    private GameObject _bottomBar; /** Menu Bottom bar */
 
-    public float TopBarHeight { get; private set; }
+    public float TopBarHeight { get; private set; } /** Top Bar height*/
 
-    public float BottomBarHeight { get; private set; }
+    public float BottomBarHeight { get; private set; } /** Bottom Bar height*/
 
 
     private void Start()
@@ -31,6 +31,8 @@ public class MainGUIController : MonoBehaviour
         BottomBarHeight = _bottomBar.GetComponent<RectTransform>().rect.height;
     }
 
+    /** Shows the main GUI elements
+     */
     public void ShowMainGUI()
     {
         _topBar.SetActive(true);

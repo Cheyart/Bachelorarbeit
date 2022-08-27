@@ -8,28 +8,29 @@ using UnityEngine;
 public class POISelectionManager : MonoBehaviour
 {
 
-    private POIHandler[] _POIs;
+    private POIHandler[] _POIs; /** List of all the POIs inside the virtual scene*/
 
-    private SessionManager _sessionManager;
-    private POIMenuManager _POIMenuManager;
-    private ModeManager _modeManager;
-
-    [SerializeField]
-    private OffScreenPointer _offScreenPointer;
+    private SessionManager _sessionManager; /** Session Manager*/
+    private POIMenuManager _POIMenuManager; /** POI Menu Manager*/
+    private ModeManager _modeManager; /** Mode Manager */
 
     [SerializeField]
-    private Color _idleColor;
+    private OffScreenPointer _offScreenPointer; /** Off-screen Pointer GUI element*/
 
     [SerializeField]
-    private Color _selectedColor;
+    private Color _idleColor; /** POI color when it is not selected*/
+
+    [SerializeField]
+    private Color _selectedColor; /** POI color when it is selected */
 
 
     void Awake()
     {
-
         SetManagers();
     }
 
+    /** Sets the manager references
+     */
     private void SetManagers()
     {
         _sessionManager = SessionManager.Instance;
@@ -37,6 +38,8 @@ public class POISelectionManager : MonoBehaviour
         _modeManager = _sessionManager.ModeManager;
     }
 
+    /** Finds all the POIs in the virtual scene and sets them up
+     */
     public void SetupPOIs()
     {
         _POIs = FindObjectsOfType<POIHandler>(true);
@@ -51,7 +54,9 @@ public class POISelectionManager : MonoBehaviour
         }
     }
 
-
+    /** Coordinates the selection of a POI
+     * @param idOfSelectedPOI ID of the POI which was selected
+     */
     public void SelectPOI(int idOfSelectedPOI)
     {
         if (IsActivePOI(idOfSelectedPOI))
@@ -70,7 +75,6 @@ public class POISelectionManager : MonoBehaviour
                 _sessionManager.ActivePOI = poi.Content;
                 _modeManager.PoiIsSelected = true;
 
-                //_offScreenPointer.Target = poi.ARSphereGO;
                 _offScreenPointer.Target = poi.OffscreenTarget;
             }
             else
@@ -81,6 +85,8 @@ public class POISelectionManager : MonoBehaviour
         }
     }
 
+    /** Deselects the currently selected POI
+     */
     public void DeselectCurrentPOI()
     {
         foreach (POIHandler poi in _POIs)
@@ -97,9 +103,12 @@ public class POISelectionManager : MonoBehaviour
 
     }
 
+    /** Checks if a specific POI is currently being selected
+     * @param POIId ID of the POI for which the check will be conducted
+     */
     private bool IsActivePOI(int POIId)
     {
-        return (SessionManager.Instance.ActivePOI != null && POIId == SessionManager.Instance.ActivePOI.Id);
+        return (_sessionManager.ActivePOI != null && POIId == _sessionManager.ActivePOI.Id);
     }
 
 

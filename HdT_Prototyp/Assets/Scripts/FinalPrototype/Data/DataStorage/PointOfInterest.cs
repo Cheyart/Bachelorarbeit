@@ -8,23 +8,23 @@ public class PointOfInterest : ScriptableObject
 {
 
     [SerializeField]
-    private int _id;
-    public int Id { get => _id; }
+    private int _id; /** unique ID*/
+    public int Id { get => _id; } /** unique ID*/
 
     [SerializeField]
-    private string _title;
-    public string Title { get => _title; }
+    private string _title; /** Title of the POI */
+    public string Title { get => _title; } /** Title of the POI */
 
     [SerializeField]
-    private List<Thread> _threads;
-    public List<Thread> Threads { get => _threads; }
+    private List<Thread> _threads; /** Comment Threads associated with the POI */
+    public List<Thread> Threads { get => _threads; }  /** Comment Threads associated with the POI */
 
     [SerializeField]
-    private Sprite _picture;
-    public Sprite Picture { get => _picture; }
+    private Sprite _picture; /** Picture showing the POI */
+    public Sprite Picture { get => _picture; } /** Picture showing the POI */
 
-    private int _nrOfComments;
-    public int NrOfComments { get => _nrOfComments; }
+    private int _nrOfComments; /** Total Nr of comments saved for this POI */
+    public int NrOfComments { get => _nrOfComments; } /** Total Nr of comments saved for this POI */
 
 
     private void Awake()
@@ -32,13 +32,17 @@ public class PointOfInterest : ScriptableObject
         SetNrOfComments();
     }
 
+    /** Adds a new comment thread to this POI
+     * @param newThread Thread to be added
+     */
     public void AddNewThread(Thread newThread)
     {
         _threads.Add(newThread);
         _nrOfComments += newThread.Comments.Count;
     }
 
-
+    /** Determines total number of comments saved for this POI
+     */
     public void SetNrOfComments()
     {
 

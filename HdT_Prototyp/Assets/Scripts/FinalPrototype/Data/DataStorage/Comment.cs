@@ -44,10 +44,14 @@ public class Comment : ScriptableObject, ISerializationCallbackReceiver
     [Range(1, 31)]
     private int _day = 1; /**Day on which the comment was posted. (year, month, day saved separately for the sake of serialization*/
 
-
+    /** Initialized a new Comment
+     * @param poster User who posted the comment
+     * @param message Message which will be saved
+     * @param replyTo Comment to which this comment is a reply to (-1 if it is not a reply to any comment)
+     */
     public void Init(User poster, string message, int replyTo)
     {
-        //id
+   
         _id = IdCounter++;
 
         _poster = poster;

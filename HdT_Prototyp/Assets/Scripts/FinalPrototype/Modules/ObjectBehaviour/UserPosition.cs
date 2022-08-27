@@ -6,7 +6,7 @@ using UnityEngine;
  */
 public class UserPosition : MonoBehaviour
 {
-    private Camera _arCamera;
+    private Camera _arCamera; /** Canera active in AR mode */
     public Camera ArCamera { get => _arCamera; set => _arCamera = value; }
 
     private void FixedUpdate()

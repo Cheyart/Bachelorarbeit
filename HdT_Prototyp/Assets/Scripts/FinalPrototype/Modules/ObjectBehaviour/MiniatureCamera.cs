@@ -8,25 +8,26 @@ using UnityEngine;
 public class MiniatureCamera : MonoBehaviour
 {
     [SerializeField]
-    private Camera _thisCamera;
+    private Camera _thisCamera; /** Camera active in Miniature Mode*/
     public Camera Camera { get => _thisCamera; }
 
-    private AnimatedTransform _animator;
-    private AnimatedCamera _cameraAnimator;
+    private Camera _arCamera; /** Camera active in AR Mode*/
 
-    private Vector3 _startPosition;
-    private Quaternion _startRotation;
-    private float _startFOV;
+    private AnimatedTransform _animator; /** Animator responsible for animations of Transform component*/
+    private AnimatedCamera _cameraAnimator; /** Animator responsible for animations of Camera component*/
 
-    private Camera _arCamera;
-
+    private Vector3 _startPosition; /** Position at start of the session */
+    private Quaternion _startRotation;  /** Rotation at start of the session */
+    private float _startFOV;  /** FOV at start of the session */
 
     void Start()
     {
         SetComponents();
     }
 
-
+    /**
+     * Sets up the camera 
+     */
     public void Setup(Camera arCamera, Vector3 startPosition, Quaternion startRotation, float startFOV)
     {
         SetComponents();
@@ -36,6 +37,8 @@ public class MiniatureCamera : MonoBehaviour
         _arCamera = arCamera;
     }
 
+    /** Alligns the Miniature Camera with the AR Camera (position, rotation and FOV)
+     */
     public void AlignWithARCamera()
     {
         transform.position = _arCamera.transform.position;
@@ -43,6 +46,9 @@ public class MiniatureCamera : MonoBehaviour
         _thisCamera.fieldOfView = _arCamera.fieldOfView;
     }
 
+    /** Executes the camera transition from AR to Miniature mode
+     * @param duration Duration of the transition
+     */
     public IEnumerator TransitionToMiniatureMode(float duration)
     {
         StartCoroutine(_animator.LerpPosition(transform.localPosition, _startPosition, duration, Space.Self, EasingFunction.easeIn));
@@ -51,6 +57,9 @@ public class MiniatureCamera : MonoBehaviour
 
     }
 
+    /** Executes the camera transition from Miniature to AR mode
+    * @param duration Duration of the transition
+    */
     public IEnumerator TransitionFromMiniatureMode(float duration)
     {
         StartCoroutine(_animator.LerpPosition(transform.position, _arCamera.transform.position, duration, Space.World, EasingFunction.easeInAndOut));
@@ -58,29 +67,13 @@ public class MiniatureCamera : MonoBehaviour
         yield return StartCoroutine(_cameraAnimator.LerpFOV(_thisCamera.fieldOfView, _arCamera.fieldOfView, duration, EasingFunction.easeInAndOut));
     }
 
-   
+   /** Sets the references needed in this class
+    */
     private void SetComponents()
     {
         _animator = GetComponent<AnimatedTransform>();
         _thisCamera = GetComponent<Camera>();
         _cameraAnimator = GetComponent<AnimatedCamera>();
     }
-
-    //add to AnimatedCamera
-   /* private IEnumerator LerpFOV(float startValue, float targetValue, float duration, EasingFunction easing)
-    {
-        float time = 0;
-
-        while (time < duration)
-        {
-            float t = time / duration;
-            _thisCamera.fieldOfView = Mathf.Lerp(startValue, targetValue, EasingFunctionCalculator.CalculateEasing(t, easing));
-            time += Time.deltaTime;
-            yield return null;
-        }
-        _thisCamera.fieldOfView = targetValue;
-
-    }*/
-
 
 }
