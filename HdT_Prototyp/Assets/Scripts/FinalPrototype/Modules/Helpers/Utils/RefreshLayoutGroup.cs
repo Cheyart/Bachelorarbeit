@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/** @class RefreshLayoutGroup This class refreshes the LayoutGroup at the end of a frame (if needed)
+ */
 [RequireComponent(typeof(LayoutGroup), typeof(RectTransform))]
 public class RefreshLayoutGroup : MonoBehaviour
 {
     private LayoutGroup _layoutGroup;
-   // private RectTransform _rectTransform;
 
     private bool _needsRefresh;
     public bool NeedsRefresh {
@@ -27,13 +28,6 @@ public class RefreshLayoutGroup : MonoBehaviour
     void Start()
     {
         _layoutGroup = GetComponent<LayoutGroup>();
-       // _rectTransform = GetComponent<RectTransform>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     IEnumerator Refresh()

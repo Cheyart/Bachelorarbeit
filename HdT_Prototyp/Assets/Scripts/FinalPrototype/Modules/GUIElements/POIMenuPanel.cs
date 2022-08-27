@@ -4,20 +4,21 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(RectTransform), typeof(AnimatedUIElement))]
+/** @class POIMenuPanel This class controls the the setup and behaviour of the POI menu's main panel
+ */
+[RequireComponent(typeof(RectTransform), typeof(AnimatedRectTransform))]
 public class POIMenuPanel : MonoBehaviour
 {
-   
+
     [SerializeField]
     private CommentContainer _commentsContainer;
 
     [SerializeField]
     private ScrollMask _scrollMask;
 
-    //make script (?)
     [SerializeField]
     private GameObject _commentsHeader;
-    //get in comments header
+
     [SerializeField]
     private TextMeshProUGUI _title;
 
@@ -32,14 +33,14 @@ public class POIMenuPanel : MonoBehaviour
 
 
     [SerializeField]
-    private GameObject _scrollbarHandle; //child of scrollbar element
+    private GameObject _scrollbarHandle; 
 
 
     private PointOfInterest _currentPoi;
 
     private RectTransform _rectTransform;
 
-    private AnimatedUIElement _animation;
+    private AnimatedRectTransform _animation;
 
 
     private void Start()
@@ -50,7 +51,7 @@ public class POIMenuPanel : MonoBehaviour
     private void SetComponents()
     {
         _rectTransform = GetComponent<RectTransform>();
-        _animation = GetComponent<AnimatedUIElement>();
+        _animation = GetComponent<AnimatedRectTransform>();
 
     }
 
@@ -61,7 +62,7 @@ public class POIMenuPanel : MonoBehaviour
     }
 
 
-    public void RefreshContent()  
+    public void RefreshContent()
     {
         ResetContent();
         SetTitle(_currentPoi.Title);
@@ -91,7 +92,7 @@ public class POIMenuPanel : MonoBehaviour
             SetComponents();
         }
 
-         _rectTransform.anchoredPosition = new Vector2(_rectTransform.anchoredPosition.x, targetYPos);
+        _rectTransform.anchoredPosition = new Vector2(_rectTransform.anchoredPosition.x, targetYPos);
     }
 
     public IEnumerator AnimatedTranslateOnYAxis(float targetYPos, float duration, EasingFunction easing)
@@ -100,13 +101,12 @@ public class POIMenuPanel : MonoBehaviour
         {
             SetComponents();
         }
-      
+
         Vector2 targetPosition = new Vector2(_rectTransform.anchoredPosition.x, targetYPos);
         yield return StartCoroutine(_animation.LerpPosition(_rectTransform.anchoredPosition, targetPosition, duration, easing));
         _scrollMask.SetHeight(_rectTransform.anchoredPosition.y);
     }
 
-  
 
     private void SetTitle(string title)
     {

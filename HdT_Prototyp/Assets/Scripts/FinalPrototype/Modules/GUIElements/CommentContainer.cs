@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/** @class CommentContainer This class is responsible for adding and deleting content from the Comment Container
+ */
 public class CommentContainer : MonoBehaviour
 {
     //get from Session Manager
-    [SerializeField]
+    //[SerializeField]
     private POIMenuManager _poiMenuManager;
 
     [SerializeField]
@@ -14,6 +16,10 @@ public class CommentContainer : MonoBehaviour
     [SerializeField]
     private CommentPrefab _subCommentPrefab;
 
+    public void Start()
+    {
+        _poiMenuManager = SessionManager.Instance.POIMenuManager;
+    }
 
     public void DeleteContent()
     {

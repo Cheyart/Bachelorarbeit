@@ -4003,7 +4003,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d2aeaeab445a840aa86b2261130c7394, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _poiMenuManager: {fileID: 660348883}
   _mainCommentPrefab: {fileID: 1865310380062324249, guid: a786313c8ad834a3593298771c7a0593,
     type: 3}
   _subCommentPrefab: {fileID: 4755144452158885953, guid: 0ecd5a953791547c99183ec772c69dd2,

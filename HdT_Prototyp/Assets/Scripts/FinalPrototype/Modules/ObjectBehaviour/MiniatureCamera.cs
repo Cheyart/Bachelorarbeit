@@ -2,14 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(AnimatedObject), typeof(Camera))]
+/** @class MiniatureCamera This class controls the behaviour of the Miniature Camera
+ */
+[RequireComponent(typeof(AnimatedTransform), typeof(Camera), typeof(AnimatedCamera))]
 public class MiniatureCamera : MonoBehaviour
 {
     [SerializeField]
     private Camera _thisCamera;
     public Camera Camera { get => _thisCamera; }
 
-    private AnimatedObject _animation;
+    private AnimatedTransform _animator;
+    private AnimatedCamera _cameraAnimator;
 
     private Vector3 _startPosition;
     private Quaternion _startRotation;
@@ -18,7 +21,6 @@ public class MiniatureCamera : MonoBehaviour
     private Camera _arCamera;
 
 
-    // Start is called before the first frame update
     void Start()
     {
         SetComponents();
@@ -43,27 +45,29 @@ public class MiniatureCamera : MonoBehaviour
 
     public IEnumerator TransitionToMiniatureMode(float duration)
     {
-        StartCoroutine(_animation.LerpPosition(transform.localPosition, _startPosition, duration, Space.Self, EasingFunction.easeIn));
-        StartCoroutine(_animation.LerpRotation(transform.localRotation, _startRotation, duration, Space.Self, EasingFunction.easeIn));
-        yield return StartCoroutine(LerpFOV(_thisCamera.fieldOfView, _startFOV, duration, EasingFunction.easeIn));
+        StartCoroutine(_animator.LerpPosition(transform.localPosition, _startPosition, duration, Space.Self, EasingFunction.easeIn));
+        StartCoroutine(_animator.LerpRotation(transform.localRotation, _startRotation, duration, Space.Self, EasingFunction.easeIn));
+        yield return StartCoroutine(_cameraAnimator.LerpFOV(_thisCamera.fieldOfView, _startFOV, duration, EasingFunction.easeIn));
 
     }
 
     public IEnumerator TransitionFromMiniatureMode(float duration)
     {
-        StartCoroutine(_animation.LerpPosition(transform.position, _arCamera.transform.position, duration, Space.World, EasingFunction.easeInAndOut));
-        StartCoroutine(_animation.LerpRotation(transform.rotation, _arCamera.transform.rotation, duration, Space.World, EasingFunction.easeInAndOut));
-        yield return StartCoroutine(LerpFOV(_thisCamera.fieldOfView, _arCamera.fieldOfView, duration, EasingFunction.easeInAndOut));
+        StartCoroutine(_animator.LerpPosition(transform.position, _arCamera.transform.position, duration, Space.World, EasingFunction.easeInAndOut));
+        StartCoroutine(_animator.LerpRotation(transform.rotation, _arCamera.transform.rotation, duration, Space.World, EasingFunction.easeInAndOut));
+        yield return StartCoroutine(_cameraAnimator.LerpFOV(_thisCamera.fieldOfView, _arCamera.fieldOfView, duration, EasingFunction.easeInAndOut));
     }
 
    
     private void SetComponents()
     {
-        _animation = GetComponent<AnimatedObject>();
+        _animator = GetComponent<AnimatedTransform>();
         _thisCamera = GetComponent<Camera>();
+        _cameraAnimator = GetComponent<AnimatedCamera>();
     }
 
-    private IEnumerator LerpFOV(float startValue, float targetValue, float duration, EasingFunction easing)
+    //add to AnimatedCamera
+   /* private IEnumerator LerpFOV(float startValue, float targetValue, float duration, EasingFunction easing)
     {
         float time = 0;
 
@@ -76,7 +80,7 @@ public class MiniatureCamera : MonoBehaviour
         }
         _thisCamera.fieldOfView = targetValue;
 
-    }
+    }*/
 
 
 }

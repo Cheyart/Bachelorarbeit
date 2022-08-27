@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/** @class PointOfInterest This class defines a Point of Interest (POI) and its contents*/
 [CreateAssetMenu(fileName = "New POI", menuName = "Assets/POI")]
 public class PointOfInterest : ScriptableObject
 {
@@ -28,7 +29,6 @@ public class PointOfInterest : ScriptableObject
 
     private void Awake()
     {
-        //Debug.Log("Inside POI Scriptable Object Awake");
         SetNrOfComments();
     }
 
@@ -36,9 +36,6 @@ public class PointOfInterest : ScriptableObject
     {
         _threads.Add(newThread);
         _nrOfComments += newThread.Comments.Count;
-
-        //Debug.Log("Thread added to POI: ");
-
     }
 
 
@@ -47,7 +44,7 @@ public class PointOfInterest : ScriptableObject
 
         _nrOfComments = 0;
 
-        foreach(Thread thread in _threads)
+        foreach (Thread thread in _threads)
         {
             _nrOfComments += thread.Comments.Count;
         }

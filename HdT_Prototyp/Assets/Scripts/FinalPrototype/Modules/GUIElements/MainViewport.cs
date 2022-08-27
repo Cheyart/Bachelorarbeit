@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(RectTransform), typeof(AnimatedUIElement))]
+/** @class MainViewport This class adapts to the visible viewport during runtime (It changes according to the size of the POI Menu)
+ */
+[RequireComponent(typeof(RectTransform), typeof(AnimatedRectTransform))]
 public class MainViewport : MonoBehaviour
 {
-    private AnimatedUIElement _animator;
+    private AnimatedRectTransform _animator;
     private RectTransform _rectTransform;
 
     public Vector2 WidthCoordinates { get => new Vector2(_rectTransform.offsetMin.x, _screenWidth + _rectTransform.offsetMax.x); }
@@ -25,7 +27,6 @@ public class MainViewport : MonoBehaviour
     private float _screenWidth;
 
 
-    // Start is called before the first frame update
     void Start()
     {
         SetComponents();
@@ -61,10 +62,9 @@ public class MainViewport : MonoBehaviour
         StartCoroutine(_animator.LerpOffsetMin(_rectTransform.offsetMin, newOffset, duration, easing));
     }
 
-
     private void SetComponents()
     {
-        _animator = GetComponent<AnimatedUIElement>();
+        _animator = GetComponent<AnimatedRectTransform>();
         _rectTransform = GetComponent<RectTransform>();
     }
 

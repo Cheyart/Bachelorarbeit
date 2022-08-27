@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/** @class ObjectRotationHandler This class registers left/right swipe gestures on a gameObject and makes a designated gameObject rotate accordingly (on the z-axis)
+ */
 public class ObjectRotationHandler : MonoBehaviour
 {
     [SerializeField]
@@ -12,15 +14,10 @@ public class ObjectRotationHandler : MonoBehaviour
 
     private bool _isActive;
 
-    Color activeColor = new Color();
-    GUIStyle guiStyle = new GUIStyle();
-    int counter = 0;
 
-    // Start is called before the first frame update
     void Start()
     {
         _isActive = false;
-        guiStyle.normal.textColor = Color.black;
     }
 
     // Update is called once per frame
@@ -28,13 +25,11 @@ public class ObjectRotationHandler : MonoBehaviour
     {
         if (_isActive)
         {
-
-            //if there has been touch screen input
             if (Input.touchCount == 1)
             {
-                Touch screenTouch = Input.GetTouch(0); //position of where the touch happened
+                Touch screenTouch = Input.GetTouch(0); 
 
-                if (screenTouch.phase == TouchPhase.Moved) //check if the touch has moved 
+                if (screenTouch.phase == TouchPhase.Moved)
                 {
                     if (_objectToRotate != null)
                     {
@@ -54,17 +49,6 @@ public class ObjectRotationHandler : MonoBehaviour
     public void Activate()
     {
         _isActive = true;
-        counter++;
-
-       /* if (_isActive)
-        {
-            activeColor = Color.red;
-        }
-        else
-        {
-            activeColor = Color.white;
-        }
-        GetComponent<MeshRenderer>().material.color = activeColor;*/
     }
 
 }

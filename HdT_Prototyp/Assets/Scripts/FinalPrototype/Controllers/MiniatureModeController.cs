@@ -17,7 +17,7 @@ public class MiniatureModeController : MonoBehaviour
     public Camera Camera { get => _miniatureCamera.Camera; }
 
     [SerializeField]
-    private AnimatedObject _cameraContainer;
+    private AnimatedTransform _cameraContainer;
 
     [SerializeField]
     private UserPosition _userPosition;

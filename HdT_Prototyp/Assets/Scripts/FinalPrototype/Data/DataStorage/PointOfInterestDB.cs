@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/** @class PointOfInterestDB This class represents the POI database, containing all the POIs in the system*/
 [CreateAssetMenu(fileName = "New POI_DB", menuName = "Assets/POI_DB")]
 public class PointOfInterestDB : ScriptableObject
 {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+/** @class ThreadsDB This class represents the Thread database, consisting of all the Threads in the system*/
 [CreateAssetMenu(fileName = "New ThreadsDB", menuName = "Assets/ThreadsDB")]
 public class ThreadsDB : ScriptableObject
 {
@@ -13,7 +14,7 @@ public class ThreadsDB : ScriptableObject
     {
         _threadsDB.RemoveAll(t => t == null);
 
-        foreach(Thread thread in _threadsDB)
+        foreach (Thread thread in _threadsDB)
         {
             thread.Comments.RemoveAll(c => c == null);
 
@@ -31,8 +32,6 @@ public class ThreadsDB : ScriptableObject
 
     public Thread GetThreadById(int id)
     {
-        //return _threadsDB.First(t => t.Id == id);
-
         foreach (Thread thread in _threadsDB)
         {
             if (thread.Id == id)

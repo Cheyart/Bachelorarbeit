@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/** @class CanvasFadeAnimation This class offers funnctions to adjust and animate the opacity of the CanvasGroup Component
+ */
 [RequireComponent(typeof(CanvasGroup))]
 public class CanvasFadeAnimation : MonoBehaviour
 {
@@ -10,13 +12,9 @@ public class CanvasFadeAnimation : MonoBehaviour
     void Start()
     {
         _canvas = GetComponent<CanvasGroup>();
+        Debug.Log("Set canvas");
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void SetToOpaque()
     {
@@ -40,15 +38,13 @@ public class CanvasFadeAnimation : MonoBehaviour
 
     public IEnumerator LerpAlpha(float startValue, float targetValue, float duration)
     {
+        Debug.Log("Inside Canvas Lerp Alpha");
         float time = 0;
 
         _canvas.alpha = startValue;
 
         while (time < duration)
         {
-            //Debug.Log("Inside POI Fade In, Image Color = " + _image.color);
-
-
             float t = time / duration;
             _canvas.alpha = Mathf.Lerp(startValue, targetValue, t);
             time += Time.deltaTime;

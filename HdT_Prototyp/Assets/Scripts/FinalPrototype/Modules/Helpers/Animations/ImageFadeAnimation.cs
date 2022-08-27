@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+/** @class This class offers funnctions to adjust and animate the opacity and color of the Image Component
+ */
 [RequireComponent(typeof(MeshRenderer), typeof(Image))]
 public class ImageFadeAnimation : MonoBehaviour
 {
@@ -17,17 +19,11 @@ public class ImageFadeAnimation : MonoBehaviour
     private Color OPAQUE_COLOR = new Color(1, 1, 1, 1);
 
 
-    // Start is called before the first frame update
     void Start()
     {
         SetComponents();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public IEnumerator FadeIn()
     {
@@ -36,7 +32,6 @@ public class ImageFadeAnimation : MonoBehaviour
             SetComponents();
         }
 
-       // _image.color = TRANSPARENT_COLOR;
         yield return StartCoroutine(LerpColor(_image.color, OPAQUE_COLOR));
     }
 
@@ -46,7 +41,6 @@ public class ImageFadeAnimation : MonoBehaviour
         {
             SetComponents();
         }
-        //_image.color = OPAQUE_COLOR;
         yield return StartCoroutine(LerpColor(_image.color, TRANSPARENT_COLOR));
     }
 
@@ -82,9 +76,6 @@ public class ImageFadeAnimation : MonoBehaviour
        
         while (time < _transitionDuration)
         {
-            //Debug.Log("Inside POI Fade In, Image Color = " + _image.color);
-
-
             float t = time / _transitionDuration;
             color = Color.Lerp(startColor, targetColor, t);
             _image.color = color;

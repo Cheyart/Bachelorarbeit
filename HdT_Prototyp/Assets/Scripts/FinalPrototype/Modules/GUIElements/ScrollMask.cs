@@ -2,22 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/** @class ScrollMask This class is responsible for the adjustment of the scroll mask in the POI menu
+ */
 [RequireComponent(typeof(RectTransform))]
 public class ScrollMask : MonoBehaviour
 {
-    //[SerializeField]
-    //private MainGUIController _guiController;
 
     [SerializeField]
     private RectTransform _scrollBar;
-
-    //float _bottomBarHeight; -> replace later
 
     private RectTransform _rectTransform;
 
     private float _bottomOffset;
 
-    // Start is called before the first frame update
     void Start()
     {
         _rectTransform = GetComponent<RectTransform>();

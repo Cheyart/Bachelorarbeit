@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/** @class Billboard This class makes the object that it's attached to face towards a designated camera
+ */
 public class Billboard : MonoBehaviour
 {
     [SerializeField]
@@ -28,7 +30,6 @@ public class Billboard : MonoBehaviour
 
     private Vector3 _multiplicationVector;
 
-    // Start is called before the first frame update
     void Start()
     {
         float x = 0;
@@ -50,22 +51,18 @@ public class Billboard : MonoBehaviour
 
         _multiplicationVector = new Vector3(x, y, z);
 
-
     }
 
-    // Update is called once per frame
     void LateUpdate()
     {
         if (_camera != null)
         {
             transform.LookAt(_camera.transform, _camera.transform.up);
 
-
-
             transform.localRotation = Quaternion.Euler(Vector3.Scale(transform.localRotation.eulerAngles, _multiplicationVector));
             Vector3 currentRot = transform.localRotation.eulerAngles;
             transform.localRotation = Quaternion.Euler(currentRot.x + _xOffset, currentRot.y + _yOffset, currentRot.z + _zOffset);
         }
-        
+
     }
 }

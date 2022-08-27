@@ -40,7 +40,7 @@ public class UserInstructionController : MonoBehaviour
 
     public void ShowInstruction(Instructions instruction, float delayInSeconds, bool fadeAnimation)
     {
-        InstructionScreen screen;
+       InstructionScreen screen;
         if (_instructionScreens == null)
         {
             SetInstructionScreens();

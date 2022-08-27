@@ -2,19 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AnimatedObject : MonoBehaviour
+/** @class AnimatedTransform This class contains functions to animate the Transform component.
+ */
+public class AnimatedTransform : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public IEnumerator LerpPosition(Vector3 startPosition, Vector3 targetPosition, float duration, Space space, EasingFunction easing)
     {
@@ -23,7 +15,6 @@ public class AnimatedObject : MonoBehaviour
         while (time < duration)
         {
             float t = time / duration;
-            //t = TransitionHelper.EaseIn(t);
             if (space == Space.Self)
             {
                 transform.localPosition = Vector3.Lerp(startPosition, targetPosition, EasingFunctionCalculator.CalculateEasing(t, easing));

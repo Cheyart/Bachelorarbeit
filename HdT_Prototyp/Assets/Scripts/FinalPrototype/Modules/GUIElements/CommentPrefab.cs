@@ -4,7 +4,8 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
-//TO DO: Vererbung für Comment und Reply Prefab 
+/** @ class CommentPrefab This class is responsible for the initial setup of the Comment Prefabs
+ */
 public class CommentPrefab : MonoBehaviour
 {
  
@@ -65,9 +66,9 @@ public class CommentPrefab : MonoBehaviour
 
         _date.text = content.Date.ToString("dd.MM.yy");
         _message.text = content.Message;
-        //update layout group (necessary for size adjustment)
         RectTransform rectTransform = _message.GetComponent<RectTransform>();
-        LayoutRebuilder.ForceRebuildLayoutImmediate(rectTransform);
+        LayoutRebuilder.ForceRebuildLayoutImmediate(rectTransform);         //necessary for size adjustment
+
     }
 
     public void ReplyButtonHandler()

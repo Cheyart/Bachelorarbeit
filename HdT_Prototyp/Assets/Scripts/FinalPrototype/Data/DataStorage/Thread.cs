@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-/**@class Thread This class defines a thread, which is made up of several comments*/
+/**@class Thread This class defines a thread, which is consists of comments*/
 [CreateAssetMenu(fileName = "New Thread", menuName = "Assets/Thread")]
 public class Thread : ScriptableObject
 {
@@ -15,9 +15,6 @@ public class Thread : ScriptableObject
     [SerializeField]
     private List<Comment> _comments;
     public List <Comment> Comments { get => _comments; }
-
-
-    
 
     public void Init(Comment firstComment)
     {

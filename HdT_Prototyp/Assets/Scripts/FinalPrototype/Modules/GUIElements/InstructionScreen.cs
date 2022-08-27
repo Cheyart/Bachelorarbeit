@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/** @class InstructionScreen This class controls the setup and appearance/disapearance of the Instruction Screen
+ */
 public class InstructionScreen : MonoBehaviour
 {
     [SerializeField]
@@ -13,17 +15,6 @@ public class InstructionScreen : MonoBehaviour
 
     private UserInstructionController _instructionManager;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void Init(bool showScreen, UserInstructionController instructionManager)
     {
@@ -40,14 +31,8 @@ public class InstructionScreen : MonoBehaviour
     public void Hide()
     {
         _hasBeenShown = true;
-        //gameObject.SetActive(false);
         _instructionManager.HideInstructionScreen();
     }
 
-   /* private void OnGUI()
-    {
-        GUI.Label(new Rect(200, 500, 400, 200), "Current instruction screen" + _instructionManager.CurrentInstructionScreen.Instruction);
 
-
-    }*/
 }

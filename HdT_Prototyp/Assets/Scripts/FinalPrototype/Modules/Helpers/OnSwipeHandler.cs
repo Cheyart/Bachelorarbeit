@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-//https://stackoverflow.com/questions/41491765/detect-swipe-gesture-direction
+//script is based on: https://stackoverflow.com/questions/41491765/detect-swipe-gesture-direction
 //detects swipe and calls function accordingly
-//rename: swipebar handler
+
+/** @class OnSwipeHandler This class detects Swipe Gestures on a gameObject and calls functions accordingly
+ */
 public class OnSwipeHandler : MonoBehaviour
 {
     private POIMenuManager _poiMenuManager;
@@ -14,16 +16,9 @@ public class OnSwipeHandler : MonoBehaviour
     private Vector2 _pointerDownPos;
     private Vector2 _currentPointerPos;
 
-   
-
     public bool _detectSwipeOnlyAfterRelease = false;
 
     private const float SWIPE_THRESHOLD = 150f;
-
-    private int _swipeUpCounter = 0;
-    private int _swipeDownCounter = 0;
-    private int _activateCounter = 0;
-
 
     private void Start()
     {
@@ -38,7 +33,6 @@ public class OnSwipeHandler : MonoBehaviour
         {
             foreach (Touch touch in Input.touches)
             {
-                Debug.Log("Touch detected");
                 if (touch.phase == TouchPhase.Began)
                 {
                     _pointerDownPos = touch.position;
@@ -64,26 +58,22 @@ public class OnSwipeHandler : MonoBehaviour
                 }
             }
         }
-        
+
     }
 
     public void Activate()
     {
-        Debug.Log("Activate");
-        _activateCounter++;
-
         _isActive = true;
     }
 
     void checkSwipe()
     {
-        float verticalDelta = verticalMove();
-        float horizontalDelta = horizontalMove();
+        //float verticalDelta = verticalMove();
+        //float horizontalDelta = horizontalMove();
 
         //Check if Vertical swipe
         if (verticalMove() > SWIPE_THRESHOLD && verticalMove() > this.horizontalMove())
         {
-            //Debug.Log("Vertical");
             if (_currentPointerPos.y - _pointerDownPos.y > 0)//up swipe
             {
                 _isActive = false;
@@ -95,13 +85,11 @@ public class OnSwipeHandler : MonoBehaviour
                 _isActive = false;
                 OnSwipeDown();
             }
-            //_pointerDownPos = _currentPointerPos;
         }
 
         //Check if Horizontal swipe
         else if (this.horizontalMove() > SWIPE_THRESHOLD && this.horizontalMove() > verticalMove())
         {
-            //Debug.Log("Horizontal");
             if (_currentPointerPos.x - _pointerDownPos.x > 0)//Right swipe
             {
                 _isActive = false;
@@ -113,15 +101,7 @@ public class OnSwipeHandler : MonoBehaviour
                 _isActive = false;
                 OnSwipeLeft();
             }
-            // _pointerDownPos = _currentPointerPos;
         }
-
-        //No Movement at-all
-        else
-        {
-            //Debug.Log("No Swipe!");
-        }
-    
     }
 
     float verticalMove()
@@ -137,18 +117,15 @@ public class OnSwipeHandler : MonoBehaviour
     //////////////////////////////////CALLBACK FUNCTIONS/////////////////////////////
     private void OnSwipeUp()
     {
-        
-        Debug.Log("Swipe UP");
-        if(gameObject.tag == "Handlebar")
+        if (gameObject.tag == "Handlebar")
         {
             _poiMenuManager.ExpandMenu();
-        } 
+        }
     }
 
     private void OnSwipeDown()
     {
-     
-        Debug.Log("Swipe Down");
+
         if (gameObject.tag == "Handlebar")
         {
             _poiMenuManager.ContractMenu();
@@ -157,30 +134,13 @@ public class OnSwipeHandler : MonoBehaviour
 
     void OnSwipeLeft()
     {
-        Debug.Log("Swipe Left");
     }
 
     void OnSwipeRight()
     {
-        Debug.Log("Swipe Right");
     }
 
-    /* void OnGUI()
-   {
-
-         
-
-       GUI.Label(new Rect(200, 250, 400, 100), " Swipe up: " + _swipeUpCounter);
-       GUI.Label(new Rect(200, 300, 400, 100), " Swipe down: " + _swipeDownCounter);
-        GUI.Label(new Rect(200, 400, 400, 100), " Activate Counter: " + _activateCounter);
-        GUI.Label(new Rect(200, 450, 400, 100), " vertical move: " + verticalMove());
-        GUI.Label(new Rect(200, 500, 400, 100), " threshold: " + SWIPE_THRESHOLD);
 
 
-
-
-
-
-    }*/
 
 }

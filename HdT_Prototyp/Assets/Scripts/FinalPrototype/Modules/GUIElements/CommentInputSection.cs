@@ -4,6 +4,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+/** @class CommentInputSection This class controls the display and behaviour of the Comment Input Section of the POI Menu
+ */
 public class CommentInputSection : MonoBehaviour
 {
     [SerializeField]
@@ -11,7 +13,7 @@ public class CommentInputSection : MonoBehaviour
 
     [SerializeField]
     private GameObject _replyToSection;
-    //set in start? -> child of ReplyDisplay
+
     [SerializeField]
     private TextMeshProUGUI _commentToReplyTo;
 
@@ -25,7 +27,6 @@ public class CommentInputSection : MonoBehaviour
     private Image _profilePic;
 
 
-    // Start is called before the first frame update
     void Start()
     {
         _profilePic.sprite = SessionManager.Instance.LoggedInUser.ProfilePic;

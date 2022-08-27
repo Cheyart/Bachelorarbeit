@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+/** @enum FacingDirection defines which direction the billboard is facing in relation to the modell
+ */
 public enum FacingDirection
 {
     front, left, right, back
 }
-//TO D=: only activate during AR mode
+
+/** @class POIBillboards This class is responsible for the display and behaviour of the POI billboard
+ */
 [RequireComponent(typeof(Billboard), typeof(RectTransform))]
 public class POIBillboard : MonoBehaviour
 {
-    //add to poi handler
     [SerializeField]
     private ScaleByDistance _scaleByDistance;
 
@@ -30,7 +33,6 @@ public class POIBillboard : MonoBehaviour
 
     private PointOfInterest _thisPOI;
 
-    // Start is called before the first frame update
     void Start()
     {
         SetComponents();
@@ -38,11 +40,6 @@ public class POIBillboard : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     public void Setup(Camera arCamera, PointOfInterest poi)
     {
@@ -50,9 +47,7 @@ public class POIBillboard : MonoBehaviour
         {
             SetComponents();
         }
-        Debug.Log("Inside POI Billboard, set Camera: ");
-        Debug.Log(arCamera);
-
+ 
         _billboard.Camera = arCamera;
         _scaleByDistance.Camera = arCamera;
         _thisPOI = poi;
@@ -67,13 +62,9 @@ public class POIBillboard : MonoBehaviour
 
     private void FixedUpdate()
     {
-       // Debug.Log("transform y rotation = " + transform.localRotation.eulerAngles.y);
-        //Debug.Log("rect transform y rotation = " + _rectTransform.rotation.eulerAngles.y);
-        //Debug.Log("rectTransform pivot = " + _rectTransform.pivot);
 
         float yRot = transform.localRotation.eulerAngles.y;
         float xPivot = 0;
-        //Debug.Log("Y rot = " + yRot);
 
         switch (_facing)
         {
@@ -84,8 +75,6 @@ public class POIBillboard : MonoBehaviour
                 break;
         }
      
-        //Debug.Log("x Pivot = " + xPivot);
-
         _rectTransform.pivot = new Vector2(xPivot, 0.5f);
 
 
@@ -98,17 +87,16 @@ public class POIBillboard : MonoBehaviour
 
         if (yRot >= 90 && yRot <= 270)
         {
-            //map: 90 = 0; 270 = 1
-            xPivot = Remap(yRot, 90, 270, 0, 1);
+            xPivot = MappingCalculator.Remap(yRot, 90, 270, 0, 1);
 
         }
         else if (yRot >= 0 && yRot <= 90)
         {
-            xPivot = Remap(yRot, 0, 90, 0.5f, 0);
+            xPivot = MappingCalculator.Remap(yRot, 0, 90, 0.5f, 0);
         }
         else if (yRot >= 270 && yRot <= 360)
         {
-            xPivot = Remap(yRot, 270, 360, 1, 0.5f);
+            xPivot = MappingCalculator.Remap(yRot, 270, 360, 1, 0.5f);
         }
         return xPivot;
     }
@@ -119,13 +107,12 @@ public class POIBillboard : MonoBehaviour
 
         if (yRot >= 0 && yRot <= 180)
         {
-            //map: 90 = 0; 270 = 1
-            xPivot = Remap(yRot, 0, 180, 0, 1);
+            xPivot = MappingCalculator.Remap(yRot, 0, 180, 0, 1);
 
         }
         else if (yRot >= 180 && yRot <= 360)
         {
-            xPivot = Remap(yRot, 180, 360, 1, 0);
+            xPivot = MappingCalculator.Remap(yRot, 180, 360, 1, 0);
         }
         return xPivot;
     }
@@ -143,8 +130,8 @@ public class POIBillboard : MonoBehaviour
     }
 
     //util function
-    public static float Remap(float val, float in1, float in2, float out1, float out2)
+    /*public static float Remap(float val, float in1, float in2, float out1, float out2)
     {
         return out1 + (val - in1) * (out2 - out1) / (in2 - in1);
-    }
+    }*/
 }
