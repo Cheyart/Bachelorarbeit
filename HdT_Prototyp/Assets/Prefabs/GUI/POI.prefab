@@ -45,9 +45,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 228693b83b0ef4f5c948e9a3134463bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  id: 1
-  yPos: 200
-  yPos2: 0
   _camera: {fileID: 0}
   _minDistance: 1
   _maxDistance: 15
@@ -141,6 +138,7 @@ GameObject:
   - component: {fileID: 3533271244277258959}
   - component: {fileID: 4986467816070460346}
   - component: {fileID: 7946804902499672092}
+  - component: {fileID: 3262190066281725966}
   m_Layer: 7
   m_Name: Sphere (AR)
   m_TagString: Untagged
@@ -253,6 +251,18 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 0
           m_CallState: 2
+--- !u!114 &3262190066281725966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5325310206891981715}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: daac7f6d3a129469fb1504cd2fd548a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8090792698536839581
 GameObject:
   m_ObjectHideFlags: 0
@@ -441,6 +451,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _scaleByDistance: {fileID: 3100718689870464098}
+  _facing: 0
   _title: {fileID: 8090792698536839698}
   _commentAmount: {fileID: 8090792698536839706}
 --- !u!1 &8090792698536839592
@@ -491,6 +502,7 @@ MonoBehaviour:
   _content: {fileID: 11400000, guid: f2c64a4688b644fa195b332fa49fa903, type: 2}
   _miniatureSphere: {fileID: 8090792698536839297}
   _arSphere: {fileID: 3533271244277258959}
+  _offScreenTarget: {fileID: 3262190066281725966}
   _billboard: {fileID: 8090792698536839723}
 --- !u!1 &8090792698536839605
 GameObject:

@@ -9,11 +9,24 @@ using UnityEngine;
 [RequireComponent(typeof(RectTransform))]
 public class OffScreenPointer : MonoBehaviour
 {
-  // [SerializeField] //for Testing
+    // [SerializeField] //for Testing
 
-  //Change to OffScreenTarget
-    private GameObject _target;
-    public GameObject Target { get => _target; set => _target = value; }
+    //Change to OffScreenTarget
+    // private GameObject _target;
+    //public GameObject Target { get => _target; set => _target = value; }
+
+    [SerializeField] //for Testing
+    private OffscreenTarget _target; //NEW 
+    public OffscreenTarget Target //NEW
+    {
+        get => _target;
+        set
+        {
+            _target = value;
+            _target.Viewport = _viewport;
+            _target.Camera = _camera;
+        }
+    }
 
     [SerializeField]
     private Camera _camera;
@@ -40,8 +53,11 @@ public class OffScreenPointer : MonoBehaviour
     void Start()
     {
         _rectTransform = GetComponent<RectTransform>();
-        //_isEnabled = false;
+        _isEnabled = true; //for testing
         SetVisibility(false);
+        Debug.Log("Screen width = " + Screen.width);
+        Debug.Log("Screen height = " + Screen.height);
+
     }
 
     void FixedUpdate()
@@ -55,19 +71,54 @@ public class OffScreenPointer : MonoBehaviour
             Vector2 viewportHeight = _viewport.HeightCoordinates;
             Vector2 viewportWidth = _viewport.WidthCoordinates;
 
+            /*  if(ViewportIsBigEnough(_viewport.HeightCoordinates, _viewport.WidthCoordinates))
+              {
+                 // Debug.Log("Viewport is big enough");
+                  if (!_target.IsVisible())
+                  {
+                     // Debug.Log("Target Not Visible");
+
+                      Vector2 targetScreenPos = _target.GetScreenPos();
+                      SetIconRotation(targetScreenPos);
+                      _rectTransform.anchoredPosition = GetClampedScreenPos(targetScreenPos, _viewport.HeightCoordinates, _viewport.WidthCoordinates);
+
+                      if (!_isVisible)
+                      {
+                          SetVisibility(true);
+                      }
+                  } else
+                  {
+                      if (_isVisible)
+                      {
+                          SetVisibility(false);
+                      }
+                  }
+              }*/
+
             if (ViewportIsBigEnough(viewportHeight, viewportWidth))
             {
-                Vector3 targetWorldPos = _target.transform.position; //to OffscreenTarget
-                Vector3 targetScreenPos = _camera.WorldToScreenPoint(targetWorldPos); //to OffscreenTarget -> GetScreenPos()
-                _poiScreenPos = targetScreenPos;
+                //Vector3 targetWorldPos = _target.transform.position; //to OffscreenTarget
+                                                                     // Vector3 targetScreenPos = _camera.WorldToScreenPoint(targetWorldPos); //to OffscreenTarget -> GetScreenPos()
+               // Vector3 targetScreenPos = Target.GetScreenPos();
 
-                if (TargetIsOffScreen(targetScreenPos, viewportHeight, viewportWidth))
-                {
-                    _targetIsOffScreen = true;
-                    if (TargetIsBehindScreen(targetScreenPos))
+                //_poiScreenPos = targetScreenPos;
+
+
+                // if (TargetIsOffScreen(targetScreenPos, viewportHeight, viewportWidth))
+               // if (Target.IsOffScreen(targetScreenPos))
+                    if (!Target.IsVisible())
+
                     {
-                        targetScreenPos = ReverseScreenPos(targetScreenPos);
-                    }
+                   // Debug.Log("Target is not visible");
+                    // _targetIsOffScreen = true;
+                    /* if (Target.IsBehindScreen(targetScreenPos))
+                     {
+                         targetScreenPos = Target.ReverseScreenPos(targetScreenPos);
+                     }*/
+
+                    Vector3 targetScreenPos = Target.GetScreenPos();
+                    Debug.Log("Target Screen Pos = " + targetScreenPos);
+
 
                     SetIconRotation(targetScreenPos);
                     _rectTransform.anchoredPosition = GetClampedScreenPos(targetScreenPos, viewportHeight, viewportWidth);
@@ -78,7 +129,9 @@ public class OffScreenPointer : MonoBehaviour
                         SetVisibility(true);
                     }
                 }
-                else if (!TargetIsBehindScreen(targetScreenPos) && TargetIsObscured(targetWorldPos))
+                // else if (!TargetIsBehindScreen(targetScreenPos) && Target.IsOccluded())
+               /* else if (!Target.IsBehindScreen(targetScreenPos) && Target.IsOccluded())
+
                 {
                     _targetIsObscured = true;
                     SetIconRotation(targetScreenPos);
@@ -88,7 +141,7 @@ public class OffScreenPointer : MonoBehaviour
                     {
                         SetVisibility(true);
                     }
-                }
+                }*/
                 else
                 {
                     _targetIsObscured = false;
@@ -100,6 +153,58 @@ public class OffScreenPointer : MonoBehaviour
                 }
             }
         }
+
+        /* if (ViewportIsBigEnough(viewportHeight, viewportWidth))
+         {
+             Vector3 targetWorldPos = _target.transform.position; //to OffscreenTarget
+             Vector3 targetScreenPos = _camera.WorldToScreenPoint(targetWorldPos); //to OffscreenTarget -> GetScreenPos()
+             _poiScreenPos = targetScreenPos;
+
+             Debug.Log("Target Screen Pos = " + targetScreenPos);
+
+             // if (TargetIsOffScreen(targetScreenPos, viewportHeight, viewportWidth))
+             if (Target.IsOffScreen(targetScreenPos))
+
+             {
+                 _targetIsOffScreen = true;
+                 if (Target.IsBehindScreen(targetScreenPos))
+                 {
+                     targetScreenPos = Target.ReverseScreenPos(targetScreenPos);
+                 }
+
+                 SetIconRotation(targetScreenPos);
+                 _rectTransform.anchoredPosition = GetClampedScreenPos(targetScreenPos, viewportHeight, viewportWidth);
+
+
+                 if (!_isVisible)
+                 {
+                     SetVisibility(true);
+                 }
+             }
+             // else if (!TargetIsBehindScreen(targetScreenPos) && Target.IsOccluded())
+              else if (!Target.IsBehindScreen(targetScreenPos) && Target.IsOccluded())
+
+             {
+                 _targetIsObscured = true;
+                 SetIconRotation(targetScreenPos);
+                 _rectTransform.anchoredPosition = targetScreenPos;
+
+                 if (!_isVisible)
+                 {
+                     SetVisibility(true);
+                 }
+             }
+             else
+             {
+                 _targetIsObscured = false;
+                 _targetIsOffScreen = false;
+                 if (_isVisible)
+                 {
+                     SetVisibility(false);
+                 }
+             }
+         }
+     }*/
         else
         {
             if (_isVisible)
@@ -111,12 +216,12 @@ public class OffScreenPointer : MonoBehaviour
     }
 
     //TO DO: set offset, so that negative is only returned when point is comletely off screen
-    private bool TargetIsOffScreen(Vector2 targetScreenPos, Vector2 viewportHeight, Vector2 viewportWidth)
+   /* private bool TargetIsOffScreen(Vector2 targetScreenPos, Vector2 viewportHeight, Vector2 viewportWidth)
     {
         return !(targetScreenPos.x >= viewportWidth.x && targetScreenPos.x <= viewportWidth.y && targetScreenPos.y >= viewportHeight.x && targetScreenPos.y <= viewportHeight.y);
-    }
+    }*/
 
-    private bool TargetIsObscured(Vector3 targetWorldPos)
+   /* private bool TargetIsObscured(Vector3 targetWorldPos)
     {
         RaycastHit hit;
         Vector3 direction = _camera.transform.position - targetWorldPos;
@@ -125,12 +230,12 @@ public class OffScreenPointer : MonoBehaviour
             return true;
         }
         return false;
-    }
+    }*/
 
-    private bool TargetIsBehindScreen(Vector3 targetScreenPos)
+   /* private bool TargetIsBehindScreen(Vector3 targetScreenPos)
     {
         return targetScreenPos.z < 0;
-    }
+    }*/
 
     private bool ViewportIsBigEnough(Vector2 viewportHeight, Vector2 viewportWidth)
     {
@@ -143,26 +248,27 @@ public class OffScreenPointer : MonoBehaviour
     {
         float posX = Mathf.Clamp(targetScreenPos.x, viewportWidth.x, viewportWidth.y);
         float posY = Mathf.Clamp(targetScreenPos.y, viewportHeight.x, viewportHeight.y);
-        Vector2 screenPos = new Vector2(posX, posY);
-        return screenPos;
+       // Vector2 screenPos = new Vector2(posX, posY);
+        return new Vector2(posX, posY);
     }
 
-    private Vector2 ReverseScreenPos(Vector2 screenPos)
+   /* private Vector2 ReverseScreenPos(Vector2 screenPos)
     {
         return new Vector2(Screen.width - screenPos.x, Screen.height - screenPos.y);
-    }
+    }*/
 
 
     private void SetIconRotation(Vector2 targetScreenPos)
     {
-        Vector2 direction = (_viewport.Centerpoint - targetScreenPos).normalized;
+       // Vector2 direction = (_viewport.Centerpoint - targetScreenPos).normalized;
+        Vector2 direction = VectorCalculationHelper.GetNormalizedDirectionVector(_viewport.Centerpoint, targetScreenPos);
         float angle = VectorCalculationHelper.GetAngleFromDirectionVector(direction);
         _rectTransform.localEulerAngles = new Vector3(0, 0, angle);
     }
 
     private void SetVisibility(bool value)
     {
-        Debug.Log("Set visibility: " + value);
+      //  Debug.Log("Set visibility: " + value);
         _isVisible = value;
         _icon.gameObject.SetActive(value);
     }

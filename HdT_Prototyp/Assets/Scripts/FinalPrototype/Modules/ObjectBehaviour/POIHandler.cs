@@ -16,7 +16,10 @@ public class POIHandler : MonoBehaviour
     [SerializeField]
     private MeshRenderer _arSphere;
 
-    public GameObject ARSphereGO { get => _arSphere.gameObject; }
+    //public GameObject ARSphereGO { get => _arSphere.gameObject; }
+    [SerializeField]
+    private OffscreenTarget _offScreenTarget;
+    public OffscreenTarget OffscreenTarget { get => _offScreenTarget; }
 
     [SerializeField]
     private POIBillboard _billboard;

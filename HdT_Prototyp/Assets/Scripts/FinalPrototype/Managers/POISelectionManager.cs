@@ -70,7 +70,8 @@ public class POISelectionManager : MonoBehaviour
                 _sessionManager.ActivePOI = poi.Content;
                 _modeManager.PoiIsSelected = true;
 
-                _offScreenPointer.Target = poi.ARSphereGO;
+                //_offScreenPointer.Target = poi.ARSphereGO;
+                _offScreenPointer.Target = poi.OffscreenTarget;
             }
             else
             {
