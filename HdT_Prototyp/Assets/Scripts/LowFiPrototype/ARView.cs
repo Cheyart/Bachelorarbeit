@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 
-namespace Preparation
+namespace LowFiPrototype
 {
     public class ARView : MonoBehaviour
     {
@@ -34,38 +34,16 @@ namespace Preparation
         private ARTrackedImage _trackedImage;
 
 
-        // Start is called before the first frame update
-        void Start()
-        {
-
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
 
         void OnTrackedImageChanged(ARTrackedImagesChangedEventArgs eventArgs)
         {
             foreach (var newImage in eventArgs.added)
             {
                 _trackedImage = newImage;
-                //_transitionController.SessionInProgress = true
                 _transitionController.ActivateNewSession(newImage);
                 _imageDetected++;
             }
         }
 
-        /* void OnGUI()
-         {
-
-                 GUI.Label(new Rect(200, 800, 400, 100), " Image Detected = " + _imageDetected);
-                 //GUI.Label(new Rect(200, 850, 400, 100), " _trackedImagePosition = " + _trackedImagePosition);
-                 GUI.Label(new Rect(200, 850, 400, 100), " _trackedImagePosition 2 = " + _trackedImage.transform.position);
-
-                 GUI.Label(new Rect(200, 900, 400, 100), " _trackedImageRotation 2 = " + _trackedImage.transform.rotation);
-
-         }*/
     }
 }

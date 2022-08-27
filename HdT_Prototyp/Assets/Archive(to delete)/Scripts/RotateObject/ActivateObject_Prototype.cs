@@ -2,19 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Preparation
+namespace LowFiPrototype
 {
     [RequireComponent(typeof(Camera))]
     public class ActivateObject_Prototype : MonoBehaviour
     {
 
-        private int nrOfTouches;
-        private int nrOfTouchesOnModel;
-        private int nrOfTouchesOnPOI;
 
-        private int nrOfTouchesReleased;
-
-        private bool isActive;
         private Camera _camera;
 
         [SerializeField]
@@ -30,8 +24,6 @@ namespace Preparation
         void Start()
         {
             _camera = GetComponent<Camera>();
-            nrOfTouches = 0;
-            nrOfTouchesOnModel = 0;
 
         }
 
@@ -41,7 +33,7 @@ namespace Preparation
             if (Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Began) //if a new touch was registered
             {
                 int hitPoints = 1;
-                nrOfTouches++;
+
                 Ray ray = _camera.ScreenPointToRay(Input.touches[0].position);
 
                 RaycastHit hit;
@@ -53,14 +45,13 @@ namespace Preparation
                         if (hitPoints == 1)
                         {
 
-                            nrOfTouchesOnPOI += 5;
+
                             var selectedPOI = hit.collider.GetComponent<PointOfInterest>();
-                            nrOfTouchesOnPOI += 3;
+
                             _poiSelectionController.switchSelectedPOI(selectedPOI.Id);
-                            nrOfTouchesOnPOI++;
+
                             hitPoints--;
-                            //objectScript.IsSelected = true;
-                            //if(hit.transform.tag == "Model")
+
                         }
                     }
 
@@ -70,10 +61,6 @@ namespace Preparation
                         {
                             var objectScript = hit.collider.GetComponent<RotateObjectController>();
                             objectScript.isActive = true;
-                            isActive = objectScript.isActive;
-
-                            nrOfTouchesOnModel++;
-                            hitPoints--;
 
                         }
                     }
@@ -84,19 +71,6 @@ namespace Preparation
         }
 
 
-
-
-        /*void OnGUI()
-        {
-
-            GUI.Label(new Rect(200, 150, 400, 100), " Nr of Touches " + nrOfTouches);
-            GUI.Label(new Rect(200, 200, 400, 100), " Nr of Touches on Model: " + nrOfTouchesOnModel);
-            GUI.Label(new Rect(200, 500, 400, 100), " Nr of Touches on POI: " + nrOfTouchesOnPOI);
-
-            GUI.Label(new Rect(200, 300, 400, 100), " Touched Model is Active: " + isActive);
-
-
-        }*/
 
 
     }

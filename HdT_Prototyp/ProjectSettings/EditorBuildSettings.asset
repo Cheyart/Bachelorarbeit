@@ -6,31 +6,31 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
-    path: Assets/Scenes/Preparation/GyroscopePrototype.unity
+    path: Assets/Archive(to delete)/Scenes/GyroscopePrototype.unity
     guid: 89d6923e5764d419e950d84752f57f07
   - enabled: 0
-    path: Assets/Scenes/Preparation/ARTransitionPrototype.unity
+    path: Assets/Archive(to delete)/Scenes/ARTransitionPrototype.unity
     guid: 6bdce89659816455b9f906fc62d19910
   - enabled: 0
-    path: Assets/Scenes/Preparation/RotateObject_Prototype.unity
+    path: Assets/Archive(to delete)/Scenes/RotateObject_Prototype.unity
     guid: c8eff26b1340547e3b11636ffd64a92a
   - enabled: 0
-    path: Assets/Scenes/Preparation/WIMWhithStandpoint_Prototype.unity
+    path: Assets/Archive(to delete)/Scenes/WIMWhithStandpoint_Prototype.unity
     guid: 8b0dec95e2a3d4870aff4741c2dbc0df
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
   - enabled: 0
-    path: Assets/Scenes/Preparation/BasicSetup.unity
+    path: Assets/Archive(to delete)/Scenes/BasicSetup.unity
     guid: d091c86ac1ec3447485850cd18df5adb
-  - enabled: 0
-    path: Assets/Scenes/Preparation/LowFiPrototype.unity
+  - enabled: 1
+    path: Assets/Scenes/LowFiPrototype.unity
     guid: 74c0da7f451424f488ce2efe674bec8d
   - enabled: 0
-    path: Assets/Scenes/Preparation/TextInteraction.unity
+    path: Assets/Archive(to delete)/Scenes/TextInteraction.unity
     guid: 69643a4dbc48d430e85880cb0a224f19
-  - enabled: 1
-    path: Assets/Scenes/MainScene.unity
+  - enabled: 0
+    path: Assets/Scenes/FinalPrototype.unity
     guid: 319f60590bfb843c896f59b181e8c149
   m_configObjects:
     Unity.XR.WindowsMR.Settings: {fileID: 11400000, guid: 744b813df90924c169af73489b8325de,

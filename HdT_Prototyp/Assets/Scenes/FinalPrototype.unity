@@ -7161,7 +7161,7 @@ MonoBehaviour:
   _poiDB: {fileID: 11400000, guid: 5b25993b2a3cf4beca3a8b382f165707, type: 2}
   _commentsDB: {fileID: 11400000, guid: 712017c42cd8d41f4bdaeea8dbc0a23b, type: 2}
   _threadsDB: {fileID: 11400000, guid: a20799954de494754bb306cb58b66a33, type: 2}
-  _activateSessionAtStart: 1
+  _activateSessionAtStart: 0
 --- !u!1 &1902653017
 GameObject:
   m_ObjectHideFlags: 0

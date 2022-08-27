@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Preparation
+namespace LowFiPrototype
 {
     public class PointOfInterest : MonoBehaviour
     {
@@ -21,12 +21,12 @@ namespace Preparation
 
                 if (_isSelected)
                 {
-                    // grün färben
+
                     GetComponent<MeshRenderer>().material.color = Color.green;
                 }
                 else
                 {
-                    //blau
+
                     GetComponent<MeshRenderer>().material.color = Color.blue;
                 }
             }

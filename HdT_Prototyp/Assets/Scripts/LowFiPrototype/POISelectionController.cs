@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Preparation
+namespace LowFiPrototype
 {
     public class POISelectionController : MonoBehaviour
     {
@@ -10,11 +10,6 @@ namespace Preparation
         private PointOfInterest[] _POIs;
 
         private int _currentSelectedPOI;
-        private int _idOfNewSelection;
-        private int _insideA;
-        private int _insideB;
-
-
 
 
 
@@ -31,19 +26,12 @@ namespace Preparation
             }
         }
 
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
 
         public void switchSelectedPOI(int idOfNewSelection)
         {
-            _idOfNewSelection = idOfNewSelection;
             int tempId = -1;
             if (_currentSelectedPOI != idOfNewSelection)
             {
-                _insideA++;
                 foreach (PointOfInterest poi in _POIs)
                 {
                     if (poi.Id != idOfNewSelection)
@@ -59,7 +47,6 @@ namespace Preparation
             }
             else if (_currentSelectedPOI == idOfNewSelection)
             {
-                _insideB++;
                 foreach (PointOfInterest poi in _POIs)
                 {
                     if (poi.Id == idOfNewSelection)
@@ -73,16 +60,5 @@ namespace Preparation
             _currentSelectedPOI = tempId;
 
         }
-
-        /*void OnGUI()
-     {
-
-
-         GUI.Label(new Rect(200, 250, 400, 100), " current selected POI = " + _currentSelectedPOI);
-           GUI.Label(new Rect(200, 300, 400, 100), " id of new selection = " + _idOfNewSelection);
-           GUI.Label(new Rect(200, 350, 400, 100), " Inside A = " + _insideA);
-           GUI.Label(new Rect(200, 400, 400, 100), " Inside B = " + _insideB);
-
-       }*/
     }
 }

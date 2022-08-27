@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Preparation
+namespace LowFiPrototype
 {
     public class RotateObjectController : MonoBehaviour
     {
@@ -18,12 +18,6 @@ namespace Preparation
         private int _touchPhaseEnded;
 
 
-
-        // Start is called before the first frame update
-        void Start()
-        {
-
-        }
 
         // Update is called once per frame
         void Update()
@@ -66,11 +60,5 @@ namespace Preparation
             Debug.Log("Click was detected");
         }
 
-        /*void OnGUI()
-        {
-           // GUI.Label(new Rect(200, 500, 400, 100), " Camera Rotation " + _objectToRotate.transform.rotation);
-            GUI.Label(new Rect(200, 550, 400, 100), " Model Is Active: " + isActive);
-            GUI.Label(new Rect(200, 600, 400, 100), " Touch Phase ended: " + _touchPhaseEnded);
-        }*/
     }
 }
