@@ -12,7 +12,7 @@ public enum POIMenuState
 
 /** @class POIMenuManager coordinates the display and behaviour of the POI menu
  */
-[RequireComponent(typeof(POIMenuTransitionController))]
+[RequireComponent(typeof(POIMenuTransitionController), typeof(POIMenuContentController))]
 public class POIMenuManager : MonoBehaviour
 {
 
@@ -26,6 +26,8 @@ public class POIMenuManager : MonoBehaviour
     private POISelectionManager _POISelectionManager;
     private CommentManager _commentManager;
     private POIMenuTransitionController _transitionController;
+    private POIMenuContentController _contentController;
+
 
     private POIMenuState _state;
     public POIMenuState State { get => _state; }
@@ -45,7 +47,10 @@ public class POIMenuManager : MonoBehaviour
         _commentManager = _sessionManager.CommentManager;
 
         _transitionController = gameObject.GetComponent<POIMenuTransitionController>();
+        _contentController = gameObject.GetComponent<POIMenuContentController>();
         _transitionController.Init(_menuPanel, _inputSection);
+        _contentController.Init(_menuPanel, _inputSection);
+
         _state = POIMenuState.closed;
 
     }
@@ -54,7 +59,8 @@ public class POIMenuManager : MonoBehaviour
     public void OpenMenu(PointOfInterest content)
     {
 
-        _menuPanel.SetupContent(content);
+        //_menuPanel.SetupContent(content);
+        _contentController.Setup(content);
 
         if (_state == POIMenuState.closed)
         {
@@ -140,7 +146,8 @@ public class POIMenuManager : MonoBehaviour
             return;
         }
 
-        string message = _inputSection.GetTextInputContent();
+        //string message = _inputSection.GetTextInputContent();
+        string message = _contentController.GetCommentInput();
 
         if (message == null || message == "")
         {

@@ -2220,6 +2220,7 @@ GameObject:
   - component: {fileID: 660348882}
   - component: {fileID: 660348883}
   - component: {fileID: 660348884}
+  - component: {fileID: 660348885}
   m_Layer: 0
   m_Name: POI Menu Manager
   m_TagString: Untagged
@@ -2270,6 +2271,18 @@ MonoBehaviour:
   _mainViewport: {fileID: 2026431636}
   _layoutGroup: {fileID: 562226998}
   _transitionDuration: 0.5
+--- !u!114 &660348885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 660348881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c126b4ea755524ff2a50601080ff9302, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &688615680
 GameObject:
   m_ObjectHideFlags: 0
