@@ -5,7 +5,8 @@ using UnityEngine;
 using UnityEngine.UI;
 
 
-//manages transition between different states of the POI menu
+/** @class POIMenuTransitionController controls the transitions between the different states of the POI menu
+ */
 public class POIMenuTransitionController : MonoBehaviour
 {
 
@@ -24,8 +25,7 @@ public class POIMenuTransitionController : MonoBehaviour
     private float CLOSED_Y_POS = 140f;
     private const float SMALL_Y_POS = 370f;
     private const float MEDIUM_Y_POS = 1100f;
-    private const float BIG_Y_POS = 2000f; //1970
-    //private float _bottomOffset;
+    private const float BIG_Y_POS = 2100f; //2000
 
     private const float TEXT_INPUT_SMALL = 90f;
     private const float TEXT_INPUT_BIG = 300f;
@@ -40,16 +40,12 @@ public class POIMenuTransitionController : MonoBehaviour
         _menuPanel.SetYPosition(CLOSED_Y_POS);
         CLOSED_Y_POS = SessionManager.Instance.GUIController.BottomBarHeight;
         _mainViewport.SetBottomOffset(CLOSED_Y_POS);
-
-        Debug.Log("Init Transition Controller");
     
     }
 
 
     public void TransitionFromTo(POIMenuState oldState, POIMenuState newState)
     {
-        Debug.Log("Transition from " + oldState + " to " + newState);
-
         StartCoroutine(TransitionFromToCoroutine(oldState, newState));
     }
 
@@ -154,7 +150,5 @@ public class POIMenuTransitionController : MonoBehaviour
     {
         return (oldState != POIMenuState.commentInput && oldState != POIMenuState.replyInput && (newState == POIMenuState.commentInput || newState == POIMenuState.replyInput));
     }
-
-
 
 }

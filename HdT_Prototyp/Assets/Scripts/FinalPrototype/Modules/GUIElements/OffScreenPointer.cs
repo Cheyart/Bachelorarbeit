@@ -11,7 +11,7 @@ public class OffScreenPointer : MonoBehaviour
 {
   // [SerializeField] //for Testing
 
-  //Change to OffScreenPointerTarget
+  //Change to OffScreenTarget
     private GameObject _target;
     public GameObject Target { get => _target; set => _target = value; }
 
@@ -34,6 +34,8 @@ public class OffScreenPointer : MonoBehaviour
     private bool _targetIsOffScreen;
     private bool _targetIsObscured;
 
+    private Vector3 _poiScreenPos;
+
 
     void Start()
     {
@@ -55,8 +57,9 @@ public class OffScreenPointer : MonoBehaviour
 
             if (ViewportIsBigEnough(viewportHeight, viewportWidth))
             {
-                Vector3 targetWorldPos = _target.transform.position;
-                Vector3 targetScreenPos = _camera.WorldToScreenPoint(targetWorldPos);
+                Vector3 targetWorldPos = _target.transform.position; //to OffscreenTarget
+                Vector3 targetScreenPos = _camera.WorldToScreenPoint(targetWorldPos); //to OffscreenTarget -> GetScreenPos()
+                _poiScreenPos = targetScreenPos;
 
                 if (TargetIsOffScreen(targetScreenPos, viewportHeight, viewportWidth))
                 {
@@ -164,10 +167,15 @@ public class OffScreenPointer : MonoBehaviour
         _icon.gameObject.SetActive(value);
     }
 
-    /*private void OnGUI()
+  /*  private void OnGUI()
     {
+        GUI.Label(new Rect(200, 500, 400, 200), "Screen Height: " + Screen.height);
+        GUI.Label(new Rect(200, 550, 400, 200), "Screen Width: " + Screen.width);
+
+
         GUI.Label(new Rect(200, 600, 400, 200), "(target is off screen: " + _targetIsOffScreen);
         GUI.Label(new Rect(200, 650, 400, 200), "(target is obscured: " + _targetIsObscured);
+        GUI.Label(new Rect(200, 700, 400, 200), "(target screen pos: " + _poiScreenPos);
 
 
     }*/

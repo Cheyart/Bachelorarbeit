@@ -2,10 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/** @enum Transition defines the which transition takes place.
+ */
 public enum Transition { toMiniature, fromMiniature }
 
-//manages miniature mode setup and transition
-public class MiniatureMode : MonoBehaviour
+
+/** @class MiniatureModeController controls the miniature mode setup and the transition from/to miniature mode.
+ */
+public class MiniatureModeController : MonoBehaviour
 {
 
     [SerializeField]
@@ -54,12 +58,6 @@ public class MiniatureMode : MonoBehaviour
             yield return StartCoroutine(_miniatureCamera.TransitionToMiniatureMode(CAMERA_TRANSITION_DURATION));
             StartCameraContainerRotation();
 
-           /* if (!_instructionWasShown)
-            {
-                SessionManager.Instance.InstructionController.ShowInstruction(Instructions.rotateModel, 2f);
-                _instructionWasShown = true;
-            }*/
-
         }
         else if (transition == Transition.fromMiniature)
         {
@@ -75,7 +73,6 @@ public class MiniatureMode : MonoBehaviour
         float startValue = _cameraContainer.transform.localRotation.eulerAngles.z;
         float angle = GetCameraContainerRotationWithFrontalUserPos() + CAMERA_CONTAINER_OFFSET;
 
-
         if (startValue > 180)
         {
             startValue = -1 * (360 - startValue);
@@ -89,7 +86,6 @@ public class MiniatureMode : MonoBehaviour
         StartCoroutine(_cameraContainer.LerpRotation(Quaternion.Euler(0, 0, startValue), Quaternion.Euler(0, 0, angle), ROTATION_TRANSITION_DURATION, Space.Self, EasingFunction.easeOut));
     }
 
-    //transform into Util function: get angle between two points
     private float GetCameraContainerRotationWithFrontalUserPos()
     {
         Vector3 direction = VectorCalculationHelper.GetNormalizedDirectionVector(_cameraContainer.transform.localPosition, _userPosition.transform.localPosition);

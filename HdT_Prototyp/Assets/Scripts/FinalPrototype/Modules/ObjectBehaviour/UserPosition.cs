@@ -27,4 +27,11 @@ public class UserPosition : MonoBehaviour
             transform.position = _arCamera.transform.position;
         }
     }
+
+    private void OnGUI()
+    {
+        GUI.Label(new Rect(200, 500, 400, 200), "User Positiont: " + transform.position);
+        GUI.Label(new Rect(200, 550, 400, 200), "Camera Position: " + _arCamera.transform.position);
+
+    }
 }

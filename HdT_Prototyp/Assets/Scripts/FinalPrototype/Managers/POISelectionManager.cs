@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
+/** @class POISelectionManager coordinates the selection of the POIs in the scene.
+ */
 public class POISelectionManager : MonoBehaviour
 {
 
@@ -39,17 +41,13 @@ public class POISelectionManager : MonoBehaviour
     {
         _POIs = FindObjectsOfType<POIHandler>(true);
 
-        Debug.Log("POIs Length = " + _POIs.Length);
-        if(_modeManager == null)
+        if (_modeManager == null)
         {
             SetManagers();
         }
         foreach (POIHandler poi in _POIs)
         {
-            Debug.Log("POI Id=" + poi.Content.Id);
             poi.Setup(this, _idleColor, _modeManager.ARCamera);
-            //poi.Setup(this, _selectedColor, _modeManager.ARCamera);
-            //poi.ShowBillboard(false);
         }
     }
 
@@ -72,16 +70,12 @@ public class POISelectionManager : MonoBehaviour
                 _sessionManager.ActivePOI = poi.Content;
                 _modeManager.PoiIsSelected = true;
 
-                //if (poi.IsVisibleInAR)
-                //{
-                    _offScreenPointer.Target = poi.ARSphereGO;
-               // }
+                _offScreenPointer.Target = poi.ARSphereGO;
             }
             else
             {
                 poi.SetColor(_idleColor);
                 poi.ShowBillboard(true);
-
             }
         }
     }

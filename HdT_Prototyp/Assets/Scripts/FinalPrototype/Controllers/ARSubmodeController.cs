@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-
+/** @class ARSubmodeController controls the setup and display of the AR submodes (Camera and Picture mode).
+ */
 public class ARSubmodeController : MonoBehaviour
 {
     private SessionManager _sessionManager;
@@ -27,7 +28,6 @@ public class ARSubmodeController : MonoBehaviour
     private bool _instructionWasShown;
 
 
-    // Start is called before the first frame update
     void Start()
     {
         _sessionManager = SessionManager.Instance;
@@ -91,7 +91,7 @@ public class ARSubmodeController : MonoBehaviour
         _switchToCameraButton.gameObject.SetActive(false);
 
         yield return StartCoroutine(_poiImage.FadeOut());
-       
+
         _switchToPictureButton.gameObject.SetActive(true);
         _switchToCameraButton.gameObject.SetActive(false);
         _poiOffScreenPointer.IsEnabled = true;
@@ -99,10 +99,9 @@ public class ARSubmodeController : MonoBehaviour
 
     private void SetupContent()
     {
-        Debug.Log("Inside Setup content");
         _currentPOIId = _sessionManager.ActivePOI.Id;
         _poiImage.SetImage(_sessionManager.ActivePOI.Picture);
-        
+
     }
 
 

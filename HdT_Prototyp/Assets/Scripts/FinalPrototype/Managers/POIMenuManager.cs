@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+/** @enum POIMenuState defines the differents states that the POI menu can have
+ */
 public enum POIMenuState
 {
     closed, small, medium, big, commentInput, replyInput
 }
 
-//manages the POI menu behaviour. sets upp the content and communicates to the Transition Controller when a transition from one state to another is required.
+/** @class POIMenuManager coordinates the display and behaviour of the POI menu
+ */
 [RequireComponent(typeof(POIMenuTransitionController))]
 public class POIMenuManager : MonoBehaviour
 {
@@ -45,26 +48,23 @@ public class POIMenuManager : MonoBehaviour
         _transitionController.Init(_menuPanel, _inputSection);
         _state = POIMenuState.closed;
 
-        Debug.Log("AWAKE POI Menu Manager");
     }
 
 
     public void OpenMenu(PointOfInterest content)
     {
-        Debug.Log("OPEN POI Menu Manager");
 
         _menuPanel.SetupContent(content);
 
         if (_state == POIMenuState.closed)
         {
-             _transitionController.TransitionFromTo(_state, POIMenuState.medium);
+            _transitionController.TransitionFromTo(_state, POIMenuState.medium);
             _state = POIMenuState.medium;
-          
+
         }
 
         if (!_instructionWasShown)
         {
-            //add wait time?
             SessionManager.Instance.InstructionController.ShowInstruction(Instructions.adjustMenuSize, 1f, true);
             _instructionWasShown = true;
         }
@@ -133,7 +133,6 @@ public class POIMenuManager : MonoBehaviour
 
     public void SaveComment()
     {
-        _debugText += "Inside save comment,  \n";
         User poster = _sessionManager.LoggedInUser;
         if (poster == null)
         {
@@ -155,7 +154,6 @@ public class POIMenuManager : MonoBehaviour
         }
         else if (_state == POIMenuState.replyInput)
         {
-            _debugText += "Inside add reply to comment Manager \n";
             _commentManager.AddReply(poster, message, _commentToReplyTo);
         }
         _transitionController.TransitionFromTo(_state, _stateBeforeComment);
@@ -168,11 +166,5 @@ public class POIMenuManager : MonoBehaviour
         _state = _stateBeforeComment;
     }
 
-   /* private void OnGUI()
-    {
-        GUI.Label(new Rect(200, 300, 100, 100), _debugText );
-        GUI.Label(new Rect(200, 350, 100, 100), "commentManager = " + _commentManager );
-
-    }*/
 
 }

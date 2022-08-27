@@ -3,27 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+/** @enum Mode defines the possible modes the system can be in
+ */
 public enum Mode
 {
     AR, ARCamera, ARPicture, Miniature
 }
 
+
+/** @class ModeManager is responsible for coordinating the transitions between the different modes
+ */
 [RequireComponent(typeof(ARSubmodeController))]
 public class ModeManager : MonoBehaviour
 {
 
     [SerializeField]
-    private MiniatureMode _miniatureMode;
+    private MiniatureModeController _miniatureMode;
 
     private ARSubmodeController _arSubmode;
 
     [SerializeField]
     private Camera _arCamera;
-    public Camera ARCamera { get => _arCamera;}
-
-
-   // [SerializeField]
-    //private OffScreenPointer _modelOffscreenPointer;
+    public Camera ARCamera { get => _arCamera; }
 
     private PhysicsRaycaster _arPhysicsRaycaster;
 
@@ -35,7 +36,7 @@ public class ModeManager : MonoBehaviour
     private bool _miniatureInstructionWasShown;
 
     private SessionManager _sessionManager;
-   
+
 
     private bool _poiIsSelected;
     public bool PoiIsSelected
@@ -50,7 +51,6 @@ public class ModeManager : MonoBehaviour
 
             if (_poiIsSelected)
             {
-               // _modelOffscreenPointer.IsEnabled = false;
 
                 if (_currentMode == Mode.AR)
                 {
@@ -73,8 +73,6 @@ public class ModeManager : MonoBehaviour
                 if (CurrentModeIsARSubmode())
                 {
                     _currentMode = Mode.AR;
-                 //   _modelOffscreenPointer.IsEnabled = true;
-
                 }
 
             }
@@ -88,8 +86,8 @@ public class ModeManager : MonoBehaviour
         _sessionManager = SessionManager.Instance;
         _poiIsSelected = false;
         _standbyARMode = Mode.AR;
-        //_currentMode = Mode.AR;
-        _currentMode = Mode.Miniature;
+        _currentMode = Mode.AR;
+        //_currentMode = Mode.Miniature;
         _arSubmode = GetComponent<ARSubmodeController>();
         _arPhysicsRaycaster = _arCamera.GetComponent<PhysicsRaycaster>();
 
@@ -97,24 +95,22 @@ public class ModeManager : MonoBehaviour
         {
             _miniatureMode.Setup(_arCamera);
             _miniaturePhysicsRaycaster = _miniatureMode.Camera.GetComponent<PhysicsRaycaster>();
-         
-          
+
+
         }
     }
 
 
     public void SetupSession()
     {
-        _miniatureMode = FindObjectOfType<MiniatureMode>();
+        _miniatureMode = FindObjectOfType<MiniatureModeController>();
         if (_miniatureMode != null)
         {
             _miniatureMode.Setup(_arCamera);
             _miniaturePhysicsRaycaster = _miniatureMode.Camera.GetComponent<PhysicsRaycaster>();
-           // _modelOffscreenPointer.Target = GameObject.FindGameObjectWithTag("Model");
-            //_modelOffscreenPointer.IsEnabled = true;
         }
 
-       
+
     }
 
 
@@ -127,12 +123,12 @@ public class ModeManager : MonoBehaviour
         else
         {
             _standbyARMode = _currentMode;
-           // _modelOffscreenPointer.IsEnabled = false;
+            // _modelOffscreenPointer.IsEnabled = false;
 
             _miniatureMode.Show();
             if (!_miniatureInstructionWasShown)
             {
-                if(_sessionManager.POIMenuManager.State == POIMenuState.big)
+                if (_sessionManager.POIMenuManager.State == POIMenuState.big)
                 {
                     _sessionManager.POIMenuManager.ContractMenu();
                 }
@@ -171,8 +167,6 @@ public class ModeManager : MonoBehaviour
         }
 
     }
-
-
 
     public void SwitchToCameraSubmode()
     {

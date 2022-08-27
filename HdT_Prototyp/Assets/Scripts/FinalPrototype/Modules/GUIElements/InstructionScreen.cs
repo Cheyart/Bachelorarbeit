@@ -11,7 +11,7 @@ public class InstructionScreen : MonoBehaviour
     private bool _hasBeenShown;
     public bool HasBeenShowen { get => _hasBeenShown; set => _hasBeenShown = value; }
 
-    private UserInstructionManager _instructionManager;
+    private UserInstructionController _instructionManager;
 
     // Start is called before the first frame update
     void Start()
@@ -25,7 +25,7 @@ public class InstructionScreen : MonoBehaviour
         
     }
 
-    public void Init(bool showScreen, UserInstructionManager instructionManager)
+    public void Init(bool showScreen, UserInstructionController instructionManager)
     {
         _instructionManager = instructionManager;
         gameObject.SetActive(showScreen);

@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 
-
+/** @class SessionManager holds references to all the managers and databases. Is responsible for setting up the session.
+ */
 public class SessionManager : MonoBehaviour
 {
 
 
-//------------------ GLOBAL VARIABLES----------------------------
+    //------------------ GLOBAL VARIABLES----------------------------
     public static SessionManager Instance { get; private set; }
 
     [SerializeField]
@@ -18,26 +19,26 @@ public class SessionManager : MonoBehaviour
     public PointOfInterest ActivePOI { get; set; }
 
 
-//------------------ MANAGERS----------------------------
-   
-    public MainGUIManager GUIController { get; private set; }
+    //------------------ MANAGERS----------------------------
+
+    public MainGUIController GUIController { get; private set; }
     public POISelectionManager POISelectionManager { get; private set; }
     public ModeManager ModeManager { get; private set; }
     public POIMenuManager POIMenuManager { get; private set; }
     public CommentManager CommentManager { get; private set; }
 
-    [SerializeField]
-    private UserInstructionManager _instructionController;
-    public UserInstructionManager InstructionController { get => _instructionController; }
+    //[SerializeField]
+   // private UserInstructionController _instructionController;
+    public UserInstructionController InstructionController { get; private set; }
 
     [SerializeField]
     private ARTrackedImageManager _trackedImageManager;
 
 
-//------------------ DATABASES----------------------------
+    //------------------ DATABASES----------------------------
     [SerializeField]
     private PointOfInterestDB _poiDB;
-    public PointOfInterestDB POI_DB { get => _poiDB;  }
+    public PointOfInterestDB POI_DB { get => _poiDB; }
 
     [SerializeField]
     private CommentsDB _commentsDB;
@@ -60,7 +61,7 @@ public class SessionManager : MonoBehaviour
 
     private void Awake()
     {
-        if(Instance != null && Instance != this)
+        if (Instance != null && Instance != this)
         {
             Destroy(this);
         }
@@ -75,7 +76,8 @@ public class SessionManager : MonoBehaviour
         if (_activateSessionAtStart)
         {
             ActivateSession();
-        } else
+        }
+        else
         {
             InstructionController.ShowInstruction(Instructions.scanQRCode, 0, false);
         }
@@ -95,14 +97,12 @@ public class SessionManager : MonoBehaviour
 
     public void SetManagers()
     {
-        GUIController = GetComponentInChildren<MainGUIManager>();
+        GUIController = GetComponentInChildren<MainGUIController>();
         POISelectionManager = GetComponentInChildren<POISelectionManager>();
         ModeManager = GetComponentInChildren<ModeManager>();
         POIMenuManager = GetComponentInChildren<POIMenuManager>();
         CommentManager = GetComponentInChildren<CommentManager>();
-        //InstructionController = GetComponentInChildren<UserInstructionManager>();
-        
-
+       InstructionController = GetComponentInChildren<UserInstructionController>();
     }
 
     public void SetupDatabases()
@@ -116,15 +116,13 @@ public class SessionManager : MonoBehaviour
     {
         _sessionInProgress = true;
         InstructionController.HideInstructionScreen();
-        //add wait time
         InstructionController.ShowInstruction(Instructions.switchMode, 7f, true);
-        GUIController.ShowMainGUI(); //for ScreenShots
+        GUIController.ShowMainGUI(); 
         POISelectionManager.SetupPOIs();
         ModeManager.SetupSession();
-        Debug.Log("Inside Activate Session");
     }
 
- 
+
 
 
 }

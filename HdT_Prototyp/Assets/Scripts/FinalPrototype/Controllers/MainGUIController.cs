@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-//contains information about the main GUI elements and manages their behavior
-public class MainGUIManager : MonoBehaviour
+/** @class MainGUIController controls the activation/deactivation of the overall GUI
+ */
+public class MainGUIController : MonoBehaviour
 {
     
     [SerializeField]
@@ -15,10 +16,8 @@ public class MainGUIManager : MonoBehaviour
     [SerializeField]
     private GameObject _bottomBar;
 
-   // private float _topBarHeight;
     public float TopBarHeight { get; private set; }
 
-    //private float _bottomBarHeight;
     public float BottomBarHeight { get; private set; }
 
 
@@ -34,7 +33,6 @@ public class MainGUIManager : MonoBehaviour
 
     public void ShowMainGUI()
     {
-        Debug.Log("Show Main GUI");
         _topBar.SetActive(true);
         _bottomBar.SetActive(true);
         _poiMenu.SetActive(true);

@@ -23,15 +23,18 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Archive(to delete)/Scenes/BasicSetup.unity
     guid: d091c86ac1ec3447485850cd18df5adb
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/LowFiPrototype.unity
     guid: 74c0da7f451424f488ce2efe674bec8d
   - enabled: 0
     path: Assets/Archive(to delete)/Scenes/TextInteraction.unity
     guid: 69643a4dbc48d430e85880cb0a224f19
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/FinalPrototype.unity
     guid: 319f60590bfb843c896f59b181e8c149
+  - enabled: 0
+    path: Assets/Scenes/ResoluationTest.unity
+    guid: 07dcb3aa53d524d14808cd0e694424b6
   m_configObjects:
     Unity.XR.WindowsMR.Settings: {fileID: 11400000, guid: 744b813df90924c169af73489b8325de,
       type: 2}
