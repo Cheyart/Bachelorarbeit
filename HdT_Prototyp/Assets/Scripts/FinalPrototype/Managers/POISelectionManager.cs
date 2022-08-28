@@ -75,6 +75,7 @@ public class POISelectionManager : MonoBehaviour
                 _sessionManager.ActivePOI = poi.Content;
                 _modeManager.PoiIsSelected = true;
 
+                Debug.Log("In POI Selection Manager: Target = " + poi.OffscreenTarget);
                 _offScreenPointer.Target = poi.OffscreenTarget;
             }
             else

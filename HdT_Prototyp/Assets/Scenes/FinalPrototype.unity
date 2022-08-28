@@ -3528,6 +3528,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a49ef40e73ec446db119886142c7ee8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _target: {fileID: 0}
   _camera: {fileID: 1354141926}
   _icon: {fileID: 1985526783}
   _viewport: {fileID: 2026431636}

@@ -132,8 +132,8 @@ public class POIMenuTransitionController : MonoBehaviour
             _layoutGroup.NeedsRefresh = true;
         }
         _inputSection.ShowCommentInputElements(true);
-
     }
+
 
     /** Executes the transition from a comment input state to a default state
      * @param oldState State which the POI menu was in before entering the comment input state

@@ -35,7 +35,8 @@ public class CommentContainer : MonoBehaviour
     public void SetComments(List<Thread> threads)
     {
 
-        for (int j = 0; j < threads.Count; j++)
+        //for (int j = 0; j < threads.Count; j++)
+        for (int j = threads.Count-1; j >= 0; j--)
         {
 
             for (int i = 0; i < threads[j].Comments.Count; i++)

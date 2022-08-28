@@ -33,7 +33,7 @@ EditorBuildSettings:
     path: Assets/Scenes/FinalPrototype.unity
     guid: 319f60590bfb843c896f59b181e8c149
   - enabled: 0
-    path: Assets/Scenes/ResoluationTest.unity
+    path: Assets/Archive(to delete)/Scenes/ResoluationTest.unity
     guid: 07dcb3aa53d524d14808cd0e694424b6
   m_configObjects:
     Unity.XR.WindowsMR.Settings: {fileID: 11400000, guid: 744b813df90924c169af73489b8325de,

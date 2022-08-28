@@ -16,8 +16,13 @@ public class OffScreenPointer : MonoBehaviour
         set
         {
             _target = value;
-            _target.Viewport = _viewport;
-            _target.Camera = _camera;
+
+            if(_target != null)
+            {
+                _target.Viewport = _viewport;
+                _target.Camera = _camera;
+            }
+
         }
     }
 
@@ -56,33 +61,32 @@ public class OffScreenPointer : MonoBehaviour
             Vector2 viewportHeight = _viewport.HeightCoordinates;
             Vector2 viewportWidth = _viewport.WidthCoordinates;
 
-            if (ViewportIsBigEnough(viewportHeight, viewportWidth))
+            if (ViewportIsBigEnough(viewportHeight, viewportWidth) && !Target.IsVisible())
             {
 
-                if (!Target.IsVisible())
+                //if (!Target.IsVisible())
+                //{
+
+                Vector3 targetScreenPos = Target.GetScreenPos();
+                SetIconRotation(targetScreenPos);
+                _rectTransform.anchoredPosition = GetClampedScreenPos(targetScreenPos, viewportHeight, viewportWidth);
+
+
+                if (!_isVisible)
                 {
-
-
-                    Vector3 targetScreenPos = Target.GetScreenPos();
-                    SetIconRotation(targetScreenPos);
-                    _rectTransform.anchoredPosition = GetClampedScreenPos(targetScreenPos, viewportHeight, viewportWidth);
-
-
-                    if (!_isVisible)
-                    {
-                        SetVisibility(true);
-                    }
-                }
-
-                else
-                {
-
-                    if (_isVisible)
-                    {
-                        SetVisibility(false);
-                    }
+                    SetVisibility(true);
                 }
             }
+
+            else
+            {
+
+                if (_isVisible)
+                {
+                    SetVisibility(false);
+                }
+            }
+            //  }
         }
         else
         {
