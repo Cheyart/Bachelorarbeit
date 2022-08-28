@@ -63,10 +63,6 @@ public class OffScreenPointer : MonoBehaviour
 
             if (ViewportIsBigEnough(viewportHeight, viewportWidth) && !Target.IsVisible())
             {
-
-                //if (!Target.IsVisible())
-                //{
-
                 Vector3 targetScreenPos = Target.GetScreenPos();
                 SetIconRotation(targetScreenPos);
                 _rectTransform.anchoredPosition = GetClampedScreenPos(targetScreenPos, viewportHeight, viewportWidth);
@@ -86,7 +82,6 @@ public class OffScreenPointer : MonoBehaviour
                     SetVisibility(false);
                 }
             }
-            //  }
         }
         else
         {
