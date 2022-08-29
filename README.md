@@ -9,6 +9,6 @@ The two prototypes are:
 
 
 ## Requirements
-The project was implemented in Unity 2020.3.33f1.
-For the AR functionality AR Foundation 4.1.9 is being used.
-The prototypes were adapted to a Huawei P20 (screen resolution: 1080 x 2240 pixels) running Android 12.
+* The project was implemented in Unity 2020.3.33f1.
+* AR Foundation 4.1.9 is being used for AR Image Tracking functionality
+* The prototypes were adapted to a Huawei P20 (screen resolution: 1080 x 2240 pixels) running Android 12.
